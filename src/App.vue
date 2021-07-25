@@ -12,5 +12,8 @@ export default {
 </script>
 
 <style>
+#app{
+  background-image: url("~@/common/images/background.png") ;
 
+}
 </style>

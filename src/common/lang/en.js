@@ -1,8 +1,15 @@
 export const m = { 
-    music: 'Music',//网易云音乐
-    findMusic: 'FIND MUSIC',//发现音乐
-    myMusic: 'MY MUSIC',//我的音乐
-    friend: 'FRIEND',//朋友
-    musician: 'MUSICIAN',//音乐人
-    download: 'DOWNLOAD'//下载客户端
+    message:"MESSAGE",
+    flight:"FLIGHT",
+    hotel:"HOTEL",
+    personal:"PERSONAL",
+    FAQ:"F&Q",
+    title:"Air System",
+    sub_title:"The most valuable Flight Network",
+    login:"login",
+    logout:"logout",
+    mainland:"Mainland",
+    langSetting:"setting language ..",
+    langSetted:"setting language success !!",
+    search:"SEARCH"
   }

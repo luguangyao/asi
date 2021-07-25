@@ -3,16 +3,16 @@
     <a-page-header  @back="() => $router.go(-1)"  class="pageheader" :backIcon="false">
 
       <template slot="extra" > 
-            <Menu ></Menu>
+            <Menu :dtype="1"></Menu>
       </template>
 
       <template slot="subTitle" >
-        {{subTitle}}
+        {{$t('m.sub_title')}}
       </template>
 
       <template slot="title">
           <a-icon type="twitter" class="title-icon"></a-icon>
-          <h1 class="title">{{title}}</h1>
+          <h1 class="title">{{$t('m.title')}}</h1>
       </template>
 
     </a-page-header>
@@ -36,6 +36,9 @@ export default {
 </script>
 
 <style scoped>
+.wrapper{
+  background: white;
+}
 tr:last-child td {
   padding-bottom: 0;
 }
@@ -64,6 +67,7 @@ tr:last-child td {
 }
 .pageheader{
      border: 1px solid rgb(235, 237, 240) ;
+     border-top: 0px;
 }
 .title{
     display: inline;
@@ -73,7 +77,7 @@ tr:last-child td {
     padding:5px
 }
 .wrapper{
-    box-shadow: grey 5px 5px 5px;
+    box-shadow: black 5px 5px 5px;
 }
 
 </style>
