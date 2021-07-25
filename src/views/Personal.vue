@@ -4,9 +4,9 @@
       <OtherTop/>
     </a-layout-header>
     <a-layout id="components-layout-demo-side" style="min-height: 100vh">
-    <a-layout-sider v-model="collapsed" collapsible>
+    <a-layout-sider v-model="collapsed" collapsible theme="light">
       <div class="logo" />
-      <a-menu theme="dark" :default-selected-keys="['1']" mode="inline">
+      <a-menu  :default-selected-keys="['1']" mode="inline">
         <a-menu-item key="1">
           <a-icon type="pie-chart" />
           <span>Option 1</span>

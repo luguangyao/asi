@@ -4,7 +4,7 @@ export const m = {
   hotel:"酒店",
   personal:"个人",
   FAQ:"帮助",
-  title:"王汉龙航空",
+  title:"招财狗航空",
   sub_title:"最有价值的航空网络",
   login:"登入",
   logout:"登出",
