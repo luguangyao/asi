@@ -8,8 +8,14 @@ export const m = {
   sub_title:"最有价值的航空网络",
   login:"登入",
   logout:"登出",
+  regist:"注册",
+  authorization:"授权登录",
+  inputAccount:"输入您的账户",
+  inputPassword:"输入您的密码",
   mainland:"中国大陆",
   langSetting:"正在设置语言 ..",
   langSetted:"语言更改成功 !!",
-  search:"搜索"
+  search:"搜索",
+  startPoint:"出发地在哪 ?",
+  endPoint:"目的地在哪 ?",
 }

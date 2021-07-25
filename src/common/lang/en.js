@@ -8,8 +8,15 @@ export const m = {
     sub_title:"The most valuable Flight Network",
     login:"login",
     logout:"logout",
+    regist:"regist",
+    authorization:"Authorization",
+    inputAccount:"Input you account",
+    inputPassword:"Input you password",
     mainland:"Mainland",
     langSetting:"setting language ..",
     langSetted:"setting language success !!",
-    search:"SEARCH"
-  }
+    search:"SEARCH",
+    startPoint:"The starting point ?",
+    endPoint:"The ending point ?",
+
+ }

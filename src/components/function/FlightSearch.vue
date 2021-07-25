@@ -16,11 +16,11 @@
       <a-row>
           <a-col :span=11 offset=1>
             <a-input-group compact size="large" class="btn-group">
-                <a-input style="width: 50%" placeholder="出发地是哪?" v-model="startPos" >
+                <a-input style="width: 50%" :placeholder="$t('m.startPoint')" v-model="startPos" >
                     <a-icon slot="prefix" type="paper-clip" ></a-icon>
                 </a-input>
-                <a-input style="width: 50%" placeholder="目的地是哪?" v-model="destination" >
-                    <a-icon slot="prefix" type="environment"></a-icon>
+                <a-input style="width: 50%" :placeholder="$t('m.endPoint')" v-model="destination" >
+                    <a-icon slot="prefix" type="environment" ></a-icon>
                 </a-input>
             </a-input-group>
           </a-col>

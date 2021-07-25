@@ -18,41 +18,41 @@
         </div>
       </div>
       <div class="form__content">
-        <h1>Authorization</h1>
+        <h1>{{$t('m.authorization')}}</h1>
         <div class="styled-input">
-         <a-input size="large" placeholder="输入账户"  >
+         <a-input size="large" :placeholder="$t('m.inputAccount')"  style="font-size:20px;margin-right:5px">
               <a-icon type="user" slot="prefix"></a-icon>
           </a-input>   
         </div>
         <div class="styled-input">
-          <a-input-password size="large" placeholder="输入密码">
-              <a-icon type="safety" slot="prefix"></a-icon>
+          <a-input-password size="large" :placeholder="$t('m.inputPassword')" >
+              <a-icon type="safety" slot="prefix" style="font-size:20px;margin-right:5px"></a-icon>
           </a-input-password>
         </div>
         <button type="button" class="styled-button">
           <span class="styled-button__real-text-holder">
-            <span class="styled-button__real-text">Submit</span>
+            <span class="styled-button__real-text">{{this.$t('m.login')}}</span>
             <span class="styled-button__moving-block face">
               <span class="styled-button__text-holder">
-                <span class="styled-button__text">Submit</span>
+                <span class="styled-button__text">{{this.$t('m.login')}}</span>
               </span> </span
             ><span class="styled-button__moving-block back">
               <span class="styled-button__text-holder">
-                <span class="styled-button__text">Submit</span>
+                <span class="styled-button__text">{{this.$t('m.login')}}</span>
               </span>
             </span>
           </span>
         </button>
         <button type="button" class="styled-button">
           <span class="styled-button__real-text-holder">
-            <span class="styled-button__real-text">Register</span>
+            <span class="styled-button__real-text">{{this.$t('m.regist')}}</span>
             <span class="styled-button__moving-block face">
               <span class="styled-button__text-holder">
-                <span class="styled-button__text">Register</span>
+                <span class="styled-button__text">{{this.$t('m.regist')}}</span>
               </span> </span
             ><span class="styled-button__moving-block back">
               <span class="styled-button__text-holder">
-                <span class="styled-button__text">Register</span>
+                <span class="styled-button__text">{{this.$t('m.regist')}}</span>
               </span>
             </span>
           </span>
@@ -79,7 +79,7 @@ export default {
     },
     
   },
-  mounted() {
+  created() {
     this.init();
   },
 };
