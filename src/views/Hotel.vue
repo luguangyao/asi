@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper" style="margin:30px">
     <a-card >
-      <h5 slot="title" >为您推荐的酒店</h5>
+      <h5 slot="title" ><strong>为您推荐的酒店</strong></h5>
       <a-button slot="extra" size="small">探索跟多目的地<a-icon type="select" /></a-button>
       <div class="main">
           <div class="search" >

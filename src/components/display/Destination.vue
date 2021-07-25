@@ -1,7 +1,7 @@
 <template>
   <div class="titleContainer">
     <a-card >
-      <h5 slot="title" >從大阪市出發的行程 · 1 位乘客的票價</h5>
+      <h5 slot="title" ><strong>從大阪市出發的行程 · 1 位乘客的票價</strong></h5>
       <a-button slot="extra" size="small">探索跟多目的地<a-icon type="select" /></a-button>
       <div>
         <a-row>

@@ -18,5 +18,6 @@ export const m = {
     search:"SEARCH",
     startPoint:"The starting point ?",
     endPoint:"The ending point ?",
+    sortBy:"sort by",
 
  }

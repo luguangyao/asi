@@ -18,4 +18,6 @@ export const m = {
   search:"搜索",
   startPoint:"出发地在哪 ?",
   endPoint:"目的地在哪 ?",
+  sortBy:"排序方式",
+
 }

@@ -36,7 +36,7 @@
             <h6 style="color:grey"><a-icon type="copyright"/>2021 AirSystem All rights reserved</h6>
             </a-col>
         </a-row>
-        <div class="background-icon">
+        <div class="background-icon" v-if="iconvisable">
             <a-icon type="yuque" theme="filled" ></a-icon>
         </div>
     </div>
@@ -44,7 +44,13 @@
 </template>
 <script>
 export default {
-    name:"Footer"
+    name:"Footer",
+    props:{
+        iconvisable:{
+            type:Boolean,
+            default:true
+        }
+    }
 }
 </script>
 <style scoped>
