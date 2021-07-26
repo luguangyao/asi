@@ -1,6 +1,8 @@
 <template>
   <div class="wrapper">
-    <OtherTop/>
+    <OtherTop>
+       
+    </OtherTop>
     <div class="main">
       <div class="menuwrapper"><Menu :dtype="2" class="menu"/></div>
       <router-view></router-view>

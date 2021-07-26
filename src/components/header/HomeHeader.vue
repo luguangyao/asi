@@ -14,7 +14,7 @@
           <a-icon type="twitter" class="title-icon"></a-icon>
           <h1 class="title">{{$t('m.title')}}</h1>
       </template>
-
+      
     </a-page-header>
   </div>
 </template>

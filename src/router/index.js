@@ -6,6 +6,8 @@ import Hotel from "../views/Hotel"
 import FlightDetail from "../views/FlightDetail"
 import Personal from "../views/Personal"
 import Login from "../views/Login"
+import UserInfo from "@/components/function/UserInfo"
+import Pay from "../views/Pay"
 
 Vue.use(VueRouter)
 
@@ -18,7 +20,15 @@ const routes = [
   {
     path:'/personal',
     name:'Personal',
-    component:Personal
+    component:Personal,
+    children:[
+      {
+        path:'userinfo/:selected',
+        name:'UserInfo',
+        component:UserInfo,
+        props:true
+      }
+    ]
   },
   {
     path:'/login',
@@ -45,6 +55,11 @@ const routes = [
         component: Hotel
       },
     ]
+  },
+  {
+    path:'/pay',
+    name:'Pay',
+    component:Pay,
   },
   {
     path:'/*',

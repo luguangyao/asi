@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-menu mode="horizontal"  v-show="this.dtype == 1">
+    <a-menu :mode="this.mode1"  v-show="this.dtype == 1">
       <template v-for="(item, key) in menu">
         <a-menu-item :key="key">
           <router-link :to="item.router"
@@ -41,6 +41,10 @@ export default {
       type: Number,
       default: 1,
     },
+    mode1:{
+      type:String,
+      default:"horizontal"
+    }
   },
   data() {
     return {
