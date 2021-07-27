@@ -5,7 +5,7 @@ import store from './store'
 import i18n from './i18n'
 
 import { Button,PageHeader,Descriptions,Menu,Icon,Switch,Statistic ,Row ,Col ,Carousel,message,FormModel,Input,Select,DatePicker,Tooltip,
-Layout,Divider,Card,Space,Slider,Dropdown,Collapse,Timeline,Steps,Result,Tabs,Drawer
+Layout,Divider,Card,Space,Slider,Dropdown,Collapse,Timeline,Steps,Result,Tabs,Drawer,Empty,Upload,Modal
 } from 'ant-design-vue';
 
 Vue.config.productionTip = false
@@ -54,6 +54,9 @@ Vue.component(Result.name,Result)
 Vue.component(Tabs.name,Tabs)
 Vue.component(Tabs.TabPane.name,Tabs.TabPane)
 Vue.component(Drawer.name,Drawer)
+Vue.component(Empty.name,Empty)
+Vue.component(Upload.name,Upload)
+Vue.component(Modal.name,Modal)
 
 Vue.prototype.$message = message;
 const root=new Vue({

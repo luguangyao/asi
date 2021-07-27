@@ -2,13 +2,14 @@
   <div>
     <a-page-header
       style="border: 1px solid rgb(235, 237, 240); background: white"
-      @back="showDrawer"
+      @back="()=>{}"
     >
       <template slot="backIcon">
         <a-icon
           v-if="this.icontype == 1"
           type="unordered-list"
           class="back-icon"
+          @click="showDrawer"
         ></a-icon>
         <a-icon
           v-else-if="this.icontype == 2"
@@ -47,10 +48,24 @@
           <a-icon type="bank"></a-icon>{{$t('m.illustrate')}}
         </a-menu-item>
         <a-menu-item>
+          <router-link to="/login">
+            <a-icon type="login"></a-icon>登录
+          </router-link>
+        </a-menu-item>
+        <a-menu-item>
           <div @click="toGithub"><a-icon type="github"></a-icon>Github</div>
         </a-menu-item>
       </a-menu>
+      <a-divider></a-divider>
+        <a-menu>
+          <a-menu-item @click="showSupport">
+            <a-icon type="like"></a-icon>赞助
+          </a-menu-item>
+        </a-menu>
     </a-drawer>
+    <a-modal v-model="supportVisible" :footer="null">
+      <img src="~@/common/images/support.png" alt="" style="width: 100%">
+    </a-modal>
   </div>
 </template>
 <script>
@@ -66,7 +81,8 @@ export default {
   },
   data(){
     return{
-      drawerVisible:false
+      drawerVisible:false,
+      supportVisible:false
     }
   },
   components: {
@@ -85,6 +101,9 @@ export default {
     },
     toGithub(){
        window.open("https://github.com/luguangyao/asi",'_blank') // 在新窗口打开外链接
+    },
+    showSupport(){
+      this.supportVisible=!this.supportVisible
     }
   },
 };

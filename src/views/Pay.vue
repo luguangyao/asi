@@ -39,7 +39,7 @@ export default {
   name: "Pay",
   data(){
       return{
-          currstep:2
+          currstep:1
       }
   },
   components: {

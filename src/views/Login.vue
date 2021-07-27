@@ -62,6 +62,7 @@
   </main>
 </template>
 <script>
+import LoginNet from "@/network/LoginNet"
 export default {
   name: "Login",
   data() {
@@ -81,6 +82,7 @@ export default {
   },
   created() {
     this.init();
+    LoginNet.checkLogin()
   },
 };
 </script>

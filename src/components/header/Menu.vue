@@ -71,7 +71,7 @@ export default {
           name: "Personal",
           display: () => this.$t("m.personal"),
           icon: "user",
-          router: "/personal",
+          router: "/personal/empty",
         },
         {
           name: "F&Q",

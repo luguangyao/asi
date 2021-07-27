@@ -7,6 +7,7 @@ import FlightDetail from "../views/FlightDetail"
 import Personal from "../views/Personal"
 import Login from "../views/Login"
 import UserInfo from "@/components/function/UserInfo"
+import Empty from "@/components/function/Empty"
 import Pay from "../views/Pay"
 
 Vue.use(VueRouter)
@@ -27,6 +28,11 @@ const routes = [
         name:'UserInfo',
         component:UserInfo,
         props:true
+      },
+      {
+        path:'empty',
+        name:"Empty",
+        component:Empty
       }
     ]
   },
