@@ -1,7 +1,9 @@
 <template>
   <div class="homewrapper">
-    <IndexTop></IndexTop>
-    <IndexHeader class="header"></IndexHeader>
+    <div class="headerwrapper">
+      <IndexTop></IndexTop>
+      <IndexHeader class="header"></IndexHeader>
+    </div>
     <div class="carouse-and-search">
       <div  class="carouse">
         <MyCarousel class="myCarousel"></MyCarousel>
@@ -16,6 +18,7 @@
      <div class="des">
       <Destination/>
     </div>
+    
     <hr>
     <Footer></Footer>
   </div>
@@ -45,7 +48,9 @@ export default {
 };
 </script>
 <style  scoped>
-
+.headerwrapper{
+    background-color: rgba(255  , 255, 255, 0.5);
+}
 .carouse-and-search{
   position: relative;
   width:100%;

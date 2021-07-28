@@ -34,7 +34,6 @@ export default {
     padding: 5px;
     padding-left: 15px;
     padding-right: 15px;
-   background: white;
 
 }
 .left {

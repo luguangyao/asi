@@ -4,7 +4,7 @@
       <template v-for="(item, key) in menu">
         <a-menu-item :key="key">
           <router-link :to="item.router"
-            ><a-icon :type="item.icon"></a-icon>
+            ><a-icon :type="item.icon" class="menuicon"></a-icon>
             {{ item.display() }}</router-link
           ></a-menu-item
         >
@@ -95,5 +95,9 @@ export default {
 }
 .menu {
   width: 100px;
+}
+
+.menuicon:hover{
+  transform: rotate(30deg);
 }
 </style>

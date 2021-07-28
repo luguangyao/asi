@@ -36,9 +36,7 @@ export default {
 </script>
 
 <style scoped>
-.wrapper{
-  background: white;
-}
+
 tr:last-child td {
   padding-bottom: 0;
 }
@@ -77,7 +75,7 @@ tr:last-child td {
     padding:5px
 }
 .wrapper{
-    box-shadow: black 5px 5px 5px;
+    box-shadow: gray 1px 1px 1px;
 }
 
 </style>
