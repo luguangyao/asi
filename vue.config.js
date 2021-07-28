@@ -8,7 +8,14 @@ module.exports = {
         pathRewrite: {
           '^/loginnet': ''
         }
-      }
+      },
+      '/location':{
+        target:'http://pv.sohu.com/',
+        changeOrigin:true,
+        pathRewrite:{
+          '^/location':''
+        }
+      },
     }
   }
 }

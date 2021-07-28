@@ -8,6 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLogin:false,
+    locationMessage:undefined,
     lang:"zh-CN",
     personalMenuList:[
       {
@@ -82,6 +83,9 @@ export default new Vuex.Store({
   mutations: {
     setIsLogin(state,isLogin){
       state.isLogin=isLogin==true?true:false
+    },
+    setLocation(state,locationMessage){
+      state.locationMessage=locationMessage
     },
     switchLanguage(state,that){
       state.lang=(state.lang=="zh-CN"?"en-US":"zh-CN")
