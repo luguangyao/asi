@@ -1,6 +1,6 @@
 <template>
   <main>
-    <form class="form">
+    <div class="form">
       <div class="form__cover"></div>
       <div class="form__loader">
         <div class="spinner active">
@@ -18,18 +18,26 @@
         </div>
       </div>
       <div class="form__content">
-        <h1>{{$t('m.authorization')}}</h1>
+        <h1><a-icon type="double-left" class="backicon" @click="gohome"></a-icon> {{$t('m.authorization')}}</h1>
         <div class="styled-input">
-         <a-input size="large" :placeholder="$t('m.inputAccount')"  style="font-size:20px;margin-right:5px">
+         <a-input size="large" :placeholder="$t('m.inputAccount')" v-model="loginData.account" >
               <a-icon type="user" slot="prefix"></a-icon>
           </a-input>   
         </div>
         <div class="styled-input">
-          <a-input-password size="large" :placeholder="$t('m.inputPassword')" >
-              <a-icon type="safety" slot="prefix" style="font-size:20px;margin-right:5px"></a-icon>
+          <a-input-password size="large" :placeholder="$t('m.inputPassword')"  v-model="loginData.password">
+              <a-icon type="safety" slot="prefix" ></a-icon>
           </a-input-password>
         </div>
-        <button type="button" class="styled-button">
+        <div class="styled-input">
+          <a-input size="large" :placeholder="'验证码'" v-model="loginData.code">
+              <a-icon slot="prefix" type="qrcode"></a-icon>
+              <template slot="suffix" v-if="this.codeData.image">
+                  <img  :src="'data:image/gif;base64,'+this.codeData.image" alt="" style="width:100px" @click="getCode()">
+              </template>
+          </a-input>
+        </div>
+        <button type="button" class="styled-button" @click="this.login">
           <span class="styled-button__real-text-holder">
             <span class="styled-button__real-text">{{this.$t('m.login')}}</span>
             <span class="styled-button__moving-block face">
@@ -58,7 +66,7 @@
           </span>
         </button>
       </div>
-    </form>
+    </div>
   </main>
 </template>
 <script>
@@ -66,9 +74,38 @@ import LoginNet from "@/network/LoginNet"
 export default {
   name: "Login",
   data() {
-    return {};
+    return {
+      codeData:{},
+      loginData:{
+        account:"",
+        password:"",
+        code:"",
+        codekey:""
+      },
+    }
   },
   methods: {
+    getCode(){
+      LoginNet.getCode(this.setCode.bind(this))
+    },
+    setCode(data){
+      this.codeData=data,
+      this.loginData.codekey=this.codeData.uuid;
+    },
+    login(){
+      LoginNet.login(this.loginData,this.loginSuccess.bind(this),this.loginFailure.bind(this))
+    },
+    loginSuccess(){
+      this.$message.success("登陆成功!! 5 后返回主页",5,this.gohome)
+    },
+    loginFailure(reason){
+      this.loginData.code=""
+      this.$message.error("登陆失败: "+reason)
+      this.getCode()
+    },
+    gohome(){
+      this.$router.push("/Home")
+    },
     init() {
       setTimeout(function () {
         document.body.classList.add("on-start");
@@ -82,7 +119,7 @@ export default {
   },
   created() {
     this.init();
-    LoginNet.checkLogin()
+    this.getCode()
   },
 };
 </script>
@@ -119,7 +156,7 @@ main {
   justify-content: center;
   position: relative;
   width: 400px;
-  height: 400px;
+  height: 500px;
   -ms-flex-negative: 0;
   flex-shrink: 0;
   padding: 20px;
@@ -633,5 +670,13 @@ h1 {
     stroke-dasharray: 125, 200;
     opacity: 1;
   }
+}
+.backicon{
+  transition: all .5s;
+}
+.backicon :hover{
+  transform: translateX(-20px);
+  transition: all .5s;
+  cursor :pointer
 }
 </style>

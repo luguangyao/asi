@@ -27,7 +27,7 @@
         <a-col :span="11" offset="1">
           <a-input-group compact size="large" class="btn-group">
             <a-dropdown>
-              <a-menu slot="overlay" @click="handleMenuClick">
+              <a-menu slot="overlay" >
                 <a-menu-item key="1"> 北京 </a-menu-item>
                 <a-menu-item key="2"> 悉尼 </a-menu-item>
                 <a-menu-item key="3"> 香港 </a-menu-item>
@@ -41,7 +41,7 @@
               ></a-input>
             </a-dropdown>
             <a-dropdown>
-              <a-menu slot="overlay" @click="handleMenuClick">
+              <a-menu slot="overlay" >
                 <a-menu-item key="1"> 北京 </a-menu-item>
                 <a-menu-item key="2"> 悉尼 </a-menu-item>
                 <a-menu-item key="3"> 香港 </a-menu-item>
