@@ -27,7 +27,7 @@ export default {
     },
     logoutSuccess(){
       this.$message.info("登出成功")
-      this.router.history.go(0)
+      this.$router.history.go(0)
     }
   },
   created(){

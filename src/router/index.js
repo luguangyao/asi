@@ -44,6 +44,10 @@ const routes = [
         path:'empty',
         name:"Empty",
         component:Empty
+      },
+      {
+        path:'/personal/*',
+        redirect:'Empty'
       }
     ]
   },

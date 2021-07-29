@@ -1,7 +1,11 @@
 import axios from "axios"
+const admin=axios.create({
+    baseURL: '/data/admin',
+    timeout:1000
+})
 const LoginNet={
     checkLogin(success){
-        axios.get('data/admin/checkLogin')
+        admin.get('/checkLogin')
         .then(function (response) {
             if(success!=undefined){
                 if(response.data==true){
@@ -23,9 +27,8 @@ const LoginNet={
         data.append('password',loginData.password);     
         data.append('code',loginData.code);     
         data.append('codekey',loginData.codekey);     
-        axios.post('data/admin/doLogin', data)
+        admin.post('/doLogin', data)
           .then(function (response) {
-            console.log(response);
             switch(response.data){
                 case 1:
                     success()
@@ -49,7 +52,7 @@ const LoginNet={
           });
     },
     getCode(success){
-        axios.get('data/admin/getCode?'+Math.random())
+        admin.get('/getCode?'+Math.random())
         .then(function (response) {
             success(response.data)
             //return response.data
@@ -60,7 +63,7 @@ const LoginNet={
         });
     },
     logout(success){
-        axios.get('data/admin/loginOut')
+        admin.get('/loginOut')
         .then(function (response) {
             localStorage.removeItem("account");
             if(success!=undefined){
