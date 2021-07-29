@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import LoginNet from "@/network/LoginNet"
+import AdminNet from "@/network/AdminNet"
 
 export default {
   name: "LoginRegister",
@@ -23,7 +23,7 @@ export default {
       this.$store.commit("setIsLogin",s)
     },
     logout(){
-      LoginNet.logout(this.logoutSuccess.bind(this))
+      AdminNet.logout(this.logoutSuccess.bind(this))
     },
     logoutSuccess(){
       this.$message.info("登出成功")
@@ -31,7 +31,7 @@ export default {
     }
   },
   created(){
-    LoginNet.checkLogin(this.setIsLogin.bind(this))
+    AdminNet.checkLogin(this.setIsLogin.bind(this))
   }
 };
 </script>

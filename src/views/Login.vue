@@ -70,7 +70,7 @@
   </main>
 </template>
 <script>
-import LoginNet from "@/network/LoginNet"
+import AdminNet from "@/network/AdminNet"
 export default {
   name: "Login",
   data() {
@@ -86,14 +86,14 @@ export default {
   },
   methods: {
     getCode(){
-      LoginNet.getCode(this.setCode.bind(this))
+      AdminNet.getCode(this.setCode.bind(this))
     },
     setCode(data){
       this.codeData=data,
       this.loginData.codekey=this.codeData.uuid;
     },
     login(){
-      LoginNet.login(this.loginData,this.loginSuccess.bind(this),this.loginFailure.bind(this))
+      AdminNet.login(this.loginData,this.loginSuccess.bind(this),this.loginFailure.bind(this))
     },
     loginSuccess(){
       this.$message.success("登陆成功!! 5 后返回主页",5,this.gohome)

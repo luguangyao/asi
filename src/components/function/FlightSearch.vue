@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <div class="search">
+    <div class="search" v-if="this.displayType == 'normal'">
       <a-row>
         <a-col :span="4" offset="1">
           <a-select style="width: 80px" v-model="selectedPersonNum">
@@ -27,7 +27,7 @@
         <a-col :span="11" offset="1">
           <a-input-group compact size="large" class="btn-group">
             <a-dropdown>
-              <a-menu slot="overlay" >
+              <a-menu slot="overlay">
                 <a-menu-item key="1"> 北京 </a-menu-item>
                 <a-menu-item key="2"> 悉尼 </a-menu-item>
                 <a-menu-item key="3"> 香港 </a-menu-item>
@@ -41,7 +41,7 @@
               ></a-input>
             </a-dropdown>
             <a-dropdown>
-              <a-menu slot="overlay" >
+              <a-menu slot="overlay">
                 <a-menu-item key="1"> 北京 </a-menu-item>
                 <a-menu-item key="2"> 悉尼 </a-menu-item>
                 <a-menu-item key="3"> 香港 </a-menu-item>
@@ -82,11 +82,99 @@
         </a-col>
       </a-row>
     </div>
+
+    <div v-if="this.displayType == 'admin'" class="adminsearch">
+      <a-row>
+        <a-col :span="5">
+          <a-input-group compact>
+            <a-input
+              style="width: 40%"
+              default-value="航班ID"
+              :disabled="true"
+              :bordered="false"
+            />
+            <a-input style="width: 60%" placeholder="请输入航班号ID" />
+          </a-input-group>
+        </a-col>
+        <a-col :span="5" :offset="1">
+          <a-input-group compact>
+            <a-input
+              style="width: 40%"
+              default-value="航班公司"
+              :disabled="true"
+              :bordered="false"
+            />
+            <a-input style="width: 60%" placeholder="请输入航班公司" />
+          </a-input-group>
+        </a-col>
+        <a-col :span="5" :offset="1">
+          <a-input-group compact>
+            <a-input
+              style="width: 40%"
+              default-value="机型"
+              :disabled="true"
+              :bordered="false"
+            />
+            <a-input style="width: 60%" placeholder="请输入航班机型" />
+          </a-input-group>
+        </a-col>
+      </a-row>
+      <a-row style="margin-top: 20px">
+        <a-col :span=11>
+          <a-input-group compact  class="btn-group">
+            <a-dropdown>
+              <a-menu slot="overlay">
+                <a-menu-item key="1"> 北京 </a-menu-item>
+                <a-menu-item key="2"> 悉尼 </a-menu-item>
+                <a-menu-item key="3"> 香港 </a-menu-item>
+              </a-menu>
+              <a-input
+                style="width: 50%"
+                :placeholder="$t('m.startPoint')"
+                v-model="startPos"
+              >
+                <a-icon slot="prefix" type="paper-clip"></a-icon
+              ></a-input>
+            </a-dropdown>
+            <a-dropdown>
+              <a-menu slot="overlay">
+                <a-menu-item key="1"> 北京 </a-menu-item>
+                <a-menu-item key="2"> 悉尼 </a-menu-item>
+                <a-menu-item key="3"> 香港 </a-menu-item>
+              </a-menu>
+              <a-input
+                style="width: 50%"
+                :placeholder="$t('m.endPoint')"
+                v-model="destination"
+              >
+                <a-icon slot="prefix" type="environment"></a-icon>
+              </a-input>
+            </a-dropdown>
+          </a-input-group>
+        </a-col>
+        <a-col :span="10" offset="1">
+          <a-range-picker
+            v-model="date"
+            :value="date"
+            :placeholder="['开始日期', '结束日期']"
+          >
+            <template slot="renderExtraFooter"> 请选择日期 </template>
+            <a-icon slot="suffixIcon" type="calendar" />
+          </a-range-picker>
+        </a-col>
+      </a-row>
+    </div>
   </div>
 </template>
 <script>
 export default {
   name: "FlightSearch",
+  props: {
+    displayType: {
+      type: String,
+      default: "normal",
+    },
+  },
   data() {
     return {
       selectedPersonNum: 1,
@@ -119,7 +207,7 @@ export default {
   width: 100%;
   border: 1px grey solid;
   border-radius: 10px;
-  background-color: rgba(255, 255, 255, .95);
+  background-color: rgba(255, 255, 255, 0.95);
 }
 .search > * {
   margin-top: 20px;
@@ -127,5 +215,8 @@ export default {
 .search-btn {
   box-shadow: grey 5px 5px 5px;
   bottom: -20px;
+}
+.adminsearch {
+  width: 100%;
 }
 </style>

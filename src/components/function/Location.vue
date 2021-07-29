@@ -1,7 +1,7 @@
 <template>
   <div>
-    <a-tooltip>
-      <a-statistic
+    <a-tooltip v-if="this.$store.state.locationMessage!=undefined"> 
+      <a-statistic 
         :value="
           this.$store.state.locationMessage.cid +
           ' ' +

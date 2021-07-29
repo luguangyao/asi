@@ -9,7 +9,8 @@ import Login from "../views/Login"
 import UserInfo from "@/components/function/UserInfo"
 import Empty from "@/components/function/Empty"
 import Pay from "../views/Pay"
-
+import AdminFlightService from "@/components/function/AdminFlightService"
+import DataVisable from "../components/datavisable/DataVisable"
 Vue.use(VueRouter)
 
 const routes = [
@@ -28,6 +29,16 @@ const routes = [
         name:'UserInfo',
         component:UserInfo,
         props:true
+      },
+      {
+        path:'adminflightservice',
+        name:'AdminFlightService',
+        component:AdminFlightService
+      },
+      {
+        path:'datavisiable',
+        name:'DataVisiable',
+        component:DataVisable
       },
       {
         path:'empty',

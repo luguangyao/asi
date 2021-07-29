@@ -1,8 +1,7 @@
 import axios from "axios"
-// http://139.159.153.12/
 const LoginNet={
     checkLogin(success){
-        axios.get('loginnet/admin/checkLogin')
+        axios.get('data/admin/checkLogin')
         .then(function (response) {
             if(success!=undefined){
                 if(response.data==true){
@@ -24,7 +23,7 @@ const LoginNet={
         data.append('password',loginData.password);     
         data.append('code',loginData.code);     
         data.append('codekey',loginData.codekey);     
-        axios.post('loginnet/admin/doLogin', data)
+        axios.post('data/admin/doLogin', data)
           .then(function (response) {
             console.log(response);
             switch(response.data){
@@ -50,7 +49,7 @@ const LoginNet={
           });
     },
     getCode(success){
-        axios.get('loginnet/admin/getCode?'+Math.random())
+        axios.get('data/admin/getCode?'+Math.random())
         .then(function (response) {
             success(response.data)
             //return response.data
@@ -61,7 +60,7 @@ const LoginNet={
         });
     },
     logout(success){
-        axios.get('loginnet/admin/loginOut')
+        axios.get('data/admin/loginOut')
         .then(function (response) {
             localStorage.removeItem("account");
             if(success!=undefined){

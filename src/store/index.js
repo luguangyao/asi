@@ -20,14 +20,17 @@ export default new Vuex.Store({
         children: [
           {
             name: "user message",
+            url:"/user message",
             display: () => this.$t("m.userMessage"),
           },
           {
             name: "account message",
+            url:"/account message",
             display: () => this.$t("m.accountMessage"),
           },
           {
             name: "useful message",
+            url:"/useful message",
             display: () => this.$t("m.usefulMessage"),
           },
         ],
@@ -41,18 +44,22 @@ export default new Vuex.Store({
         children: [
           {
             name: "all orders",
+            url:"/useful message",
             display: () => this.$t("m.allOrders"),
           },
           {
             name: "waiting orders",
+            url:"/useful message",
             display: () => this.$t("m.waitingOrders"),
           },
           {
             name: "unpaid orders",
+            url:"/useful message",
             display: () => this.$t("m.unpaidOrders"),
           },
           {
             name: "canceled orders",
+            url:"/useful message",
             display: () => this.$t("m.canceledOrders"),
           },
         ],
@@ -60,20 +67,23 @@ export default new Vuex.Store({
       {
         name: "manager",
         icon: "dot-chart",
-        url:"/userInfo",
+        url:"",
         urlname:"UserInfo",
         display: () => this.$t("m.manager"),
         children: [
           {
             name: "data graph",
+            url:"/datavisiable",
             display: () => this.$t("m.dataGraph"),
           },
           {
             name: "order service",
+            url:"/AdminFlightService",
             display: () => this.$t("m.orderService"),
           },
           {
             name: "flight service",
+            url:"/AdminFlightService",
             display: () => this.$t("m.flightService"),
           },
         ],

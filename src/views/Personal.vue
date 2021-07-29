@@ -62,7 +62,7 @@ export default {
   methods: {
     gotoDetail(me, mee) {
       console.log("/personal"+me.url+"/"+mee.name)
-      this.$router.push({path:"/personal"+me.url+"/"+mee.name})
+      this.$router.push({path:"/personal"+me.url+mee.url})
       // this.$router.go(0)
     },
   },
