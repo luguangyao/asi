@@ -251,8 +251,13 @@ export default {
   },
   methods: {
     setData(data, listData) {
+      
       this.listData = listData;
       this.data = data.map((d) => d);
+      if(data.length<=0){
+        this.$message.info("本次没有查询到任何数据",5)
+        return
+      }
       let keys = Object.keys(this.data[0]);
       this.col = keys.map((k) => {
         return {
@@ -322,7 +327,6 @@ export default {
         this.updated[key] = this.oldupdated[key];
         this.$message.error("输入格式为 YYYY-MM-DD");
       }
-
     },
     checkDepartDestin(key1, key2) {
       if (this.updated[key1] == this.updated[key2]) {
@@ -343,6 +347,15 @@ export default {
     },
     deleteSuccess(){
       this.$message.success("删除成功")
+      let did=0;
+      let i=0
+        for(i=0;i<this.data.length;i++){
+          if(this.data[i].flightid==this.updated.flightid){
+            did=i;
+            break
+          }
+        }
+        this.data.splice(did,1)
     },
     deleteFailure(){
       this.$message.error("删除失败")
@@ -355,6 +368,7 @@ export default {
       this.updated={}
       for(let i=0;i<key.length;i++){
         this.$set(this.updated, key[i],this.data[0][key[i]] )
+        
       }
       this.updated.flightid=""
       this.showupdate();

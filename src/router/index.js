@@ -11,49 +11,55 @@ import Empty from "@/components/function/Empty"
 import Pay from "../views/Pay"
 import AdminFlightService from "@/components/function/AdminFlightService"
 import DataVisable from "../components/datavisable/DataVisable"
+import AdminOrdersService from "@/components/AdminOrders/AdminOrdersService"
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/home',
-    name: 'Home',
+    name: 'home',
     component: Home
   },
   {
     path:'/personal',
-    name:'Personal',
+    name:'personal',
     component:Personal,
     children:[
       {
         path:'userinfo/:selected',
-        name:'UserInfo',
+        name:'userinfo',
         component:UserInfo,
         props:true
       },
       {
         path:'adminflightservice',
-        name:'AdminFlightService',
+        name:'adminflightservice',
         component:AdminFlightService
       },
       {
+        path:"adminordersservice",
+        name:"adminordersservice",
+        component:AdminOrdersService
+      },
+      {
         path:'datavisiable',
-        name:'DataVisiable',
+        name:'datavisiable',
         component:DataVisable
       },
       {
         path:'empty',
-        name:"Empty",
+        name:"empty",
         component:Empty
       },
       {
         path:'/personal/*',
-        redirect:'Empty'
+        redirect:'empty'
       }
     ]
   },
   {
     path:'/login',
-    name:'Login',
+    name:'login',
     component:Login
   },
   {
@@ -62,29 +68,29 @@ const routes = [
     children:[
       {
         path:'flight',
-        name: 'Flight',
+        name: 'flight',
         component: Flight
       },
       {
         path:'flightdetail',
-        name: 'FlightDetail',
+        name: 'flightdetail',
         component: FlightDetail
       },
       {
         path:'hotel',
-        name: 'Hotel',
+        name: 'hotel',
         component: Hotel
       },
     ]
   },
   {
     path:'/pay',
-    name:'Pay',
+    name:'pay',
     component:Pay,
   },
   {
     path:'/*',
-    redirect:'Home'
+    redirect:'home'
   }
 ]
 

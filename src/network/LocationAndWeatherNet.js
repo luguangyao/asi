@@ -3,7 +3,7 @@ import axios from "axios";
 export default{
     getLocation(success){
         axios
-        .get("data/location/cityjson?ie=utf-8")
+        .get("/location/cityjson?ie=utf-8")
         .then(function (response) {
           let data=JSON.parse(response.data.split("=")[1].split(';')[0])
           success(data)

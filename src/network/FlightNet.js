@@ -1,10 +1,10 @@
 import axios from "axios"
 const plane=axios.create({
-    baseURL: '/data/plane',
+    baseURL: '/plane',
     timeout:1000
 })
 const admin=axios.create({
-    baseURL: '/data/admin',
+    baseURL: '/admin',
     timeout:1000
 })
 export default{

@@ -1,39 +1,39 @@
 module.exports = {
   devServer: {
     proxy: {
-      '/data/admin': {
+      '/admin': {
         target: 'http://127.0.0.1/admin',
         changeOrigin: true,
         pathRewrite: {
-          '^/data/admin': ''
+          '^/admin': ''
         }
       },
-      '/data/orders': {
+      '/orders': {
          target: 'http://127.0.0.1/order',
          changeOrigin: true,
          pathRewrite: {
-           '^/data/orders': ''
+           '^/orders': ''
          }
        },
-       '/data/plane': {
+       '/plane': {
          target: 'http://127.0.0.1/plane',
          changeOrigin: true,
          pathRewrite: {
-           '^/data/plane': ''
+           '^/plane': ''
          }
        },
-       '/data/user': {
+       '/user': {
         target: 'http://127.0.0.1/user',
         changeOrigin: true,
         pathRewrite: {
-          '^/data/user': ''
+          '^/user': ''
         }
       },
-      '/data/location':{
+      '/location':{
         target:'http://pv.sohu.com/',
         changeOrigin:true,
         pathRewrite:{
-          '^/data/location':''
+          '^/location':''
         }
       },
     }

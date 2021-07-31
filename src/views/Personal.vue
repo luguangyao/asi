@@ -1,7 +1,7 @@
 <template>
   <div class="personalwrapper">
     <a-layout id="components-layout-demo-top-side-2">
-      <OtherTop :icontype="2" />
+      <OtherTop :icontype="1" />
       <a-layout id="components-layout-demo-side" style="min-height: 100vh">
         <a-layout-sider v-model="collapsed" collapsible theme="light">
           <div class="logo">

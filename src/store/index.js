@@ -7,7 +7,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isLogin:false,
+    loginData:{
+      isLogin:false,
+      loginType:1
+    },
     locationMessage:undefined,
     lang:"zh-CN",
     personalMenuList:[
@@ -78,7 +81,7 @@ export default new Vuex.Store({
           },
           {
             name: "order service",
-            url:"/AdminFlightService",
+            url:"/AdminOrdersService",
             display: () => this.$t("m.orderService"),
           },
           {
@@ -91,8 +94,11 @@ export default new Vuex.Store({
     ],
   },
   mutations: {
-    setIsLogin(state,isLogin){
-      state.isLogin=isLogin==true?true:false
+    setLoginData(state,isLogin){
+      state.loginData.isLogin=isLogin
+    },
+    setLoginType(state,loginType){
+      state.loginData.loginType=loginType
     },
     setLocation(state,locationMessage){
       state.locationMessage=locationMessage

@@ -18,93 +18,284 @@
         </div>
       </div>
       <div class="form__content">
-        <h1><a-icon type="double-left" class="backicon" @click="gohome"></a-icon> {{$t('m.authorization')}}</h1>
-        <div class="styled-input">
-         <a-input size="large" :placeholder="$t('m.inputAccount')" v-model="loginData.account" >
+        <h2>
+          <a-icon type="double-left" class="backicon" @click="gohome"></a-icon>
+          {{ title }}
+        </h2>
+        <div v-show="this.displayType == 1">
+          <div class="styled-input">
+            <a-input
+              size="large"
+              :placeholder="$t('m.inputAccount')"
+              v-model="loginData.account"
+            >
               <a-icon type="user" slot="prefix"></a-icon>
-          </a-input>   
-        </div>
-        <div class="styled-input">
-          <a-input-password size="large" :placeholder="$t('m.inputPassword')"  v-model="loginData.password">
-              <a-icon type="safety" slot="prefix" ></a-icon>
-          </a-input-password>
-        </div>
-        <div class="styled-input">
-          <a-input size="large" :placeholder="'验证码'" v-model="loginData.code">
+            </a-input>
+          </div>
+          <div class="styled-input">
+            <a-input-password
+              size="large"
+              :placeholder="$t('m.inputPassword')"
+              v-model="loginData.password"
+            >
+              <a-icon type="safety" slot="prefix"></a-icon>
+            </a-input-password>
+          </div>
+          <div class="styled-input" style="border:0px">
+            <a-radio-group v-model="loginType" @change="changLoginType">
+              <a-radio :value="1" style="color:white"> 普通用户 </a-radio>
+              <a-radio :value="2" style="color:white"> 管理员 </a-radio>
+            </a-radio-group>
+          </div>
+          <div class="styled-input">
+            <a-input
+              size="large"
+              :placeholder="'验证码'"
+              v-model="loginData.code"
+            >
               <a-icon slot="prefix" type="qrcode"></a-icon>
               <template slot="suffix" v-if="this.codeData.image">
-                  <img  :src="'data:image/gif;base64,'+this.codeData.image" alt="" style="width:100px" @click="getCode()">
+                <img
+                  :src="'data:image/gif;base64,' + this.codeData.image"
+                  alt=""
+                  style="width: 100px"
+                  @click="getCode()"
+                />
               </template>
-          </a-input>
+            </a-input>
+          </div>
         </div>
-        <button type="button" class="styled-button" @click="this.login">
-          <span class="styled-button__real-text-holder">
-            <span class="styled-button__real-text">{{this.$t('m.login')}}</span>
-            <span class="styled-button__moving-block face">
-              <span class="styled-button__text-holder">
-                <span class="styled-button__text">{{this.$t('m.login')}}</span>
-              </span> </span
-            ><span class="styled-button__moving-block back">
-              <span class="styled-button__text-holder">
-                <span class="styled-button__text">{{this.$t('m.login')}}</span>
-              </span>
-            </span>
-          </span>
-        </button>
-        <button type="button" class="styled-button">
-          <span class="styled-button__real-text-holder">
-            <span class="styled-button__real-text">{{this.$t('m.regist')}}</span>
-            <span class="styled-button__moving-block face">
-              <span class="styled-button__text-holder">
-                <span class="styled-button__text">{{this.$t('m.regist')}}</span>
-              </span> </span
-            ><span class="styled-button__moving-block back">
-              <span class="styled-button__text-holder">
-                <span class="styled-button__text">{{this.$t('m.regist')}}</span>
-              </span>
-            </span>
-          </span>
-        </button>
+        <div v-show="this.displayType == 2">
+          <div class="styled-input">
+            <a-input-search
+              :placeholder="$t('m.inputAccount')"
+              size="large"
+              v-model="registData.account"
+              @search="checkAccount"
+            >
+              <a-icon type="user" slot="prefix"></a-icon>
+              <a-button slot="enterButton" type="primary"> 确认可用 </a-button>
+            </a-input-search>
+          </div>
+          <div class="styled-input">
+            <a-input-password
+              size="large"
+              :placeholder="$t('m.inputPassword')"
+              v-model="registData.password"
+            >
+              <a-icon type="safety" slot="prefix"></a-icon>
+            </a-input-password>
+          </div>
+          <div class="styled-input">
+            <a-input-password
+              size="large"
+              placeholder="再次输入密码"
+              v-model="registData.chkpassword"
+            >
+              <a-icon type="safety" slot="prefix"></a-icon>
+            </a-input-password>
+          </div>
+        </div>
+        <div v-show="this.displayType == 3">
+          <div class="styled-input">
+            <a-input
+              :placeholder="$t('m.inputAccount')"
+              size="large"
+              v-model="updatePwdData.account"
+            >
+              <a-icon type="user" slot="prefix"></a-icon>
+            </a-input>
+          </div>
+          <div class="styled-input">
+            <a-input-password
+              size="large"
+              placeholder="输入旧密码"
+              v-model="updatePwdData.oldpassword"
+            >
+              <a-icon type="safety" slot="prefix"></a-icon>
+            </a-input-password>
+          </div>
+          <div class="styled-input">
+            <a-input-password
+              size="large"
+              :placeholder="this.$t('m.inputPassword')"
+              v-model="updatePwdData.newpassword"
+            >
+              <a-icon type="safety" slot="prefix"></a-icon>
+            </a-input-password>
+          </div>
+          <div class="styled-input">
+            <a-input-password
+              size="large"
+              placeholder="再次输入密码"
+              v-model="updatePwdData.chkpassword"
+            >
+              <a-icon type="safety" slot="prefix"></a-icon>
+            </a-input-password>
+          </div>
+        </div>
+        <div style="width: 100%">
+          <a-space align="center" size="large">
+            <a-button @click="login" size="large" type="primary" ghost>
+              {{ this.$t("m.login") }}  </a-button
+            >
+            <a-button
+              @click="this.regist"
+              size="large"
+              type="primary"
+              ghost
+              v-if="false"
+            >
+              {{ this.$t("m.regist") }}   
+            </a-button>
+            <a-button
+              @click="this.updatePwd"
+              size="large"
+              type="primary"
+              ghost
+              v-if="false"
+            >
+              修改密码</a-button
+            >
+          </a-space>
+        </div>
+       
       </div>
+      
     </div>
   </main>
 </template>
 <script>
-import AdminNet from "@/network/AdminNet"
+import LoginNet from "@/network/LoginNet";
 export default {
   name: "Login",
   data() {
     return {
-      codeData:{},
-      loginData:{
-        account:"",
-        password:"",
-        code:"",
-        codekey:""
+      title: "授权登录",
+      codeData: {codekey:"",code:""},
+      loginType:1,
+      loginData: {
+        account: "",
+        password: "",
+        code: "",
+        codekey: "",
       },
-    }
+      registData: {
+        account: "",
+        password: "",
+        chkpassword: "",
+      },
+      updatePwdData: {
+        account: "",
+        oldpassword: "",
+        newpassword: "",
+        chkpassword: "",
+      },
+      displayType: 1,
+    };
   },
   methods: {
-    getCode(){
-      AdminNet.getCode(this.setCode.bind(this))
+    getCode() {
+      switch(this.loginType){
+        case 1:
+          LoginNet.userGetCode(this.setCode.bind(this));
+          break;
+        case 2:
+          LoginNet.adminGetCode(this.setCode.bind(this));
+          break;
+      }
     },
-    setCode(data){
-      this.codeData=data,
-      this.loginData.codekey=this.codeData.uuid;
+    setCode(data) {
+      (this.codeData = data), (this.loginData.codekey = this.codeData.uuid);
     },
-    login(){
-      AdminNet.login(this.loginData,this.loginSuccess.bind(this),this.loginFailure.bind(this))
-    },
-    loginSuccess(){
-      this.$message.success("登陆成功!! 5 后返回主页",5,this.gohome)
-    },
-    loginFailure(reason){
-      this.loginData.code=""
-      this.$message.error("登陆失败: "+reason)
+    changLoginType(){
       this.getCode()
     },
-    gohome(){
-      this.$router.push("/Home")
+    login() {
+      if (this.displayType != 1) {
+        this.displayType = 1;
+        this.title = "授权登录";
+        return;
+      }
+      switch(this.loginType){
+        case 1:
+          LoginNet.userLogin(this.loginData,this.loginSuccess.bind(this),this.loginFailure.bind(this))
+          break
+        case 2:
+          LoginNet.login(this.loginData,this.loginSuccess.bind(this),this.loginFailure.bind(this))
+          break
+      }
+    },
+    loginSuccess() {
+      this.$message.success("登陆成功!! 5 后返回主页", 5, this.gohome);
+      this.$store.commit("setLoginData",true,this.loginType)
+      this.$store.commit("setLoginType",this.loginType)
+
+    },
+    loginFailure(reason) {
+      this.loginData.code = "";
+      this.$message.error("登陆失败: " + reason);
+      this.getCode();
+    },
+    gohome() {
+      this.$router.push("/Home");
+    },
+    regist() {
+      if (this.displayType != 2) {
+        this.displayType = 2;
+        this.title = "用户注册";
+        return;
+      }
+      if (this.registData.password != this.registData.password) {
+        this.$message.error("密码不一致!!");
+        return;
+      }
+      LoginNet.doRegister(
+        this.registData,
+        this.registSuccess.bind(this),
+        this.registerFailure.bind(this)
+      );
+    },
+    registSuccess() {
+      this.$message.success("注册成功");
+    },
+    registerFailure() {
+      this.$message.success("注册失败");
+    },
+    checkAccount() {
+      LoginNet.checkAccount(
+        this.registData.account,
+        this.checkAccountSuccess.bind(this),
+        this.checkAccountFailure.bind(this)
+      );
+    },
+    checkAccountSuccess() {
+      this.$message.success("账户可用");
+    },
+    checkAccountFailure() {
+      this.$message.error("账户不可用");
+    },
+    updatePwd() {
+      if (this.displayType != 3) {
+        this.displayType = 3;
+        this.title = "修改密码";
+        return;
+      }
+      if (this.updatePwdData.newpassword != this.updatePwdData.chkpassword) {
+        this.$message.error("密码不一致!!");
+        return;
+      }
+      LoginNet.updatePwd(
+        this.updatePwdData,
+        this.updatePwdSuccess.bind(this),
+        this.updatePwdFailure.bind(this)
+      );
+    },
+    updatePwdSuccess() {
+      this.$message.success("修改密码成功");
+    },
+    updatePwdFailure() {
+      this.$message.error("修改密码失败");
     },
     init() {
       setTimeout(function () {
@@ -115,11 +306,10 @@ export default {
         document.body.classList.add("document-loaded");
       }, 1800);
     },
-    
   },
   created() {
     this.init();
-    this.getCode()
+    this.getCode();
   },
 };
 </script>
@@ -275,7 +465,7 @@ body.document-loaded .form__cover:before {
   transform: scale(2);
   opacity: 0;
 }
-h1 {
+h2 {
   font-size: 40px;
   margin: 15px 0 20px 0;
   letter-spacing: 0.05em;
@@ -671,12 +861,12 @@ h1 {
     opacity: 1;
   }
 }
-.backicon{
-  transition: all .5s;
+.backicon {
+  transition: all 0.5s;
 }
-.backicon :hover{
+.backicon :hover {
   transform: translateX(-20px);
-  transition: all .5s;
-  cursor :pointer
+  transition: all 0.5s;
+  cursor: pointer;
 }
 </style>

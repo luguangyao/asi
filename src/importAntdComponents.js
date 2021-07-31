@@ -1,5 +1,5 @@
 import { Button,PageHeader,Descriptions,Menu,Icon,Switch,Statistic ,Row ,Col ,Carousel,message,FormModel,Input,Select,DatePicker,Tooltip,
-    Layout,Divider,Card,Space,Slider,Dropdown,Collapse,Timeline,Steps,Result,Tabs,Drawer,Empty,Upload,Modal,TimePicker,InputNumber,Table
+    Layout,Divider,Card,Space,Slider,Dropdown,Collapse,Timeline,Steps,Result,Tabs,Drawer,Empty,Upload,Modal,TimePicker,InputNumber,Table,Radio
 } from 'ant-design-vue';
     
 import Vue from 'vue'
@@ -25,6 +25,7 @@ export default function () {
     Vue.component(FormModel.Item.name,FormModel.Item)
     Vue.component(Input.name,Input)
     Vue.component(Input.Password.name,Input.Password)
+    Vue.component(Input.Search.name,Input.Search)
     Vue.component(Input.Group.name,Input.Group)
     Vue.component(Select.name,Select )
     Vue.component(Select.Option.name,Select.Option )
@@ -57,6 +58,9 @@ export default function () {
     Vue.component(TimePicker.name,TimePicker)
     Vue.component(InputNumber.name,InputNumber)
     Vue.component(Table.name,Table)
+    Vue.component(Radio.name,Radio)
+    Vue.component(Radio.Button.name,Radio.Button)
+    Vue.component(Radio.Group.name,Radio.Group)
     Vue.prototype.$message = message;
     Vue.use(Modal)
 }
