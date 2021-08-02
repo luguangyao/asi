@@ -51,21 +51,33 @@
       </a-row>
       <a-row style="margin-top:20px">
         <a-col :span="7" >
-                  <a-input :disabled="true" placeholder="起飞时间" style="width:25%"></a-input>
+                  <a-input :disabled="true" placeholder="起飞始时" style="width:25%"></a-input>
                   <a-date-picker style="width:37.5%" v-model="flightdate1"></a-date-picker>
                   <a-time-picker style="width:37.5%" v-model="flightdate1"></a-time-picker>
           </a-col>
           <a-col :span="7" :offset=1>
-                  <a-input :disabled="true" placeholder="降落时间" style="width:25%"></a-input>
+                  <a-input :disabled="true" placeholder="起飞终时" style="width:25%"></a-input>
                   <a-date-picker style="width:37.5%" v-model="flightdate2"></a-date-picker>
                   <a-time-picker style="width:37.5%" v-model="flightdate2"></a-time-picker>
           </a-col>
-          <a-col :span="7" :offset=1>
-                  <a-input :disabled="true" placeholder="支付时间" style="width:25%"></a-input>
+          
+      </a-row>
+        <a-row style="margin-top:20px">
+            <a-col :span="7" >
+                  <a-input :disabled="true" placeholder="支付始间" style="width:25%"></a-input>
+                  <a-date-picker style="width:37.5%" v-model="paytime1"></a-date-picker>
                   <a-time-picker style="width:37.5%" v-model="paytime1"></a-time-picker>
+          </a-col>
+          <a-col :span="7" :offset="1">
+                  <a-input :disabled="true" placeholder="支付终间" style="width:25%"></a-input>
+                  <a-date-picker style="width:37.5%" v-model="paytime2"></a-date-picker>
                   <a-time-picker style="width:37.5%" v-model="paytime2"></a-time-picker>
           </a-col>
-      </a-row>
+          <a-col :span="7" :offset=1>
+                  <a-input :disabled="true" placeholder="支付时间可以设置为空" ></a-input>
+          </a-col>
+        </a-row>
+          
       <a-row style="margin-top:20px">
             <a-col :span="4">
                  <a-input :disabled="true" placeholder="支付金额" style="width:70%"></a-input>
@@ -129,6 +141,9 @@ export default {
         min: 0,
         max: 10,
       },
+      ordersData:{
+
+      },
       marks: {
         0: '￥0',
         10000: {
@@ -155,11 +170,25 @@ export default {
       oSearch(){
           this.ordersSearch.flightdate1=this.flightdate1.format("YYYY-MM-DD HH:mm:ss")
           this.ordersSearch.flightdate2=this.flightdate2.format("YYYY-MM-DD HH:mm:ss")
-          this.ordersSearch.paytime1=this.paytime1.format("HH:mm:ss")
-          this.ordersSearch.paytime2=this.paytime2.format("HH:mm:ss")
+          this.ordersSearch.paytime1=this.paytime1==null?"":this.paytime1.format("YYYY-MM-DD HH:mm:ss")
+          this.ordersSearch.paytime2=this.paytime1==null?"":this.paytime2.format("YYYY-MM-DD HH:mm:ss")
           this.ordersSearch.paymoney1=this.priceRange[0]
           this.ordersSearch.paymoney2=this.priceRange[1]
-          OrdersNet.queryOrders(this.ordersSearch)
+          OrdersNet.queryOrders(this.ordersSearch,this.ordersSearchSuccess.bind(this),this.ordersSearchFailure.bind(this))
+      },
+      ordersSearchSuccess(data){
+          this.$message.success("搜索订单成功!!")
+          this.ordersData=data
+          let listData={
+              "paystatusList":this.paystatusList,
+              "cabinidList":this.cabinidList,
+              "typeList":this.typeList,
+              "flightidList":this.flightidList
+          }
+          this.$emit("ordersSearchData",this.ordersData,listData)
+      },
+      ordersSearchFailure(){
+          this.$message.error("搜索订单失败!!")
       }
   },
   created(){

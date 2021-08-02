@@ -230,7 +230,7 @@ export default {
       this.$message.success("登陆成功!! 5 后返回主页", 5, this.gohome);
       this.$store.commit("setLoginData",true,this.loginType)
       this.$store.commit("setLoginType",this.loginType)
-
+      sessionStorage.setItem('loginType',this.loginType)
     },
     loginFailure(reason) {
       this.loginData.code = "";

@@ -15,7 +15,7 @@
             <a-sub-menu :key="me.name" v-for="me in this.menudata">
               <span slot="title"
                 ><a-icon :type="me.icon" class="icon" /><span
-                  ><strong>{{ me.name }}</strong></span
+                  ><strong>{{ $t(me.display) }}</strong></span
                 ></span
               >
               <a-menu-item
@@ -23,7 +23,7 @@
                 v-for="mee in me.children"
                 @click="gotoDetail(me, mee)"
               >
-                {{ mee.name }}
+                {{ $t(mee.display) }}
               </a-menu-item>
             </a-sub-menu>
           </a-menu>
@@ -37,7 +37,7 @@
                 minHeight: '560px',
               }"
             >
-            <router-view></router-view>
+              <router-view></router-view>
             </div>
           </a-layout-content>
           <a-layout-footer class="layoutfooter">
@@ -56,13 +56,13 @@ export default {
   data() {
     return {
       collapsed: false,
-      menudata: this.$store.state.personalMenuList
+      menudata: this.$store.state.personalMenuList,
     };
   },
   methods: {
     gotoDetail(me, mee) {
-      console.log("/personal"+me.url+"/"+mee.name)
-      this.$router.push({path:"/personal"+me.url+mee.url})
+      // console.log("/personal"+me.url+"/"+mee.name)
+      this.$router.push({ path: "/personal" + me.url + mee.url });
       // this.$router.go(0)
     },
   },
@@ -70,8 +70,9 @@ export default {
     OtherTop,
     Footer,
   },
-  created(){
-  }
+  created() {},
+
+  
 };
 </script>
 <style scoped>

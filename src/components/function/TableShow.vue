@@ -70,7 +70,7 @@
                 v-for="it in this.listData.departureList"
                 :key="it"
                 :value="it"
-                >{{ it }}</a-select-option
+                >{{  it}}</a-select-option
               >
             </a-select>
           </a-input-group>
@@ -91,7 +91,7 @@
                 v-for="it in this.listData.destinationList"
                 :key="it"
                 :value="it"
-                >{{ it }}</a-select-option
+                >{{ it==""?"全部":it }}</a-select-option
               >
             </a-select>
           </a-input-group>
@@ -154,7 +154,7 @@
                 v-for="it in this.listData.modelList"
                 :key="it"
                 :value="it"
-                >{{ it }}</a-select-option
+                >{{  it }}</a-select-option
               ></a-select
             >
           </a-input-group>
@@ -171,7 +171,7 @@
                 v-for="it in this.listData.seatallList"
                 :key="it"
                 :value="it"
-                >{{ it }}</a-select-option
+                >{{  it }}</a-select-option
               >
             </a-select>
           </a-input-group>
@@ -188,7 +188,7 @@
                 v-for="it in this.listData.airlineList"
                 :key="it"
                 :value="it"
-                >{{ it }}</a-select-option
+                >{{  it}}</a-select-option
               >
             </a-select>
           </a-input-group>

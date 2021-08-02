@@ -12,6 +12,8 @@ import Pay from "../views/Pay"
 import AdminFlightService from "@/components/function/AdminFlightService"
 import DataVisable from "../components/datavisable/DataVisable"
 import AdminOrdersService from "@/components/AdminOrders/AdminOrdersService"
+import UserOrders from "@/components/userOrders/UserOrders"
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -33,18 +35,24 @@ const routes = [
       },
       {
         path:'adminflightservice',
-        name:'adminflightservice',
+        name:'AdminFlightService',
         component:AdminFlightService
       },
       {
         path:"adminordersservice",
-        name:"adminordersservice",
+        name:"AdminOrdersService",
         component:AdminOrdersService
       },
       {
         path:'datavisiable',
         name:'datavisiable',
         component:DataVisable
+      },
+      {
+        path:'userorders/:page',
+        name:'UserOrders',
+        component:UserOrders,
+        props:true
       },
       {
         path:'empty',
@@ -99,5 +107,12 @@ const router = new VueRouter({
   mode:"history"
 
 })
+
+//防止路由重入时报错
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 
 export default router

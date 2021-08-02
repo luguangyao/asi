@@ -2,12 +2,12 @@
   <div>
     <a-collapse defaultActiveKey="admin">
       <a-collapse-panel header="订单查询" :key="'admin'">
-        <AdminOrdersSearch/>
+        <AdminOrdersSearch @ordersSearchData="getOrdersData"/>
       </a-collapse-panel>
     </a-collapse>
     <a-collapse defaultActiveKey="admin">
       <a-collapse-panel header="查询数据" :key="'admin'">
-        <AdminOrdersTables/>
+        <AdminOrdersTables ref="showTable"/>
       </a-collapse-panel>
     </a-collapse>
   </div>
@@ -17,9 +17,25 @@ import AdminOrdersSearch from "@/components/AdminOrders/AdminOrdersSearch"
 import AdminOrdersTables from "@/components/AdminOrders/AdminOrdersTables"
 export default {
   name: "AdminOrdersService",
+  data(){
+    return{
+      ordersData:[],
+      listData:{}
+    }
+  },
   components:{
       AdminOrdersSearch,
       AdminOrdersTables
+  },
+  methods:{
+    getOrdersData(data,listData){
+      this.ordersData=data
+      this.listData=listData
+      this.setOrdersData()
+    },
+    setOrdersData(){
+      this.$refs.showTable.setOrdersData(this.ordersData,this.listData)
+    }
   }
 };
 </script>

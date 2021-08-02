@@ -21,7 +21,6 @@ export default {
     },
     setLoginData(s){
       this.$store.commit("setLoginData",s)
-
     },
     logout(){
       if(this.$store.state.loginData.loginType==1){
@@ -34,16 +33,18 @@ export default {
     logoutSuccess(){
       this.$message.info("登出成功")
       this.$router.history.go(0)
-    }
+    },
+    
   },
   created(){
-    if(this.$store.state.loginData.loginType==1){
-        LoginNet.userCheckLogin(this.setLoginData.bind(this))
-      }
-    else{
-        LoginNet.checkLogin(this.setLoginData.bind(this))
-      }
+        this.setLoginData(false)
+        if(sessionStorage.getItem("loginType")==1){
+          LoginNet.userCheckLogin(this.setLoginData.bind(this))
+        }else{
+          LoginNet.checkLogin(this.setLoginData.bind(this))
+        }
   }
+  
 };
 </script>
 <style scoped>

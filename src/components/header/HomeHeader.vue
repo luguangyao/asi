@@ -14,7 +14,6 @@
           <a-icon type="twitter" class="title-icon"></a-icon>
           <h1 class="title">{{$t('m.title')}}</h1>
       </template>
-      
     </a-page-header>
   </div>
 </template>
@@ -26,7 +25,7 @@ export default {
       return{
           title:"Air System",
           subTitle:"The most valuable Flight Network",
-          choices:['Message','Flight','Hotel','Personal','FAQ']
+          choices:['Message','Flight','Hotel','Personal','FAQ'],
       }
   },
   components:{

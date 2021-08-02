@@ -9,7 +9,7 @@ module.exports = {
         }
       },
       '/orders': {
-         target: 'http://127.0.0.1/order',
+         target: 'http://127.0.0.1/orders',
          changeOrigin: true,
          pathRewrite: {
            '^/orders': ''

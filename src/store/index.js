@@ -11,6 +11,7 @@ export default new Vuex.Store({
       isLogin:false,
       loginType:1
     },
+    userOrdersPage:"0",
     locationMessage:undefined,
     lang:"zh-CN",
     personalMenuList:[
@@ -19,51 +20,56 @@ export default new Vuex.Store({
         icon: "user",
         url:"/userInfo",
         urlname:"UserInfo",
-        display: ()=>this.$t("m.user"),
+        display: "m.user",
         children: [
           {
             name: "user message",
             url:"/user message",
-            display: () => this.$t("m.userMessage"),
+            display:"m.userMessage",
           },
           {
             name: "account message",
             url:"/account message",
-            display: () => this.$t("m.accountMessage"),
+            display: "m.accountMessage",
           },
           {
             name: "useful message",
             url:"/useful message",
-            display: () => this.$t("m.usefulMessage"),
+            display: "m.usefulMessage",
           },
         ],
       },
       {
         name: "orders message",
         icon: "shopping-cart",
-        url:"/userInfo",
+        url:"/UserOrders",
         urlname:"UserInfo",
-        display: () => this.$t("m.ordersMessage"),
+        display:"m.ordersMessage",
         children: [
           {
             name: "all orders",
-            url:"/useful message",
-            display: () => this.$t("m.allOrders"),
+            url:"/1",
+            display: "m.allOrders",
           },
           {
-            name: "waiting orders",
-            url:"/useful message",
-            display: () => this.$t("m.waitingOrders"),
+            name: "paid orders",
+            url:"/2",
+            display: "m.paidOrders",
           },
           {
             name: "unpaid orders",
-            url:"/useful message",
-            display: () => this.$t("m.unpaidOrders"),
+            url:"/3",
+            display: "m.unpaidOrders",
+          },
+          {
+            name: "comfirmed orders",
+            url:"/4",
+            display: "m.comfirmedOrders",
           },
           {
             name: "canceled orders",
-            url:"/useful message",
-            display: () => this.$t("m.canceledOrders"),
+            url:"/5",
+            display: "m.canceledOrders",
           },
         ],
       },
@@ -72,22 +78,22 @@ export default new Vuex.Store({
         icon: "dot-chart",
         url:"",
         urlname:"UserInfo",
-        display: () => this.$t("m.manager"),
+        display: "m.manager",
         children: [
           {
             name: "data graph",
             url:"/datavisiable",
-            display: () => this.$t("m.dataGraph"),
+            display:"m.dataGraph",
           },
           {
             name: "order service",
             url:"/AdminOrdersService",
-            display: () => this.$t("m.orderService"),
+            display:"m.orderService",
           },
           {
             name: "flight service",
             url:"/AdminFlightService",
-            display: () => this.$t("m.flightService"),
+            display: "m.flightService",
           },
         ],
       },
@@ -100,6 +106,9 @@ export default new Vuex.Store({
     setLoginType(state,loginType){
       state.loginData.loginType=loginType
     },
+    setUserOrdersPage(state,page){
+      state.userOrdersPage=page
+    },
     setLocation(state,locationMessage){
       state.locationMessage=locationMessage
     },
@@ -111,7 +120,6 @@ export default new Vuex.Store({
       this.gotoPay=st
     },
     checkGotoPay(){
-      console.log("checkGotoPay")
       return this.gotoPay
     }
   },

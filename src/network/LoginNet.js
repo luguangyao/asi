@@ -15,9 +15,6 @@ const LoginNet={
                 if(response.data==true){
                     success(true)
                 }
-                else{
-                    success(false)
-                }
             }
             return response
          })
@@ -185,9 +182,6 @@ const LoginNet={
             if(success!=undefined){
                 if(response.data==true){
                     success(true)
-                }
-                else{
-                    success(false)
                 }
             }
             return response
