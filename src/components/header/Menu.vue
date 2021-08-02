@@ -77,7 +77,7 @@ export default {
           name: "F&Q",
           display: () => this.$t("m.FAQ"),
           icon: "question-circle",
-          router: "/other/flight",
+          router: "/other/faq",
         },
       ],
     };

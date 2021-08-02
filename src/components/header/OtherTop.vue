@@ -49,7 +49,7 @@
           <a-icon type="global"></a-icon>{{$t("m.language")}}
         </a-menu-item>
         <a-menu-item>
-          <a-icon type="bank"></a-icon>{{$t('m.illustrate')}}
+          <router-link to="/other/faq"><a-icon type="bank"></a-icon>{{$t('m.illustrate')}}</router-link>
         </a-menu-item>
         <a-menu-item>
           <router-link to="/login">

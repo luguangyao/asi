@@ -20,7 +20,7 @@
         <a-button type="link"> {{ $t("m.privicy") }}</a-button>
         <a-button type="link"> {{ $t("m.investigate") }}</a-button>
         <a-button type="link"> {{ $t("m.opinion") }}</a-button>
-        <a-button type="link"> {{ $t("m.illustrate") }}</a-button>
+        <a-button type="link"><router-link to="/other/faq">{{ $t("m.illustrate") }}</router-link> </a-button>
       </a-space>
     </a-row>
     <a-row type="flex" justify="center" style="margin-top: 20px">

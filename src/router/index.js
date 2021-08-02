@@ -5,6 +5,7 @@ import Flight from '../views/Flight'
 import Hotel from "../views/Hotel"
 import FlightDetail from "../views/FlightDetail"
 import Personal from "../views/Personal"
+import FAQ from "../views/FAQ"
 import Login from "../views/Login"
 import UserInfo from "@/components/function/UserInfo"
 import Empty from "@/components/function/Empty"
@@ -91,6 +92,11 @@ const routes = [
         name: 'hotel',
         component: Hotel
       },
+      {
+        path:'faq',
+        name:"faq",
+        component:FAQ
+      }
     ]
   },
   {
@@ -98,6 +104,7 @@ const routes = [
     name:'pay',
     component:Pay,
   },
+
   {
     path:'/*',
     redirect:'home'
