@@ -32,6 +32,7 @@ export const m = {
   currencyWarrning:"系统显示的货币可能与购买机票时使用的货币不同",
   knowMore:"了解详情",
   copyright:"2021 所有权归招财狗航空所有",
+  support:"支持",
 
   user:"用户",
   userMessage:"用户信息",

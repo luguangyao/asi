@@ -32,6 +32,7 @@ export const m = {
     currencyWarrning:"Currency displayed by system may differ from that when you book ticket",
     knowMore:"knowMore",
     copyright:"2021 AirSystem All rights reserved",
+    support:"support",
 
     user:"user",
     userMessage:"message",

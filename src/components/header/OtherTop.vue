@@ -33,12 +33,15 @@
       <slot name="extraleft"></slot>
     </a-page-header>
     <a-drawer
-      :title="this.$t('m.title')"
+      
       placement="left"
       :closable="false"
       :visible="drawerVisible"
       @close="onDrawerClose"
     >
+      <template slot="title">
+        <a-divider style="margin:0px" orientation="left"><a-icon type="tags" />{{$t('m.title')}}</a-divider>
+      </template>
       <Menu :dtype="1" mode1="vertical"/>
       <a-divider></a-divider>
       <a-menu>
@@ -60,7 +63,7 @@
       <a-divider></a-divider>
         <a-menu>
           <a-menu-item @click="showSupport">
-            <a-icon type="like"></a-icon>赞助
+            <a-icon type="like"></a-icon>{{$t('m.support')}}
           </a-menu-item>
         </a-menu>
     </a-drawer>
