@@ -3,7 +3,7 @@
       <a-row>
           <a-col :span="7">
               <a-input-group>
-                  <a-input :disabled="true" placeholder="航班id" style="width:40%"></a-input>
+                  <a-input :disabled="true" :placeholder="$t('m.filghtid')" style="width:40%"></a-input>
                   <a-select style="width:60%" v-model="ordersSearch.flightid">
                       <a-select-option v-for="item in this.flightidList" :key="item" :value="item">{{item}}</a-select-option>
                   </a-select>
@@ -11,7 +11,7 @@
           </a-col>
           <a-col :span="7" :offset="1">
               <a-input-group>
-                  <a-input :disabled="true" placeholder="仓位类型" style="width:40%"></a-input>
+                  <a-input :disabled="true" :placeholder="$t('m.cabintype')" style="width:40%"></a-input>
                   <a-select style="width:60%" v-model="ordersSearch.cabinid">
                       <a-select-option v-for="item in this.cabinidList" :key="item.value" :value="item.value">{{item.text}}</a-select-option>
                   </a-select>
@@ -19,7 +19,7 @@
           </a-col>
           <a-col :span="7" :offset="1">
               <a-input-group>
-                  <a-input :disabled="true" placeholder="支付状态" style="width:40%"></a-input>
+                  <a-input :disabled="true" :placeholder="$t('m.paystatus')" style="width:40%"></a-input>
                   <a-select style="width:60%" v-model="ordersSearch.paystatus">
                       <a-select-option v-for="item in this.paystatusList" :key="item.value" :value="item.value">{{item.text}}</a-select-option>
                   </a-select>
@@ -29,13 +29,13 @@
       <a-row style="margin-top:20px">
           <a-col :span="7">
               <a-input-group>
-                  <a-input :disabled="true" placeholder="身份证id" style="width:40%"></a-input>
+                  <a-input :disabled="true" :placeholder="$t('m.idcard')" style="width:40%"></a-input>
                   <a-input placeholder="填入身份证" style="width:60%"></a-input>
               </a-input-group>
           </a-col>
           <a-col :span="7" :offset="1">
               <a-input-group>
-                  <a-input :disabled="true" placeholder="机票类型" style="width:40%"></a-input>
+                  <a-input :disabled="true" :placeholder="$t('m.flighttype')" style="width:40%"></a-input>
                   <a-select style="width:60%" v-model="ordersSearch.type">
                       <a-select-option v-for="item in this.typeList" :key="item.value" :value="item.value">{{item.text}}</a-select-option>
                   </a-select>
@@ -43,7 +43,7 @@
           </a-col>
           <a-col :span="7" :offset="1">
               <a-input-group>
-                  <a-input :disabled="true" placeholder="分页" style="width:40%"></a-input>
+                  <a-input :disabled="true"  :placeholder="$t('m.pagerange')" style="width:40%"></a-input>
                   <a-input-number :min="pageMin" :max="pageMax" v-model="ordersSearch.min" style="width:30%" @change="checkPage"></a-input-number>
                   <a-input-number :min="pageMin" :max="pageMax" v-model="ordersSearch.max" style="width:30%" @change="checkPage"></a-input-number>
               </a-input-group>
@@ -51,12 +51,12 @@
       </a-row>
       <a-row style="margin-top:20px">
         <a-col :span="7" >
-                  <a-input :disabled="true" placeholder="起飞始时" style="width:25%"></a-input>
+                  <a-input :disabled="true" :placeholder="$t('m.flightstarttime')" style="width:25%"></a-input>
                   <a-date-picker style="width:37.5%" v-model="flightdate1"></a-date-picker>
                   <a-time-picker style="width:37.5%" v-model="flightdate1"></a-time-picker>
           </a-col>
           <a-col :span="7" :offset=1>
-                  <a-input :disabled="true" placeholder="起飞终时" style="width:25%"></a-input>
+                  <a-input :disabled="true" :placeholder="$t('m.flightendtime')" style="width:25%"></a-input>
                   <a-date-picker style="width:37.5%" v-model="flightdate2"></a-date-picker>
                   <a-time-picker style="width:37.5%" v-model="flightdate2"></a-time-picker>
           </a-col>
@@ -64,30 +64,30 @@
       </a-row>
         <a-row style="margin-top:20px">
             <a-col :span="7" >
-                  <a-input :disabled="true" placeholder="支付始间" style="width:25%"></a-input>
+                  <a-input :disabled="true" :placeholder="$t('m.paystarttime')" style="width:25%"></a-input>
                   <a-date-picker style="width:37.5%" v-model="paytime1"></a-date-picker>
                   <a-time-picker style="width:37.5%" v-model="paytime1"></a-time-picker>
           </a-col>
           <a-col :span="7" :offset="1">
-                  <a-input :disabled="true" placeholder="支付终间" style="width:25%"></a-input>
+                  <a-input :disabled="true" :placeholder="$t('m.payendtime')" style="width:25%"></a-input>
                   <a-date-picker style="width:37.5%" v-model="paytime2"></a-date-picker>
                   <a-time-picker style="width:37.5%" v-model="paytime2"></a-time-picker>
           </a-col>
           <a-col :span="7" :offset=1>
-                  <a-input :disabled="true" placeholder="支付时间可以设置为空" ></a-input>
+                  <a-input :disabled="true" :placeholder="$t('m.paytimewarning')" ></a-input>
           </a-col>
         </a-row>
           
       <a-row style="margin-top:20px">
             <a-col :span="4">
-                 <a-input :disabled="true" placeholder="支付金额" style="width:70%"></a-input>
+                 <a-input :disabled="true" :placeholder="$t('m.payrange')" style="width:70%"></a-input>
             </a-col>
             <a-col :span="19">
                  <a-slider :marks="marks" :included="false" v-model="priceRange" :min="priceMin" :max="priceMax" range />
             </a-col>
       </a-row>
       <a-row>
-          <a-button @click="oSearch" block><strong>搜索</strong></a-button>
+          <a-button @click="oSearch" block><strong>{{this.$t('m.search')}}</strong></a-button>
       </a-row>
   </div>
 </template>

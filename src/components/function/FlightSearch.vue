@@ -84,7 +84,7 @@
           <a-input-group compact>
             <a-input
               style="width: 40%"
-              default-value="航班ID"
+              :placeholder="$t('m.filghtid')"
               :disabled="true"
               :bordered="false"
             />
@@ -102,7 +102,7 @@
           <a-input-group compact>
             <a-input
               style="width: 40%"
-              default-value="航班公司"
+              :placeholder="$t('m.flightcompany')"
               :disabled="true"
               :bordered="false"
             />
@@ -120,7 +120,7 @@
           <a-input-group compact>
             <a-input
               style="width: 40%"
-              default-value="机型"
+              :placeholder="$t('m.model')"
               :disabled="true"
               :bordered="false"
               :allowClear="true"
@@ -138,7 +138,7 @@
         <a-col :span="5" :offset="1">
           <a-input-group compact class="btn-group">
             <a-input
-              placeholder="总座位"
+              :placeholder="$t('m.seat')"
               :disabled="true"
               style="width: 40%"
             ></a-input>
@@ -157,7 +157,7 @@
         <a-col :span="5">
           <a-input-group compact>
             <a-input
-              placeholder="出发地在"
+              :placeholder="$t('m.departure')"
               :disabled="true"
               style="width: 40%"
             ></a-input>
@@ -174,7 +174,7 @@
         <a-col :span="5" :offset="1">
           <a-input-group compact>
             <a-input
-              placeholder="目的地在"
+              :placeholder="$t('m.destination')"
               :disabled="true"
               style="width: 40%"
             ></a-input>
@@ -192,7 +192,7 @@
         <a-col :span="11" :offset="1">
           <a-input-group compact class="btn-group">
             <a-input
-              placeholder="航班运行时间"
+              :placeholder="$t('m.flightruntime')"
               style="width: 30%"
               :disabled="true"
             ></a-input>
@@ -200,7 +200,7 @@
               v-model="distime"
               :value="distime"
               style="width: 70%"
-              :placeholder="['航班开始停运日期', '航班结束停运日期']"
+              :placeholder="[$t('m.flgihtstartstoptime'), $t('m.flgihtendstoptime')]"
             >
               <template slot="renderExtraFooter"> 请选择日期 </template>
               <a-icon slot="suffixIcon" type="calendar" />
@@ -212,7 +212,7 @@
         <a-col :span="5">
           <a-input-group compact class="btn-group">
             <a-input
-              placeholder="起飞"
+              :placeholder="$t('m.start')"
               style="width: 25%"
               :disabled="true"
             ></a-input>
@@ -233,7 +233,7 @@
         <a-col :span="5" :offset="1">
           <a-input-group compact class="btn-group">
             <a-input
-              placeholder="降落"
+              :placeholder="$t('m.land')"
               style="width: 25%"
               :disabled="true"
             ></a-input>
@@ -252,7 +252,7 @@
         <a-col :span="5" :offset="1">
           <a-input-group compact class="btn-group">
             <a-input
-              placeholder="查询时间"
+              :placeholder="$t('m.searchtime')"
               style="width: 40%"
               :disabled="true"
             ></a-input>
@@ -262,7 +262,7 @@
         <a-col :span="5" :offset="1">
           <a-input-group compact class="btn-group">
             <a-input
-              placeholder="分页"
+              :placeholder="$t('m.pagerange')"
               :disabled="true"
               style="width: 30%"
             ></a-input>
@@ -287,7 +287,7 @@
         <a-col :span="2">
           <a-input
             :disable="true"
-            placeholder="价格区间"
+            :placeholder="$t('m.payrange')"
             :disabled="true"
           ></a-input>
         </a-col>

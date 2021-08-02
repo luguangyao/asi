@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-collapse defaultActiveKey="admin">
-      <a-collapse-panel header="航班查询" :key="'admin'">
+      <a-collapse-panel :header="$t('m.flightSeach')" :key="'admin'">
         <FlightSearch
           displayType="admin"
           @getFlightSearchData="getFlightSearchData"
@@ -9,7 +9,7 @@
       </a-collapse-panel>
     </a-collapse>
     <a-collapse defaultActiveKey="admin" >
-      <a-collapse-panel header="数据报表" :key="'admin'">
+      <a-collapse-panel :header="$t('m.searchResult')" :key="'admin'">
         <TableShow  ref="table" />
       </a-collapse-panel>
     </a-collapse>

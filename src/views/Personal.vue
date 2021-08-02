@@ -10,7 +10,7 @@
           <a-menu
             :default-selected-keys="['1']"
             mode="inline"
-            :default-open-keys="['user', 'orders message']"
+           
           >
             <a-sub-menu :key="me.name" v-for="me in this.menudata">
               <span slot="title"

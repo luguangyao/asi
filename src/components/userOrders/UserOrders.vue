@@ -4,34 +4,35 @@
       <a-tab-pane key="1" :forceRender="true" >
         <span slot="tab">
           <a-icon type="snippets" />
-          全部订单
+          {{$t('m.allOrders')}}
         </span>
           <UserOrdersTable ref="allOrders" />
       </a-tab-pane>
       <a-tab-pane key="2" :forceRender="true" >
         <span slot="tab">
           <a-icon type="check" />
-          已支付
+            {{$t('m.paidOrders')}}
         </span>
         <UserOrdersTable ref="paidOrders" />
       </a-tab-pane>
       <a-tab-pane key="3" :forceRender="true">
         <span slot="tab"  >
-          <a-icon type="clock-circle" />待支付
+          <a-icon type="clock-circle" />
+          {{$t('m.unpaidOrders')}}
         </span >
           <UserOrdersTable ref="unpaidOrders"  />
       </a-tab-pane>
       <a-tab-pane key="4" :forceRender="true">
         <span slot="tab">
           <a-icon type="issues-close" />
-          待确认
+          {{$t('m.comfirmedOrders')}}
         </span>
           <UserOrdersTable ref="comfirmedOrders"  />
       </a-tab-pane>
       <a-tab-pane key="5" :forceRender="true">
         <span slot="tab">
           <a-icon type="close" />
-          已取消
+          {{$t('m.canceledOrders')}}
         </span>
           <UserOrdersTable ref="canceledOrders" />
       </a-tab-pane>
@@ -115,10 +116,10 @@ export default {
             break;
         }
       })
-      this.$refs.allOrders.setData(this.allOrders,this.originOrders)
+      this.$refs.allOrders.setData(this.allOrders,this.originOrders,{pay:true,cancel:true,comfirm:true})
       this.$refs.paidOrders.setData(this.paidOrders,this.originOrders,{comfirm:true})
       this.$refs.unpaidOrders.setData(this.unpaidOrders,this.originOrders,{pay:true,cancel:true})
-      this.$refs.comfirmedOrders.setData(this.comfirmedOrders,this.originOrders)
+      this.$refs.comfirmedOrders.setData(this.comfirmedOrders,this.originOrders,{comfirm:true})
       this.$refs.canceledOrders.setData(this.canceledOrders,this.originOrders)
     },
     setPayStatus(d){

@@ -16,6 +16,8 @@ import UserOrders from "@/components/userOrders/UserOrders"
 
 Vue.use(VueRouter)
 
+import { message } from 'ant-design-vue'
+
 const routes = [
   {
     path: '/home',
@@ -107,6 +109,18 @@ const router = new VueRouter({
   mode:"history"
 
 })
+router.beforeEach((to, from, next) => {
+  if(to.name=="hotel"){
+    message.error("酒店功能正在开发!!")
+    return
+  }
+  // if(to.path.match(/^\/personal.*/)!=null&&sessionStorage.getItem("isLogin")!="true"){
+  //   message.error("登录后才能进入个人页面!!")
+  //   return
+  // }
+  next()
+})
+
 
 //防止路由重入时报错
 const originalPush = VueRouter.prototype.push

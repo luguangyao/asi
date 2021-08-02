@@ -1,12 +1,12 @@
 <template>
   <div>
     <a-collapse defaultActiveKey="admin">
-      <a-collapse-panel header="订单查询" :key="'admin'">
+      <a-collapse-panel :header="$t('m.orderSeach')" :key="'admin'">
         <AdminOrdersSearch @ordersSearchData="getOrdersData"/>
       </a-collapse-panel>
     </a-collapse>
     <a-collapse defaultActiveKey="admin">
-      <a-collapse-panel header="查询数据" :key="'admin'">
+      <a-collapse-panel :header="$t('m.searchResult')" :key="'admin'">
         <AdminOrdersTables ref="showTable"/>
       </a-collapse-panel>
     </a-collapse>

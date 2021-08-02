@@ -26,6 +26,7 @@
       </template>
       <template slot="extra">
         <div class="extracontent">
+          <Timer/>
           <LoginRegister />
         </div>
       </template>
@@ -41,15 +42,15 @@
       <Menu :dtype="1" mode1="vertical"/>
       <a-divider></a-divider>
       <a-menu>
-        <a-menu-item>
-          <a-icon type="global"></a-icon>语言
+        <a-menu-item @click="setLanguage">
+          <a-icon type="global"></a-icon>{{$t("m.language")}}
         </a-menu-item>
         <a-menu-item>
           <a-icon type="bank"></a-icon>{{$t('m.illustrate')}}
         </a-menu-item>
         <a-menu-item>
           <router-link to="/login">
-            <a-icon type="login"></a-icon>登录
+            <a-icon type="login"></a-icon>{{$t('m.login')}}
           </router-link>
         </a-menu-item>
         <a-menu-item>
@@ -66,11 +67,16 @@
     <a-modal v-model="supportVisible" :footer="null">
       <img src="~@/common/images/support.png" alt="" style="width: 100%">
     </a-modal>
+    <a-modal v-model="languageVisible" :footer="null" >
+      <Language/>
+    </a-modal>
   </div>
 </template>
 <script>
 import LoginRegister from "@/components/function/LoginRegister.vue";
+import Language from "@/components/function/Language"
 import Menu from "@/components/header/Menu"
+import Timer from "@/components/function/Timer";
 export default {
   name: "OtherTop",
   props: {
@@ -82,12 +88,15 @@ export default {
   data(){
     return{
       drawerVisible:false,
-      supportVisible:false
+      supportVisible:false,
+      languageVisible:false,
     }
   },
   components: {
     LoginRegister,
-    Menu
+    Menu,
+    Language,
+    Timer
   },
   methods: {
     back() {
@@ -104,6 +113,9 @@ export default {
     },
     showSupport(){
       this.supportVisible=!this.supportVisible
+    },
+    setLanguage(){
+      this.languageVisible=true
     }
   },
 };

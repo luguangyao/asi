@@ -10,9 +10,9 @@
       <template slot="operation" slot-scope="text, record" 
         >
         <a-space>
-          <a-button type="primary" icon="alipay"  shape="circle" v-if="operation.pay" @click="payOrder(record)"></a-button>
-          <a-button type="primary" icon="form" shape="circle" v-if="operation.comfirm" ></a-button>
-          <a-button type="danger" icon="close" shape="circle" v-if="operation.cancel" @click="deleteOrder(record)"></a-button>
+          <a-button type="primary" icon="alipay"  shape="circle" v-if="operation.pay&&record.paystatus=='未支付'" @click="payOrder(record)"></a-button>
+          <a-button type="primary" icon="form" shape="circle" v-if="operation.comfirm&&(record.paystatus=='重新确认')" ></a-button>
+          <a-button type="danger" icon="close" shape="circle" v-if="operation.cancel&&record.paystatus!='已取消'&&record.paystatus!='已支付'" @click="deleteOrder(record)"></a-button>
         </a-space>
       </template>
     </a-table>

@@ -2,11 +2,11 @@
   <div>
     <a-button-group v-if="!$store.state.loginData.isLogin">
       <a-button size="small" @click="gotoLogin" ><a-icon type="fullscreen-exit"/>{{$t('m.login')}}</a-button>
-      <a-button size="small" @click="gotoLogin"> 注册 <a-icon type="fullscreen"/></a-button>
+      <a-button size="small" @click="gotoLogin"> {{$t('m.regist')}} <a-icon type="fullscreen"/></a-button>
     </a-button-group>
     <a-button-group v-if="$store.state.loginData.isLogin">
       <a-button size="small" @click="logout" type="primary" ghost ><a-icon type="fullscreen-exit"/>{{$t('m.logout')}}</a-button>
-      <a-button size="small" type="primary"> 欢迎 <a-icon type="user"/></a-button>
+      <a-button size="small" type="primary"> {{$t('m.welcome')}} <a-icon type="user"/></a-button>
     </a-button-group>
   </div>
 </template>
@@ -21,6 +21,7 @@ export default {
     },
     setLoginData(s){
       this.$store.commit("setLoginData",s)
+      sessionStorage.setItem("isLogin",s)
     },
     logout(){
       if(this.$store.state.loginData.loginType==1){

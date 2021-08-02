@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <a-switch checked-children="zh" un-checked-children="en" :checked="checked" size="default" @change="switchLanguage"/>
+        <a-button @click="switchLanguage">{{this.$i18n.locale}}</a-button>
     </div>
 </template>
 
@@ -9,7 +9,6 @@ export default{
     name:"Language",
     data(){
         return{
-            checked:true
         }
     },
  
@@ -18,12 +17,12 @@ export default{
             this.$message.loading(this.$t('m.langSetting'), 1)
             .then(()=>{
                 this.$store.commit("switchLanguage",this)
-                this.checked=!this.checked
                 this.$message.success(this.$t('m.langSetted'), 2.5)
+                this.checked==this.$i18n.locale=='zh-CN'?true:false
             })
-             
         }
-    }
+    },
+    
 }
 </script>
 <style  scoped>

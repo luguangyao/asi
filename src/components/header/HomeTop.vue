@@ -8,6 +8,7 @@
       </a-col>
       <a-col :span="16">
         <div class="right">
+          <Timer/>
           <Location />
           <LoginRegister />
         </div>
@@ -19,6 +20,7 @@
 import Language from "@/components/function/Language";
 import Location from "@/components/function/Location";
 import LoginRegister from "@/components/function/LoginRegister";
+import Timer from "@/components/function/Timer";
 
 export default {
   name: "HomeTop",
@@ -26,6 +28,7 @@ export default {
     Language,
     Location,
     LoginRegister,
+    Timer
   },
 };
 </script>

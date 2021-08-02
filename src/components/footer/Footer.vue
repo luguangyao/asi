@@ -2,7 +2,7 @@
   <div class="wrapper">
     <a-row type="flex" justify="center">
       <a-space :size="25">
-        <a-button type="primary" ghost
+        <a-button type="primary" ghost @click="switchLanguage"
           ><a-icon type="global"></a-icon> {{ $t("m.language") }}</a-button
         >
         <a-button type="primary" ghost
@@ -70,6 +70,14 @@ export default {
     toGithub() {
       window.open("https://github.com/luguangyao/asi", "_blank"); // 在新窗口打开外链接
     },
+    switchLanguage(){
+            this.$message.loading(this.$t('m.langSetting'), 1)
+            .then(()=>{
+                this.$store.commit("switchLanguage",this)
+                this.$message.success(this.$t('m.langSetted'), 2.5)
+                this.checked==this.$i18n.locale=='zh-CN'?true:false
+            })
+        }
   },
 };
 </script>
