@@ -6,8 +6,8 @@
       </div>
       <a-divider type="vertical" style="height:80%;width:2px" />
       <div>
-             <h1>生效中的旅游警示</h1>
-             <h4>政府已针对COVID-19发出旅游警告</h4>
+             <h1>{{$t('m.warningTitle')}}</h1>
+             <h4>{{$t('m.warningTitleSub')}}</h4>
       </div>
       </div>
   </div>

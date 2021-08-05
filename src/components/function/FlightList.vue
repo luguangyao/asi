@@ -7,8 +7,8 @@
     <div v-else>
     <a-card :bordered="false" >
       <div slot="title" style="padding: 0px; maring: 0px" class="title">
-        <h4><strong>最佳去程航班</strong></h4>
-        <h6 style="color: grey">一人乘坐票价,包含关税</h6>
+        <h4><strong>{{$t('m.bestFlight')}}</strong></h4>
+        <h6 style="color: grey">{{$t('m.bestFlightSub')}}</h6>
       </div>
       <a-dropdown slot="extra">
         <a-menu slot="overlay" >
@@ -33,11 +33,11 @@
                   <h6>{{item[0].airline}}</h6>
                 </div>
                 <div style="width:140px">
-                  <h6>总耗时: <a-icon type="clock-circle" /> {{getTimedel(item[0].dtime,item[item.length-1].atime)}}</h6>
-                  <h5>总价格: <a-icon type="money-collect" /> {{getPrice(item)}} </h5>
+                  <h6>{{$t('m.totaltime')}}: <a-icon type="clock-circle" /> {{getTimedel(item[0].dtime,item[item.length-1].atime)}}</h6>
+                  <h5>{{$t('m.totalprice')}}: <a-icon type="money-collect" /> {{getPrice(item)}} </h5>
                 </div>
                 <div >
-                  <h2>{{item.length>1?'非直达':'直达'}}</h2>
+                  <h2>{{item.length==1?$t('m.direct'):$t('m.nonDirect')}}</h2>
                 </div>
               </div>
             </template>
@@ -49,10 +49,10 @@
                   <a-timeline-item v-for="it,index in item" :key="index" style="padding:0px" >
                     <a-icon slot="dot" type="history" style="font-size: 16px;" />
                     <div >
-                      <h4><strong>{{it.departure}}————{{it.dtime}} </strong></h4>
-                      <h6> 耗时: <a-icon type="clock-circle" /> {{getTimedel(it.dtime,it.atime)}}  
+                      <h4><strong>{{it.departure}}————{{it.airline}} {{it.dtime}} </strong></h4>
+                      <h6> {{$t('m.time')}}: <a-icon type="clock-circle" /> {{getTimedel(it.dtime,it.atime)}}  
                           <a-icon type="ant-design" /> {{it.airline}}</h6>
-                      <h6> 价格: <a-icon type="money-collect" /> ￥{{it.price}}</h6>
+                      <h6> {{$t('m.price')}}: <a-icon type="money-collect" /> ￥{{it.price}}</h6>
                     </div>
                   </a-timeline-item>
                   <a-timeline-item style="padding-bottom:0px">
@@ -62,7 +62,7 @@
                     </div>
                   </a-timeline-item>
                 </a-timeline>
-                  <h4 style="display:inline; color:grey">航班id号 : </h4>
+                  <h4 style="display:inline; color:grey">{{$t('m.filghtid')}} : </h4>
                   <h5 style="display:inline; color:grey"  v-for="it,index in item" :key="index" ><a-icon type="star" />{{it.flightid}} , </h5>
                 </div>
               </a-card-grid >

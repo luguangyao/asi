@@ -76,7 +76,7 @@
                 <a-col :span="7" :offset="1">
                     <h4> &nbsp;</h4>
                     <a-input-group>
-                        <strong>{{$t('m.flighttime')}} </strong>
+                        <strong>{{$t('m.flightarrivetime')}} </strong>
                         <a-time-picker v-model="atime1"></a-time-picker>
                         <a-time-picker v-model="atime2"></a-time-picker>
                      </a-input-group>
@@ -129,7 +129,7 @@ export default{
             dtime2:moment('23:59:59','hh:mm:ss'),
             atime1:moment('00:00:00','hh:mm:ss'),
             atime2:moment('23:59:59','hh:mm:ss'),
-            price:[3000,7000],
+            price:[0,7000],
             pricemin:0,
             pricemax:10000,
             marks: {

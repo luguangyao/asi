@@ -36,12 +36,18 @@ export const m = {
     buyTicket:"buy ticket",
     orderComfirm:"order comfirm",
     totaltime:"total time",
+    totalprice:"total price",
+    time:"time",
+    direct:"Direct",
+    nonDirect:"Non Direct",
     checkInfo:"Check info",
     checkrelativeInfo:"check relative info",
     order:"Order",
     chooseOrder:"choose Order",
     finish:"Finish",
     finishPay:"finish Pay",
+    warningTitle:"Tourism warning in force",
+    warningTitleSub:"The government has issued a travel warning against covid-19",
 
     user:"user",
     userMessage:"message",
@@ -93,6 +99,9 @@ export const m = {
     sales:"sales",
     price:"price",
     recommend:"recommend",
+    bestFlight:"Best flight to destination",
+    bestFlightSub:"One person fare, including tariff",
+
 
     all:"all",
     

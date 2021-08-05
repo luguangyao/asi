@@ -36,12 +36,18 @@ export const m = {
   buyTicket:"前往订票",
   orderComfirm:"订单确认",
   totaltime:"总耗时",
+  totalprice:"总价格",
+  time:"时间",
+  direct:"直达",
+  nonDirect:"非直达",
   checkInfo:"检查信息",
   checkrelativeInfo:"检查相关信息",
   order:"下单",
   chooseOrder:"请选择下单",
   finish:"完了",
   finishPay:"进行支付活动",
+  warningTitle:"生效中的旅游警示",
+  warningTitleSub:"政府已针对COVID-19发出旅游警告",
   
 
   user:"用户",
@@ -94,6 +100,8 @@ export const m = {
   sales:"销量",
   price:"价格",
   recommend:"推荐程度",
+  bestFlight:"最佳去程航班",
+  bestFlightSub:"一人乘坐票价,包含关税",
 
   all:"全部",
 
