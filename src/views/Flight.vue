@@ -1,19 +1,19 @@
 <template>
     <div class="wrapper">
-        <FlightSearch/>
+        <PlaneSearch :showdetail="true"/>
         <Warning/>
         <Destination/>
     </div>
 </template>
 <script>
-import FlightSearch from "@/components/function/FlightSearch"
+import PlaneSearch from "@/components/plane/PlaneSearch"
 import Warning from "@/components/function/Warning"
 import Destination from "@/components/display/Destination"
 
 export default {
     name:"Flight",
     components:{
-        FlightSearch,
+        PlaneSearch,
         Warning,
         Destination
     }

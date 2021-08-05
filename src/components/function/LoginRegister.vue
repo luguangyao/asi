@@ -24,12 +24,9 @@ export default {
       sessionStorage.setItem("isLogin",s)
     },
     logout(){
-      if(this.$store.state.loginData.loginType==1){
         LoginNet.userLogout(this.logoutSuccess.bind(this))
-      }
-      else{
         LoginNet.logout(this.logoutSuccess.bind(this))
-      }
+        this.setLoginData(false)
     },
     logoutSuccess(){
       this.$message.info("登出成功")
@@ -39,11 +36,8 @@ export default {
   },
   created(){
         this.setLoginData(false)
-        if(sessionStorage.getItem("loginType")==1){
           LoginNet.userCheckLogin(this.setLoginData.bind(this))
-        }else{
           LoginNet.checkLogin(this.setLoginData.bind(this))
-        }
   }
   
 };

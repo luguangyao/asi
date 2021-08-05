@@ -13,6 +13,7 @@ const LoginNet={
         .then(function (response) {
             if(success!=undefined){
                 if(response.data==true){
+                    console.log(response)
                     success(true)
                 }
             }
@@ -193,7 +194,6 @@ const LoginNet={
     userLogout(success){
         user.get('/loginOut')
         .then(function (response) {
-            localStorage.removeItem("account");
             if(success!=undefined){
                 success()
             }

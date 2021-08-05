@@ -33,6 +33,15 @@ export const m = {
     knowMore:"knowMore",
     copyright:"2021 AirSystem All rights reserved",
     support:"support",
+    buyTicket:"buy ticket",
+    orderComfirm:"order comfirm",
+    totaltime:"total time",
+    checkInfo:"Check info",
+    checkrelativeInfo:"check relative info",
+    order:"Order",
+    chooseOrder:"choose Order",
+    finish:"Finish",
+    finishPay:"finish Pay",
 
     user:"user",
     userMessage:"message",
@@ -53,11 +62,15 @@ export const m = {
     flightSeach:"flightSeach",
     searchResult:"searchResult",
     filghtid:"flight id",
+    orderid:"order id",
     idcard:"id card",
     flighttype:"flight type",
     cabintype:"cabin type",
     flightstarttime:"flight start time",
     flightendtime:"flight end time",
+    flighttime:"flight time",
+    flightarrivetime:"flight arrive time",
+    flightdeparturetime:"flight departure time",
     paystatus:"pay status",
     paytime:"pay time",
     pagerange:"page range",
@@ -68,6 +81,7 @@ export const m = {
     flightcompany:"flight company",
     model:"model",
     seat:"seat",
+    seatid:"seat id",
     departure:"departure",
     destination:"destination",
     flightruntime:"flight run time",
@@ -76,5 +90,20 @@ export const m = {
     searchtime:"searchtime",
     flgihtstartstoptime:"flgiht start stop time",
     flgihtendstoptime:"flgiht end stop time",
+    sales:"sales",
+    price:"price",
+    recommend:"recommend",
+
+    all:"all",
+    
+    noFlightChange:"no flight change",
+    flightChangeAtMostOne:"flight change at most one",
+    flightChangeAtMostTwo:"flight change at most two",
+    moreFlightSearchSelection:"more flight search selection , navigate to flight page",
+
+
+    sortbyprice:"sort by price",
+    sortbytransfertimes:"sort by transfer times",
+    sortbytime:"sort by time"
 
  }

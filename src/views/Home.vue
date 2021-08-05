@@ -9,7 +9,7 @@
         <MyCarousel class="myCarousel"></MyCarousel>
       </div>
       <div class="search">
-        <FlightSearch></FlightSearch>
+        <PlaneSearch></PlaneSearch>
       </div>
     </div>
     
@@ -28,7 +28,7 @@
 import IndexTop from "@/components/header/HomeTop.vue";
 import IndexHeader from "@/components/header/HomeHeader";
 import MyCarousel from "@/components/carousel/MyCarousel";
-import FlightSearch from "@/components/function/FlightSearch";
+import PlaneSearch from "@/components/plane/PlaneSearch";
 import Warning from "@/components/function/Warning";
 import Destination from "@/components/display/Destination";
 import Footer from "@/components/footer/Footer"
@@ -40,7 +40,7 @@ export default {
     IndexTop,
     IndexHeader,
     MyCarousel,
-    FlightSearch,
+    PlaneSearch,
     Warning,
     Destination,
     Footer

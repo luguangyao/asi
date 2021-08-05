@@ -1,7 +1,7 @@
 import axios from "axios"
 const orders=axios.create({
     baseURL: '/orders',
-    timeout:1000
+    timeout:10000
 })
 export default{
     showorder(success,failure){

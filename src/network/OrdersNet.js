@@ -19,13 +19,40 @@ export default{
             failure()
         });
     },
+    addorder(data,success,failure){
+        let keys=Object.keys(data)
+        let formdata=new FormData()
+        for(let i=0;i<keys.length;i++){
+            formdata.append(keys[i],data[keys[i]])
+        }
+        admin.post("/addorder",formdata)
+        .then(function (response) {
+            console.log(response)
+            success(response.data)
+        })
+        .catch(function (error) {
+            console.log(error);
+            failure()
+        });
+    },
     refundOrders(data,success,failure){
         let formdata=new FormData()
         formdata.append("id",data.orderid)
         formdata.append("date",data.flightdate)
         admin.post("/refundOrders",formdata)
         .then(function(response) {
-            console.log(response)
+            success(response.data)
+        })
+        .catch(function(error) {
+            console.log(error)
+            failure(error)
+        })
+    },
+    delOrders(data,success,failure){
+        let formdata=new FormData()
+        formdata.append("id",data.orderid)
+        admin.post("/delorder",formdata)
+        .then(function(response) {
             success(response.data)
         })
         .catch(function(error) {

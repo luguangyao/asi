@@ -1,5 +1,6 @@
 import { Button,PageHeader,Descriptions,Menu,Icon,Switch,Statistic ,Row ,Col ,Carousel,message,FormModel,Input,Select,DatePicker,Tooltip,
-    Layout,Divider,Card,Space,Slider,Dropdown,Collapse,Timeline,Steps,Result,Tabs,Drawer,Empty,Upload,Modal,TimePicker,InputNumber,Table,Radio
+    Layout,Divider,Card,Space,Slider,Dropdown,Collapse,Timeline,Steps,Result,Tabs,Drawer,Empty,Upload,Modal,TimePicker,InputNumber,Table,
+    Radio,Rate,Badge
 } from 'ant-design-vue';
     
 import Vue from 'vue'
@@ -61,6 +62,8 @@ export default function () {
     Vue.component(Radio.name,Radio)
     Vue.component(Radio.Button.name,Radio.Button)
     Vue.component(Radio.Group.name,Radio.Group)
+    Vue.component(Rate.name,Rate)
+    Vue.component(Badge.name,Badge)
     Vue.prototype.$message = message;
     Vue.use(Modal)
 }

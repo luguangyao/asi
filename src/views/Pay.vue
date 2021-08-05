@@ -4,16 +4,16 @@
       <template slot="extraleft">
         <a-steps :current=currstep>
           <a-step>
-            <template slot="title"> 填写信息 </template>
-            <span slot="description"> 填写相关信息</span>
+            <template slot="title"> {{$t('m.checkInfo')}} </template>
+            <span slot="description"> {{$t('m.checkrelativeInfo')}} </span>
           </a-step>
           <a-step>
-            <template slot="title"> 支付 </template>
-            <span slot="description"> 请选择支付</span>
+            <template slot="title"> {{$t('m.order')}}  </template>
+            <span slot="description"> {{$t('m.chooseOrder')}} </span>
           </a-step>
           <a-step>
-            <template slot="title"> 完了 </template>
-            <span slot="description"> 付款成功</span>
+            <template slot="title"> {{$t('m.finish')}}  </template>
+            <span slot="description"> {{$t('m.finishPay')}} </span>
           </a-step>
         </a-steps>
       </template>
@@ -21,8 +21,22 @@
     <div class="main">
       <div class="menuwrapper"><Menu :dtype="2" class="menu" /></div>
       <div class="maincontent">
-          <PayMethod v-show="this.currstep==1"/>
-          <PayFinish v-show="this.currstep==2"/>
+        <a-card>
+          <div>
+            <PayCheck :data="data" v-show="this.currstep==0"/>
+            <PayMethod :data="data" v-show="this.currstep==1"/>
+            <PayFinish v-show="this.currstep==2"/>
+          </div>
+          <div class="stepcontroll">
+            <a-space>
+               <a-button size="large" type="primary" @click="()=>{this.currstep=1}" v-show="currstep==0">下一步</a-button>
+              <a-button size="large" type="primary" @click="()=>{this.currstep=0}" v-show="currstep==1">上一步</a-button>
+              <a-button size="large" type="primary" @click="()=>{this.currstep=2}" v-show="currstep==1">前往支付</a-button>
+              <a-button size="large" type="primary" @click="()=>{this.currstep=1}" v-show="currstep==2">返回确认订单</a-button>
+            </a-space>
+          </div>
+        </a-card>
+          
       </div>
     </div>
     <Footer :iconvisable="false"/>
@@ -32,23 +46,29 @@
 import OtherTop from "@/components/header/OtherTop";
 import Footer from "@/components/footer/Footer";
 import Menu from "@/components/header/Menu"
-import PayMethod from "@/components/function/PayMethod"
-import PayFinish from "@/components/function/PayFinish"
+import PayCheck from "@/components/pay/PayCheck"
+import PayMethod from "@/components/pay/PayMethod"
+import PayFinish from "@/components/pay/PayFinish"
 
 export default {
   name: "Pay",
   data(){
       return{
-          currstep:1
+          data:[],
+          currstep:0,
       }
   },
   components: {
     OtherTop,
     Footer,
     Menu,
+    PayCheck,
     PayMethod,
     PayFinish
   },
+  created(){
+    this.data=this.$route.params.data
+  }
 };
 </script>
 <style scoped>
@@ -66,5 +86,11 @@ export default {
 .maincontent{
     margin: 30px;
     width: 100%;
+}
+.stepcontroll{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 </style> 

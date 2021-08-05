@@ -9,12 +9,16 @@
     >
       <template slot="operation" slot-scope="text, record" 
         >
-        <a-space>
-          <a-button type="primary" icon="alipay"  shape="circle" v-if="operation.pay&&record.paystatus=='未支付'" @click="payOrder(record)"></a-button>
-          <a-button type="primary" icon="form" shape="circle" v-if="operation.comfirm&&(record.paystatus=='重新确认')" ></a-button>
-          <a-button type="danger" icon="close" shape="circle" v-if="operation.cancel&&record.paystatus!='已取消'&&record.paystatus!='已支付'" @click="deleteOrder(record)"></a-button>
+        <a-space v-if="moment(record.flightdate,'YYYY-MM-DD')<moment()">
+          <div style="text-decoration:line-through; color:red">逾期</div>
         </a-space>
-      </template>
+        <a-space v-else>
+          <a-button type="primary" icon="alipay"  shape="circle" v-if="record.paystatus=='未支付'" @click="payOrder(record)"></a-button>
+          <a-button type="primary" icon="form" shape="circle" v-if="(record.paystatus=='待确认')" @click="payOrder(record)"></a-button>
+          <a-button type="danger" icon="rest" shape="circle" v-if="(record.paystatus=='未支付')" @click="deleteOrder(record)"></a-button>
+          <a-button type="danger" icon="close" shape="circle" v-if="(record.paystatus=='已支付')" @click="refundOrder(record)"></a-button>
+        </a-space>
+      </template> 
     </a-table>
   </div>
   <a-modal :visible="ispay" @ok="payOk" @cancel="payCancle" :width="800" title="确认支付">
@@ -31,11 +35,19 @@
           </a-descriptions-item>
         </a-descriptions>
   </a-modal>
+  <a-modal :visible="isrefund" @ok="refundOk" @cancel="refundCancel" :width="800" title="确认退款">
+        <a-descriptions title="是否确认退款??">
+          <a-descriptions-item v-for="item in Object.keys(refunddata)" :key="item" :label="item">
+            <strong>{{refunddata[item]}}</strong>
+          </a-descriptions-item>
+        </a-descriptions>
+  </a-modal>
 </div>
 
 </template>
 <script>
 import UserOrdersNet from "@/network/UserOrdersNet";
+import moment from 'moment'
 export default {
   name: "UserOrdersTable",
   data() {
@@ -52,7 +64,9 @@ export default {
       paydata:{},
       isdelete:false,
       deletedata:{},
-
+      isrefund:false,
+      refunddata:{},
+      moment:moment
     };
   },
   
@@ -111,7 +125,7 @@ export default {
       this.isdelete=true
     },
     deleteOk(){
-      UserOrdersNet.payorder(this.deletedata,this.paySuccess.bind(this),this.payFailure.bind(this))
+      UserOrdersNet.delOrders(this.deletedata,this.paySuccess.bind(this),this.payFailure.bind(this))
       this.isdelete=false
     },
     deleteCancle(){
@@ -126,7 +140,29 @@ export default {
         })
     },
     deleteOrderFailure(reson){
-        this.$message.success("删除失败  "+reson)
+        this.$message.error("删除失败  "+reson)
+    },
+    refundOrder(record){
+      this.isrefund=true
+      this.refunddata=record
+    },
+    refundCancel(){
+      UserOrdersNet.refundOrders(this.deletedata,this.refundSuccess.bind(this),this.refundFailure.bind(this))
+      this.isrefund=false
+    },
+    refundOk(){
+      this.isrefund=false
+    },
+    refundSuccess(){
+        this.$message.success("退款成功")
+        this.originOrders.forEach((item)=>{
+          if(item.orderid==this.refunddata.orderid){
+          item.paystatus='5'
+         }
+        })
+    },
+    refundFailure(reson){
+        this.$message.error("删除失败  "+reson)
     },
     go0(){
       this.$router.go(0)

@@ -116,10 +116,10 @@ export default {
             break;
         }
       })
-      this.$refs.allOrders.setData(this.allOrders,this.originOrders,{pay:true,cancel:true,comfirm:true})
-      this.$refs.paidOrders.setData(this.paidOrders,this.originOrders,{comfirm:true})
-      this.$refs.unpaidOrders.setData(this.unpaidOrders,this.originOrders,{pay:true,cancel:true})
-      this.$refs.comfirmedOrders.setData(this.comfirmedOrders,this.originOrders,{comfirm:true})
+      this.$refs.allOrders.setData(this.allOrders,this.originOrders)
+      this.$refs.paidOrders.setData(this.paidOrders,this.originOrders)
+      this.$refs.unpaidOrders.setData(this.unpaidOrders,this.originOrders)
+      this.$refs.comfirmedOrders.setData(this.comfirmedOrders,this.originOrders)
       this.$refs.canceledOrders.setData(this.canceledOrders,this.originOrders)
     },
     setPayStatus(d){
@@ -127,7 +127,7 @@ export default {
             case "1": return "未支付";
             case "2": return "已支付";
             case "3": return "已确认";
-            case "4": return "重新确认";
+            case "4": return "待确认";
             case "5": return "已取消";
         }
     },
