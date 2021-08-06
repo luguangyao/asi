@@ -19,22 +19,7 @@ export default{
             failure()
         });
     },
-    addorder(data,success,failure){
-        let keys=Object.keys(data)
-        let formdata=new FormData()
-        for(let i=0;i<keys.length;i++){
-            formdata.append(keys[i],data[keys[i]])
-        }
-        admin.post("/addorder",formdata)
-        .then(function (response) {
-            console.log(response)
-            success(response.data)
-        })
-        .catch(function (error) {
-            console.log(error);
-            failure()
-        });
-    },
+    
     refundOrders(data,success,failure){
         let formdata=new FormData()
         formdata.append("id",data.orderid)

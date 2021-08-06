@@ -26,13 +26,9 @@
                 </a-select>
                 </a-input-group>
             </a-col>
-            <a-col :span="6">
-                <a-input-group>
-                <strong>{{$t('m.seat')}}  </strong>
-                <a-select v-model="selectedData.seatall" :default-value="selectedData.seatall"  style="width: 60%">
-                    <a-select-option v-for="item in sellallList" :key="item" :value="item">{{item==""?$t('m.all'):item}}</a-select-option>
-                </a-select>
-                </a-input-group>
+            <a-col :span="6" v-if="showdetail">
+                <strong>{{$t('m.searchtime')}}  </strong>
+                <a-date-picker v-model="searchDate" ></a-date-picker>
             </a-col>
         </a-row>
         <a-row style="margin-top:20px">
@@ -141,6 +137,7 @@ export default{
                 label: <strong>10000￥</strong>,
                 }
             },
+            searchDate:moment(),
             flightChangetime:"0",
             selectedData:{
                 flightid:"",

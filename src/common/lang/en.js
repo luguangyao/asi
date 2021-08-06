@@ -48,6 +48,7 @@ export const m = {
     finishPay:"finish Pay",
     warningTitle:"Tourism warning in force",
     warningTitleSub:"The government has issued a travel warning against covid-19",
+    deleteOrder:"delete order",
 
     user:"user",
     userMessage:"message",

@@ -48,6 +48,7 @@ export const m = {
   finishPay:"进行支付活动",
   warningTitle:"生效中的旅游警示",
   warningTitleSub:"政府已针对COVID-19发出旅游警告",
+  deleteOrder:"删除订单",
   
 
   user:"用户",

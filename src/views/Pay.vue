@@ -24,8 +24,8 @@
         <a-card>
           <div>
             <PayCheck :data="data" v-show="this.currstep==0"/>
-            <PayMethod :data="data" v-show="this.currstep==1"/>
-            <PayFinish v-show="this.currstep==2"/>
+            <PayMethod :data="data" :orderedlist="order" v-show="this.currstep==1"/>
+            <PayFinish :order="order" v-show="this.currstep==2"/>
           </div>
           <div class="stepcontroll">
             <a-space>
@@ -56,6 +56,7 @@ export default {
       return{
           data:[],
           currstep:0,
+          order:[]
       }
   },
   components: {
@@ -67,7 +68,18 @@ export default {
     PayFinish
   },
   created(){
-    this.data=this.$route.params.data
+    if(this.$route.params.data!=undefined){
+      this.data=this.$route.params.data
+    }
+    if(this.$route.params.order!=undefined){
+      console.log("-----------------")
+      console.log(this.$route.params)
+      console.log(this.$route.params.order)
+      console.log("-----------------")
+      this.order=[this.$route.params.order]
+      console.log(this.order)
+      this.currstep=2
+    }
   }
 };
 </script>

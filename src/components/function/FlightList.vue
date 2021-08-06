@@ -25,8 +25,8 @@
           <a-collapse-panel v-for="item,index in planedata" :key="index"  >
             <template slot="header" >
               <div class="titleleft" >
-                <div>
-                  <a-icon type="dingding" style="font-size:45px;" ></a-icon>
+                <div class="flighticon">
+                  <img :src="getFlightIcon()" alt="">
                 </div>
                 <div style="width:40%">
                   <h4>{{item[0].dtime}} -- {{item[item.length-1].atime}}</h4>
@@ -37,7 +37,7 @@
                   <h5>{{$t('m.totalprice')}}: <a-icon type="money-collect" /> {{getPrice(item)}} </h5>
                 </div>
                 <div >
-                  <h2>{{item.length==1?$t('m.direct'):$t('m.nonDirect')}}</h2>
+                  <h2 class='direct'>{{item.length==1?$t('m.direct'):$t('m.nonDirect')}}</h2>
                 </div>
               </div>
             </template>
@@ -51,8 +51,8 @@
                     <div >
                       <h4><strong>{{it.departure}}————{{it.airline}} {{it.dtime}} </strong></h4>
                       <h6> {{$t('m.time')}}: <a-icon type="clock-circle" /> {{getTimedel(it.dtime,it.atime)}}  
-                          <a-icon type="ant-design" /> {{it.airline}}</h6>
-                      <h6> {{$t('m.price')}}: <a-icon type="money-collect" /> ￥{{it.price}}</h6>
+                          <a-icon type="ant-design"  :style="{ color: 'blue' }"/> {{it.airline}}</h6>
+                      <h6> {{$t('m.price')}}: <a-icon type="money-collect " :style="{ color: 'blue' }" /> ￥{{it.price}}</h6>
                     </div>
                   </a-timeline-item>
                   <a-timeline-item style="padding-bottom:0px">
@@ -63,7 +63,7 @@
                   </a-timeline-item>
                 </a-timeline>
                   <h4 style="display:inline; color:grey">{{$t('m.filghtid')}} : </h4>
-                  <h5 style="display:inline; color:grey"  v-for="it,index in item" :key="index" ><a-icon type="star" />{{it.flightid}} , </h5>
+                  <h5 style="display:inline; color:grey"  v-for="it,index in item" :key="index" ><a-icon type="star" theme="filled" :style="{ color: 'red' }" />{{it.flightid}} , </h5>
                 </div>
               </a-card-grid >
               <a-card-grid :style="'width:33.333%;height:'+(180*item.length+50)+'px'" >
@@ -109,7 +109,7 @@
                     <h3>{{$t('m.recommend')}}</h3>
                     <a-rate :disabled="true" :defaultValue="index<2?5:index<3?4:index<5?3:2"></a-rate>
                     <div style="margin-top:20px">
-                      <a-button type="primary" @click="gotoPay(item)" size="large">{{$t('m.buyTicket')}}<a-icon type="shopping-cart"  /></a-button>
+                      <a-button type="primary" @click="gotoPay(item)" size="large" style="box-shadow: blueviolet 0px 0px 10px;">{{$t('m.buyTicket')}}<a-icon type="shopping-cart"  /></a-button>
                     </div>
                   </div>
                 </div>
@@ -127,11 +127,22 @@ import moment from 'moment'
 export default {
   name: "FlightList",
   props:{
-    planedata:[]
+    planedata:[],
   },
   data() {
     return {
-      moment:moment
+      moment:moment,
+      flighticon:[ require('@/common/images/flightIcon/dongfang.png'),
+      require('@/common/images/flightIcon/huaxia.png'),
+      require('@/common/images/flightIcon/kunming.png'),
+      require('@/common/images/flightIcon/nanhang.png'),
+      require('@/common/images/flightIcon/shenzhen.png'),
+      require('@/common/images/flightIcon/sichuan.png'),
+      require('@/common/images/flightIcon/xiangpeng.png'),
+      require('@/common/images/flightIcon/xibu.png'),
+      require('@/common/images/flightIcon/xizang.png'),
+      require('@/common/images/flightIcon/zhongguo.png'),
+      ]
     };
   },
   methods:{
@@ -149,12 +160,18 @@ export default {
       return del.format('HH:mm:ss')
     },
     gotoPay(item){
-      console.log(item)
+      // console.log(item)
       this.$router.push({name:'pay',params:{'data':item}})
     },
     sort(t){
       this.$emit('sortevent',t)
+    },
+    getFlightIcon(){
+      return this.flighticon[Math.floor(Math.random() * this.flighticon.length)]
     }
+  },
+  components:{
+
   }
 };
 </script>
@@ -189,5 +206,21 @@ export default {
 .buyticketcontent{
   min-width:200px;
   display: block;
+}
+.flighticon{
+  margin-right: 15px;
+  border-radius: 100%;
+  padding:2px;
+}
+.flighticon>img{
+  width:35px;
+  height:35px
+}
+.direct{
+  background-color: blueviolet;
+  padding: 5px;
+  color: aliceblue;
+  border-radius: 3px;
+  box-shadow: blueviolet 0px 0px 5px;
 }
 </style>
