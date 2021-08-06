@@ -58,7 +58,7 @@
                   <a-timeline-item style="padding-bottom:0px">
                     <a-icon slot="dot" type="environment" style="font-size: 16px; color:red" />
                     <div >
-                      <h4><strong>{{item[item.length-1].destination}}————{{item[item.length-1].atime}} {{item[item.length-1].airline}}</strong></h4>
+                      <h4><strong>{{item[item.length-1].destination}}————{{item[item.length-1].airline}} {{item[item.length-1].atime}}</strong></h4>
                     </div>
                   </a-timeline-item>
                 </a-timeline>
