@@ -58,7 +58,7 @@ export default {
                 setTimeout(()=>{
                     PlaneNet.checkFlightInfo(element.flight1,that.setProject.bind(that,project,0))
                     PlaneNet.checkFlightInfo(element.flight2,that.setProject.bind(that,project,1))
-                },200*index)
+                },400*index)
                 
             }
         },
@@ -76,7 +76,7 @@ export default {
                     PlaneNet.checkFlightInfo(element.flight1,that.setProject.bind(that,project,0))
                     PlaneNet.checkFlightInfo(element.flight2,that.setProject.bind(that,project,1))
                     PlaneNet.checkFlightInfo(element.flight3,that.setProject.bind(that,project,2))
-                },200*index)
+                },400*index)
             }
         },
         setProject(project,index,data){
