@@ -164,11 +164,13 @@ export default {
   font-size:25px;
   height: 80px;
   width: 50%;
+  overflow: hidden;
+
 }
 .paybtn:hover{
   box-shadow: 0px 0px 10px rgb(244,148,255);
-  overflow: hidden;
 }
+
 .paybtn::after{
   content:"";
   position: absolute;
