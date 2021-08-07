@@ -1,12 +1,12 @@
 <template>
     <div class="flightlistwrapper">
-        <BrokenLineCard/>
+        <BrokenLineCard :planedata="this.total"/>
         <FlightList :planedata="this.total" @sortevent="sort"/>
     </div>
 </template>
 <script>
 import FlightList from "@/components/function/FlightList"
-import BrokenLineCard from "@/components/function/BrokenLineCard"
+import BrokenLineCard from "@/components/datavisable/BrokenLineCard"
 import PlaneNet from '@/network/PlaneNet'
 import Vue from 'vue'
 import moment from 'moment'
