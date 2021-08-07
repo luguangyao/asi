@@ -1,23 +1,23 @@
 <template>
   <div>
     <div class="descriptions" >
-      <a-descriptions :title="'个人信息'" :column="6" bordered>
-        <a-descriptions-item :label="'用户姓名'" :span="2" >
-          <a-input :placeholder="'请填写你的真实姓名'">
+      <a-descriptions :title="$t('m.userinfo')" :column="6" bordered>
+        <a-descriptions-item :label="$t('m.username')" :span="2" >
+          <a-input :placeholder="$t('m.inputname')">
             <a-icon slot="prefix" type="user"></a-icon>
           </a-input>
         </a-descriptions-item>
-        <a-descriptions-item :label="'用户电话'" :span="2" >
-          <a-input :placeholder="'请填写你的联系方式'">
+        <a-descriptions-item :label="$t('m.userphone')" :span="2" >
+          <a-input :placeholder="$t('m.inputphone')">
             <a-icon slot="prefix" type="phone"></a-icon>
           </a-input>
         </a-descriptions-item>
-        <a-descriptions-item :label="'乘坐人数'" :span="2" >
+        <a-descriptions-item :label="$t('m.passengersnum')" :span="2" >
           <a-input-number></a-input-number>
         </a-descriptions-item>
       </a-descriptions>
       <a-divider></a-divider>
-      <a-descriptions :title="'订单'+(index+1)" bordered v-for="item,index in data" :key="index" :column="6">
+      <a-descriptions :title="$t('m.order')+' '+(index+1)" bordered v-for="item,index in data" :key="index" :column="6">
         <a-descriptions-item :label="$t('m.filghtid')" :span="2" >
           <a-icon type="twitter"></a-icon>{{item.flightid}}
         </a-descriptions-item>

@@ -1,7 +1,7 @@
 <template>
   <div class="payfinishwrapper">
     <div>
-      <h4>若无订单项,请返回上一级,点击前往订票按钮</h4>
+      <h4>{{$t('m.ifNoOrder')}}</h4>
       <a-card v-for="item in order" :key="item.orderid" >
         <a-card-grid style="width:70%;height:275px">
           <a-descriptions bordered :column="3" size="middle">
@@ -48,19 +48,19 @@
           </a-descriptions>
         </a-card-grid>
         <a-card-grid style="width:30%;height:275px">
-          <a-result v-if="item.paystatus=='1'" status="warning" title="订单尚未支付"
-            sub-title="请及时支付订单,避免订单过期" style="padding:0px">
+          <a-result v-if="item.paystatus=='1'" status="warning" :title="$t('m.orderisnotpaid')"
+            :sub-title="$t('m.orderisnotpaidSub')" style="padding:0px">
             <template #extra>
             </template>
           </a-result>
-          <a-result v-if="item.paystatus=='2'" status="success" title="订单已完成支付"
-            sub-title="订单已完成支付,感谢您的光顾" style="padding:0px">
+          <a-result v-if="item.paystatus=='2'" status="success" :title="$t('m.orderfinishpay')"
+            :sub-title="$t('m.orderfinishpaySub')" style="padding:0px">
             <template #extra>
-              <p>订单支付的时间<br>{{item.paytime.format('YYYY-MM-DD hh:mm')}}</p>
+              <p>{{$t('m.orderpaytime')}}<br>{{item.paytime.format('YYYY-MM-DD hh:mm')}}</p>
             </template>
           </a-result>
-          <a-result v-if="item.paystatus=='5'" status="error" title="订单已被删除"
-            sub-title="已删除订单" style="padding:0px">
+          <a-result v-if="item.paystatus=='5'" status="error" :title="$t('m.orderiscancel')"
+            :sub-title="$t('m.orderiscancelSub')" style="padding:0px">
             <template #extra>
             </template>
           </a-result>
@@ -68,23 +68,25 @@
       </a-card>
     </div>
     <div class="paymethod">
-      <a-card title="选择支付方式" @change="supportChange">
+      <a-card :title="$t('m.choosepaymethod')" @change="supportChange">
         <a-radio-group style="width:100%" v-model="suportmethod">
         <a-card-grid style="width: 33%; text-align: center;background-color" class="wechatpay">
-          <a-radio :value="0"></a-radio><h3 style="display:inline"><a-icon type="wechat" style="color:#3AB035" /> 微信支付</h3>
+          <a-radio :value="0"></a-radio><h3 style="display:inline"><a-icon type="wechat" style="color:#3AB035" /> {{$t('m.wechatpayment')}}</h3>
         </a-card-grid>
         <a-card-grid style="width: 33%; text-align: center">
-          <a-radio :value="1"></a-radio><h3 style="display:inline"><a-icon type="alipay" style="color:#1777FF"/> 支付宝支付</h3>
+          <a-radio :value="1"></a-radio><h3 style="display:inline"><a-icon type="alipay" style="color:#1777FF"/> {{$t('m.ailipayment')}}</h3>
         </a-card-grid>
         <a-card-grid style="width: 33%; text-align: center">
-          <a-radio :value="2"></a-radio><h3 style="display:inline"><a-icon type="credit-card" style="color:gold" /> 银联支付</h3>
+          <a-radio :value="2"></a-radio><h3 style="display:inline"><a-icon type="credit-card" style="color:gold" /> {{$t('m.unionpaypayment')}}</h3>
         </a-card-grid>
         </a-radio-group>
         <a-card-grid style="width: 100%; text-align: center; padding:0px">
+          <div class="buttoncontent">
           <a-button-group style="width:100%">
             <a-button  class="paybtn" type="primary" @click="payOrder" ><a-icon type="money-collect" />{{$t('m.finishPay')}}</a-button>
-            <a-button  class="paybtn" type="danger" @click="deleteOrder"><a-icon type="close-circle" />{{$t('m.deleteOrder')}}</a-button>
+            <a-button  class="paybtnDanger" type="danger" @click="deleteOrder"><a-icon type="close-circle" />{{$t('m.deleteOrder')}}</a-button>
           </a-button-group>
+          </div>
         </a-card-grid>
         
       </a-card>
@@ -153,10 +155,41 @@ export default {
 .payfinishwrapper{
     background-color: white;
 }
+.paybtnDanger{
+  font-size:25px;
+  height: 80px;
+  width: 50%;
+}
 .paybtn{
   font-size:25px;
   height: 80px;
   width: 50%;
 }
-
+.paybtn:hover{
+  box-shadow: 0px 0px 10px rgb(244,148,255);
+  overflow: hidden;
+}
+.paybtn::after{
+  content:"";
+  position: absolute;
+  background-color: rgba(244,148,255,0.856);
+  width: 100px;
+  height: 200px;
+  transform: rotate(30deg);
+  left: 0px;
+  top:-50%;
+  animation:move 3s infinite ;
+}
+.buttoncontent{
+  position: relative;
+  overflow: hidden;
+}
+@keyframes move{
+        from{left:-150%;}
+        to{left:150%;}
+}
+    @-webkit-keyframes move{
+        from{left:-150%;}
+        to{left:350%;}
+    }
 </style>

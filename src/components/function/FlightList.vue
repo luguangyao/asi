@@ -2,7 +2,7 @@
   <div >
     <div v-if="!this.planedata||this.planedata.length==0">
       <a-empty></a-empty>
-      <a-divider><router-link to="/other/flight">返回搜索航班</router-link></a-divider>
+      <a-divider><router-link to="/other/flight">{{$t('m.searchFlight')}}</router-link></a-divider>
     </div>
     <div v-else>
     <a-card :bordered="false" >

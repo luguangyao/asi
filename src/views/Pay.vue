@@ -23,16 +23,24 @@
       <div class="maincontent">
         <a-card>
           <div>
-            <PayCheck :data="data" v-show="this.currstep==0"/>
-            <PayMethod :data="data" :orderedlist="order" v-show="this.currstep==1"/>
-            <PayFinish :order="order" v-show="this.currstep==2"/>
+            <a-tabs v-model="currstep" tabPosition="bottom" size="large">
+              <a-tab-pane :key="0" :forceRender="true">
+                <PayCheck :data="data" v-show="this.currstep==0"/>
+              </a-tab-pane>
+              <a-tab-pane :key="1"  :forceRender="true">
+                <PayMethod :data="data" :orderedlist="order" v-show="this.currstep==1"/>
+              </a-tab-pane>
+              <a-tab-pane :key="2" :forceRender="true">
+                <PayFinish :order="order" v-show="this.currstep==2"/>
+              </a-tab-pane>
+          </a-tabs>
           </div>
           <div class="stepcontroll">
             <a-space>
-               <a-button size="large" type="primary" @click="()=>{this.currstep=1}" v-show="currstep==0">下一步</a-button>
-              <a-button size="large" type="primary" @click="()=>{this.currstep=0}" v-show="currstep==1">上一步</a-button>
-              <a-button size="large" type="primary" @click="()=>{this.currstep=2}" v-show="currstep==1">前往支付</a-button>
-              <a-button size="large" type="primary" @click="()=>{this.currstep=1}" v-show="currstep==2">返回确认订单</a-button>
+               <a-button size="large" type="primary" @click="()=>{this.currstep=1}" v-show="currstep==0">{{$t('m.nextStep')}}</a-button>
+              <a-button size="large" type="primary" @click="()=>{this.currstep=0}" v-show="currstep==1">{{$t('m.lastStep')}}</a-button>
+              <a-button size="large" type="primary" @click="()=>{this.currstep=2}" v-show="currstep==1">{{$t('m.gotoOrder')}}</a-button>
+              <a-button size="large" type="primary" @click="()=>{this.currstep=1}" v-show="currstep==2">{{$t('m.returnCheck')}}</a-button>
             </a-space>
           </div>
         </a-card>
@@ -72,10 +80,7 @@ export default {
       this.data=this.$route.params.data
     }
     if(this.$route.params.order!=undefined){
-      console.log("-----------------")
-      console.log(this.$route.params)
-      console.log(this.$route.params.order)
-      console.log("-----------------")
+     
       this.order=[this.$route.params.order]
       console.log(this.order)
       this.currstep=2

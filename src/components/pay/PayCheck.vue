@@ -7,7 +7,7 @@
     </h1>
     <h3 v-if="data&&data.length>0">{{$t('m.totaltime')}}:&nbsp;&nbsp;<a-icon type="clock-circle"/> {{getTimedel(data[0].dtime,data[data.length-1].atime)}}
         <a-divider type="vertical"></a-divider>
-        {{data.length==1?'本次航班为直达航班,无需转机':'本次航班需要转机次数:  '+(data.length-1)}}
+        {{data.length==1?$t('m.isDirect'):$t('m.transferTime')+':  '+(data.length-1)}}
     </h3>
     <a-row>
     <a-col v-for="item,index in data" :key="index" :span="11" class="colstyle" >
