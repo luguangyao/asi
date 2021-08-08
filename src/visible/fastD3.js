@@ -669,6 +669,16 @@ fastD3.columnDefault = {
     cValue(value) {
         return value;
     },
+    createBaseLine(width, height, xoff, yoff, n) {
+        let baseLine = '';
+        let _w = width / n;
+        for (let i =0; i<n; ++i) {
+            baseLine += `L${xoff + _w * i} ${yoff + height} `;
+        }
+        baseLine += `L${xoff + width} ${yoff + height}`;
+        baseLine = baseLine.replace('L', 'M');
+        return baseLine;
+    },
     formData(data) {
         let that = this;
         let width = fastD3.width * this.widthPercent;
@@ -870,17 +880,25 @@ fastD3.columnDefault = {
             }
         });
 
-        let nPath = '';
-        formData.forEach((d) => {
-            nPath += `L${d.x + d.width/2} ${d.y} `;
-        });
-
-        nPath = nPath.replace('L', 'M');
         let line = chart.d3r.select('path');
-        let _d = line.attr('d');
+        let _d = line.attr('d') || '';
         line.remove();
         line = chart.d3r.append('path');
 
+        let nPath = ``;
+        if (this.needLine) {
+            nPath = '';
+            formData.forEach((d) => {
+                nPath += `L${d.x + d.width/2} ${d.y} `;
+            });
+
+            nPath = nPath.replace('L', 'M');
+            let baseLine = this.createBaseLine(width, height, xoff, yoff, 
+                Math.max(formData.length, _d.split('L').length));
+
+            _d = _d || baseLine;
+            nPath = nPath || baseLine;
+        }
         line
             .attr('d', _d)
             .transition(this.changeDuration + 10)
@@ -930,6 +948,315 @@ fastD3.column = function (data, param = fastD3.columnDefault) {
     param.cData(data, aColum); // 延后绘制
 
     return aColum;
+}
+
+
+fastD3.linesDefault = {
+    widthPercent: 1,
+    heightPercent: 1,
+    topSpacePerHeight: 0.07,
+    bottomSpacePerHeight: 0.05,
+    lineHeight: 20,
+    fontSize: 20,
+    xOffset: 0,
+    yOffset: 0,
+    enterDuration: 2000,
+    changeDuration: 1000,
+    enterType: d3.easeQuad,
+    changeType: d3.easeQuad,
+    nameReadyInit: {},
+    nameAfterInit: {},
+    valueReadyInit: {},
+    valueAfterInit: {},
+    sort: null,
+    pointRPerWidth: 0.1,
+    pointColor(d) {
+        return `hsl(${fastD3.strToNum(d.name) % 359}, 100%, 80%)`;
+    },
+    fontColor() {
+        return 'black';
+    },
+    cName(name) {
+        return name;
+    },
+    cValue(value) {
+        return value;
+    },
+    createBaseLine(width, height, xoff, yoff, n) {
+        let baseLine = '';
+        let _w = width / n;
+        for (let i =0; i<n; ++i) {
+            baseLine += `L${xoff + _w * i} ${yoff + height} `;
+        }
+        baseLine += `L${xoff + width} ${yoff + height}`;
+        baseLine = baseLine.replace('L', 'M');
+        return baseLine;
+    },
+    formData(data) {
+        let that = this;
+        let width = fastD3.width * this.widthPercent;
+        let height = fastD3.height * this.heightPercent;
+
+        let xoff = fastD3.width * this.xOffset;
+        let yoff = fastD3.height * this.yOffset;
+
+        let values = data.map((item) => {
+            return item.value
+        });
+        let max = Math.max(...values);
+        let chartHeight = height * (1 - this.topSpacePerHeight - this.bottomSpacePerHeight);
+        let chartBottom = height * (1 - this.bottomSpacePerHeight - this.yOffset);
+
+        let uniform = {
+            chartBottom
+        };
+
+        let ySacan = d3.scaleLinear()
+            .domain([0, max])
+            .range([0, chartHeight]);
+
+        let pointWidth = width / data.length;
+        uniform.width = pointWidth * this.pointRPerWidth;
+
+        let formData = [];
+        data.forEach((d, i) => {
+
+            formData.push({
+                name: this.cName(d.name),
+                value: this.cValue(d.value),
+                height: ySacan(d.value),
+                x: i * pointWidth + pointWidth / 2 + xoff,
+                y: (height - ySacan(d.value) -
+                    that.topSpacePerHeight * height + yoff)
+            });
+        });
+        return [width, height, formData, xoff, yoff, uniform];
+    },
+    cData(data, chart) {
+        // 解析结构
+        if (!data) {
+            console.error('数据为空, 如果希望清空版面请传入空数组');
+            return;
+        }
+
+        data = [...data];
+        if (this.sort) {
+            data.sort(this.sort);
+        }
+        let that = this;
+        let names = data.map((v) => {
+            return v.name;
+        });
+        let groups = chart.d3r.selectAll('.fastD3LinesItem');
+        // let groups = d3.selectAll(`#${chart._id}>g`);
+        // 处理变化后的新数据
+        let [width, height, formData, xoff, yoff, uniform] = this.formData(data);
+        width, height, xoff, yoff;
+
+        // 绘制变化同时应用过渡
+        let addG = groups.data(formData, (d) => {
+                return d.name
+            })
+            .enter()
+            .append('g')
+            .attr('class', 'fastD3LinesItem');
+
+        addG.append('text')
+            .attr('', function (d) {
+                let selfSelector = d3.select(this);
+                if (typeof d.name === 'object') {
+                    // 添加文字换行
+                    let dataG = selfSelector.selectAll('tspan')
+                        .data(d.name);
+                    dataG.enter().append('tspan')
+                        .text((d) => {
+                            return d.name
+                        })
+                        .attr('dy', this.lineHeight);
+                    dataG.exit().remove();
+                } else {
+                    // 正经文字展示
+                    selfSelector.text(d.name);
+                }
+            })
+            .attr('x', d => {
+                return d.x;
+            })
+            .attr('y', d => {
+                return d.y + d.height + this.lineHeight;
+            })
+            .attr('font-size', this.fontSize)
+            .attr('fill', that.fontColor)
+            .attr('style', 'dominant-baseline:middle;text-anchor:middle;');
+
+        addG.append('g').append('text')
+            .attr('', function (d) {
+                let selfSelector = d3.select(this);
+                if (typeof d.value === 'object') {
+                    // 添加文字换行
+                    let dataG = selfSelector.selectAll('tspan')
+                        .data(d.value);
+                    dataG.enter().append('tspan')
+                        .text((d) => {
+                            return d.value
+                        })
+                        .attr('dy', this.lineHeight);
+                    dataG.exit().remove();
+                } else {
+                    // 正经文字展示
+                    selfSelector.text(d.value);
+                }
+            })
+            .attr('font-size', this.fontSize)
+            .attr('x', d => {
+                return d.x;
+            })
+            .attr('y', d => {
+                return d.y - that.lineHeight;
+            })
+            .attr('fill', that.fontColor)
+            .attr('style', 'dominant-baseline:middle;text-anchor:middle;');
+
+        let points = addG.append('circle')
+            .attr('r', 0)
+            .attr('cx', d => {
+                return d.x;
+            })
+            .attr('cy', d => {
+                return d.height + d.y;
+            })
+            .attr('fill', that.pointColor)
+            .transition(that.changeDuration)
+            .ease(that.changeType)
+            .attr('r', uniform.width)
+            .attr('cy', d => {
+                return d.y;
+            });
+        points;
+
+        groups.each(function (d) {
+            let idx = names.indexOf(d.name)
+            let selfSelector = d3.select(this);
+            if (idx != -1) {
+                // 依旧存在的
+                names.splice(idx, 1);
+                selfSelector.select('text')
+                    .transition(that.changeDuration)
+                    .ease(that.changeType)
+                    .text(d => d.name)
+                    .attr('x', d => {
+                        return d.x;
+                    })
+                    .attr('y', d => {
+                        return d.y + d.height + that.lineHeight;
+                    });
+
+                selfSelector.select('g').select('text')
+                    .transition(that.changeDuration)
+                    .ease(that.changeType)
+                    .text(d => d.value)
+                    .attr('x', d => {
+                        return d.x;
+                    })
+                    .attr('y', d => {
+                        return d.y - that.lineHeight;
+                    });
+
+                selfSelector.select('circle')
+                    .transition(that.changeDuration)
+                    .ease(that.changeType)
+                    .attr('r', uniform.width)
+                    .attr('cx', d => {
+                        return d.x;
+                    })
+                    .attr('cy', d => {
+                        return d.y;
+                    })
+                    .attr('fill', that.pointColor)
+
+            } else {
+                // 不再存在的
+                selfSelector.select('g').select('text')
+                    .remove();
+                selfSelector.select('text')
+                    .remove();
+                selfSelector.select('circle')
+                    .transition(that.changeDuration)
+                    .ease(that.changeType)
+                    .attr('r', 0)
+                    .remove();
+
+                selfSelector
+                    .transition(that.changeDuration)
+                    .ease(that.changeType)
+                    .remove();
+            }
+        });
+
+        let nPath = '';
+        formData.forEach((d) => {
+            nPath += `L${d.x} ${d.y} `;
+        });
+
+        nPath = nPath.replace('L', 'M');
+        let line = chart.d3r.select('path');
+        let _d = line.attr('d') || '';
+        let baseLine = this.createBaseLine(width, height, xoff, yoff,
+            Math.max(formData.length, _d.split('L').length));
+        nPath = nPath || baseLine;
+        _d = _d || baseLine;
+        line.remove();
+        line = chart.d3r.append('path');
+
+        line
+            .attr('d', _d)
+            .transition(this.changeDuration + 10)
+            .ease(this.changeType)
+            .attr('d', nPath)
+            .attr('fill', 'rgba(0,0,0,0)')
+            .attr('stroke-width', 2)
+            .attr('stroke', 'white');
+
+        line.text('reflesh');
+
+        // 处理结构
+        chart.data = data;
+        chart.param = this;
+        return chart;
+    },
+}
+
+fastD3.lines = function (data, param = fastD3.linesDefault) {
+
+    if (!fastD3.check()) {
+        console.error(fastD3.error());
+    }
+    data = [...data];
+    // 绘制部分, 绘制空表
+    let lineRoot = d3.select(fastD3._svg).append('g');
+    let oid = fastD3.onlyId();
+    lineRoot.attr('id', oid);
+    lineRoot.append('path')
+        .attr('fill', 'rgba(0,0,0,0)')
+        .attr('stroke-width', 2)
+        .attr('stroke', 'white');
+    // 结构处理
+    let aLines = {
+        ...Chart
+    };
+    aLines._id = oid;
+    aLines.data = data;
+    aLines.cData = function (_data) {
+        param.cData(_data, this);
+    };
+    aLines.param = param;
+    aLines.d3r = lineRoot;
+
+    this._chartArr.push(aLines);
+
+    param.cData(data, aLines); // 延后绘制
+
+    return aLines;
 }
 
 export default fastD3;

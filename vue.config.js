@@ -2,7 +2,8 @@ module.exports = {
   devServer: {
     proxy: {
       '/admin': {
-        target: 'http://127.0.0.1/admin',
+        // target: 'http://127.0.0.1/admin',
+        target: 'http://139.159.153.12',
         changeOrigin: true,
         pathRewrite: {
           '^/admin': ''
