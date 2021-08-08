@@ -19,7 +19,6 @@ export default{
         formdata.append("orderid",data.orderid)
         orders.post('/payorder',formdata)
         .then(function(response) {
-            console.log(response.data)
             switch(response.data){
                 case 1:
                     success()
@@ -68,6 +67,38 @@ export default{
         .catch(function(error){
             failure(error)
             console.log(error)
+        })
+    },
+    addorder(data,success,failure){
+        let keys=Object.keys(data)
+        let formdata=new FormData()
+        for(let i=0;i<keys.length;i++){
+            formdata.append(keys[i],data[keys[i]])
+        }
+        orders.post("/addorder",formdata)
+        .then(function (response) {
+            if(response.data!=""){
+                success(response.data)
+            }
+            else{
+                failure()
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+            failure()
+        });
+    },
+    refundOrders(data,success,failure){
+        let formdata=new FormData()
+        formdata.append("orderid",data.orderid)
+        orders.post("/refundorder",formdata)
+        .then(function(response) {
+            success(response.data)
+        })
+        .catch(function(error) {
+            console.log(error)
+            failure(error)
         })
     },
 }

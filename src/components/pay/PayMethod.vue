@@ -1,7 +1,23 @@
 <template>
   <div>
-    <div class="descriptions">
-      <a-descriptions :title="'订单'+(index+1)" bordered v-for="item,index in data" :key="index" :column="6">
+    <div class="descriptions" >
+      <a-descriptions :title="$t('m.userinfo')" :column="6" bordered>
+        <a-descriptions-item :label="$t('m.username')" :span="2" >
+          <a-input :placeholder="$t('m.inputname')">
+            <a-icon slot="prefix" type="user"></a-icon>
+          </a-input>
+        </a-descriptions-item>
+        <a-descriptions-item :label="$t('m.userphone')" :span="2" >
+          <a-input :placeholder="$t('m.inputphone')">
+            <a-icon slot="prefix" type="phone"></a-icon>
+          </a-input>
+        </a-descriptions-item>
+        <a-descriptions-item :label="$t('m.passengersnum')" :span="2" >
+          <a-input-number></a-input-number>
+        </a-descriptions-item>
+      </a-descriptions>
+      <a-divider></a-divider>
+      <a-descriptions :title="$t('m.order')+' '+(index+1)" bordered v-for="item,index in data" :key="index" :column="6">
         <a-descriptions-item :label="$t('m.filghtid')" :span="2" >
           <a-icon type="twitter"></a-icon>{{item.flightid}}
         </a-descriptions-item>
@@ -43,8 +59,8 @@
           <a-input-number v-model="seatid[index]" :min="1" :max="Number(item.seatall)"></a-input-number>
         </a-descriptions-item >
         <a-descriptions-item :label="$t('m.buyTicket')" :span="4">
-          <a-button type="primary" @click="OrderTicket(item,index)">{{$t('m.buyTicket')}}</a-button>
-        </a-descriptions-item >
+          <a-button type="primary" @click="orderTicket(item,index)" :disabled="buttonhasClick[index]">{{$t('m.buyTicket')}}</a-button>
+        </a-descriptions-item > 
       </a-descriptions>
     </div>
   </div>
@@ -52,37 +68,50 @@
 <script>
 import moment from 'moment'
 import fligtDataType from '@/common/js/flightDataType'
+import UserOrdersNet from "@/network/UserOrdersNet"
 export default {
   name: "PayMethod",
   props: {
     data: [],
+    orderedlist:[]
+
   },
   data(){
     return{
       "moment":moment,
       cabintype:fligtDataType.cabintype,
-      cabinid:[1,1,1],
+      cabinid:["1","1","1"],
       flightType:fligtDataType.flightType,
       type:["1","1","1"],
       flightdate:moment().add(1, 'd'),
       seatid:["0","0","0"],
+      buttonhasClick:[false,false,false],
     }
   },
   methods:{
-    OrderTicket(item,index){
+    orderTicket(item,index){
       if(this.flightdate==null||this.flightdate<moment()||this.flightdate.diff(moment(),'day')>15){
         this.$message.info("起飞日期不能为空或者小于今天或者超过今天15天")
         return
       }
       let orderdata={
         flightid:item.flightid,
-        cabinid:String(this.cabinid[index]),
+        cabinid:this.cabinid[index],
         seatid:this.seatid[index],
         flightdate:this.flightdate.format('YYYY-MM-DD'),
         type:this.type[index]
       }
-      console.log(orderdata)
+      UserOrdersNet.addorder(orderdata,this.orderSuccesss.bind(this,index),this.orderFailure.bind(this))
     },
+    orderSuccesss(index,data){
+      this.$message.success("订票成功!!",)
+      this.$set(this.buttonhasClick,index,true)
+      this.orderedlist.push(data)
+    },
+    orderFailure(){
+      this.$message.error("订票失败!!")
+    },
+   
   },
 };
 </script>

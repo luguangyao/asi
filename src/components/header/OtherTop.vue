@@ -67,7 +67,7 @@
           </a-menu-item>
         </a-menu>
     </a-drawer>
-    <a-modal v-model="supportVisible" :footer="null">
+    <a-modal v-model="supportVisible" :footer="null" :width="400">
       <img src="~@/common/images/support.png" alt="" style="width: 100%">
     </a-modal>
     <a-modal v-model="languageVisible" :footer="null" >

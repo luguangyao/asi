@@ -1,7 +1,7 @@
 import axios from "axios"
 const plane=axios.create({
     baseURL: '/plane',
-    timeout:5000
+    timeout:10000
 })
 
 export default{

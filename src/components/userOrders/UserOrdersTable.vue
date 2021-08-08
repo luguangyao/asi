@@ -23,8 +23,11 @@
   </div>
   <a-modal :visible="ispay" @ok="payOk" @cancel="payCancle" :width="800" title="确认支付">
         <a-descriptions title="是否确认支付??">
-          <a-descriptions-item v-for="item in Object.keys(paydata)" :key="item" :label="item">
-            <strong>{{paydata[item]}}</strong>
+          <a-descriptions-item v-for="item in Object.keys(paydata)" :key="item" :label="item" >
+            <strong >{{paydata[item]}}</strong>
+          </a-descriptions-item>
+          <a-descriptions-item label="其它">
+              <a-button type="link" @click="gotopay"><strong>前往支付页面</strong></a-button>
           </a-descriptions-item>
         </a-descriptions>
   </a-modal>
@@ -38,7 +41,7 @@
   <a-modal :visible="isrefund" @ok="refundOk" @cancel="refundCancel" :width="800" title="确认退款">
         <a-descriptions title="是否确认退款??">
           <a-descriptions-item v-for="item in Object.keys(refunddata)" :key="item" :label="item">
-            <strong>{{refunddata[item]}}</strong>
+            <strong >{{refunddata[item]}}</strong>
           </a-descriptions-item>
         </a-descriptions>
   </a-modal>
@@ -147,10 +150,10 @@ export default {
       this.refunddata=record
     },
     refundCancel(){
-      UserOrdersNet.refundOrders(this.deletedata,this.refundSuccess.bind(this),this.refundFailure.bind(this))
       this.isrefund=false
     },
     refundOk(){
+      UserOrdersNet.refundOrders(this.refunddata,this.refundSuccess.bind(this),this.refundFailure.bind(this))
       this.isrefund=false
     },
     refundSuccess(){
@@ -166,6 +169,14 @@ export default {
     },
     go0(){
       this.$router.go(0)
+    },
+    gotopay(){
+      for(let i=0;i<this.originOrders.length;i++){
+        if(this.originOrders[i].orderid==this.paydata.orderid)
+          this.$router.push({name:'pay',params:{
+          order:this.originOrders[i]
+        }})
+      }
     }
   },
 };

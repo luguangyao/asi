@@ -2,12 +2,12 @@
   <div>
     <h4>{{$t('m.orderComfirm')}}</h4>
     <a-divider></a-divider>
-    <h1 v-if="data&&data.length">
+    <h1 v-if="data&&data.length>0">
         {{data[0].departure}}&nbsp;&nbsp;<a-icon type="swap" />&nbsp;&nbsp;{{data[data.length-1].destination}}
     </h1>
-    <h3>{{$t('m.totaltime')}}:&nbsp;&nbsp;<a-icon type="clock-circle"/> {{getTimedel(data[0].dtime,data[data.length-1].atime)}}
+    <h3 v-if="data&&data.length>0">{{$t('m.totaltime')}}:&nbsp;&nbsp;<a-icon type="clock-circle"/> {{getTimedel(data[0].dtime,data[data.length-1].atime)}}
         <a-divider type="vertical"></a-divider>
-        {{data.length==1?'本次航班为直达航班,无需转机':'本次航班需要转机次数:  '+(data.length-1)}}
+        {{data.length==1?$t('m.isDirect'):$t('m.transferTime')+':  '+(data.length-1)}}
     </h3>
     <a-row>
     <a-col v-for="item,index in data" :key="index" :span="11" class="colstyle" >
@@ -34,9 +34,21 @@
                 </div>
                 <div class="price">
                     <div class="priceContent">
-                        <h4 style="color:white">{{$t('m.filghtid')}}:&nbsp;&nbsp;&nbsp;&nbsp;{{item.flightid}}</h4>
-                        <h4 style="color:white">{{$t('m.price')}}:&nbsp;&nbsp;&nbsp;&nbsp;<a-icon type="money-collect" />{{item.price}}</h4>
-                        <h4 style="color:white">{{$t('m.seat')}}:&nbsp;&nbsp;&nbsp;&nbsp;{{item.seatall}}</h4>
+                        <a-descriptions :column="1" bordered size="small" >
+                            <a-descriptions-item >
+                                <h4 slot="label" class="priceitemtitle" >{{$t('m.filghtid')}}</h4>
+                                <h4 class="priceitem">{{item.flightid}}</h4>
+                            </a-descriptions-item>
+                            <a-descriptions-item >
+                                <h4 slot="label" class="priceitemtitle">{{$t('m.price')}}</h4>
+                                <h4 class="priceitem">{{item.price}}</h4>
+                            </a-descriptions-item>
+                            <a-descriptions-item >
+                                <h4 slot="label" class="priceitemtitle">{{$t('m.seat')}}</h4>
+                                <h4 class="priceitem">{{item.seatall}}</h4>
+                            </a-descriptions-item>
+                        </a-descriptions>
+                        
                     </div>
                 </div>
                 <div>
@@ -76,6 +88,8 @@ export default {
     margin-right:10px ;
     margin-top:10px ;
     transition: all .5s;
+    background-color: whitesmoke;
+    
 }
 .content{
     display: flex;
@@ -86,14 +100,24 @@ export default {
 .price{
     width: 60%;
     height: 100%;
-    border-right: 10px #E8E8E8 solid;
+    border-right: 15px #E8E8E8 solid;
+    box-shadow: #B3D4FC -3px 0px 5px;
 }
 .priceContent{
     padding: 20px;
-    background-color: #287DFA;
+    background-color: #B3D4FC;
 }
 .colstyle:hover{
     box-shadow: #E8E8E8 0px 0px 10px 10px;
     transition: all .5s;
+}
+.priceitem{
+    display: inline;
+    color:white;
+    background-color: rgba(0, 0, 0, 0);
+}
+.priceitemtitle{
+    color:blueviolet
+
 }
 </style>

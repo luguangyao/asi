@@ -26,13 +26,9 @@
                 </a-select>
                 </a-input-group>
             </a-col>
-            <a-col :span="6">
-                <a-input-group>
-                <strong>{{$t('m.seat')}}  </strong>
-                <a-select v-model="selectedData.seatall" :default-value="selectedData.seatall"  style="width: 60%">
-                    <a-select-option v-for="item in sellallList" :key="item" :value="item">{{item==""?$t('m.all'):item}}</a-select-option>
-                </a-select>
-                </a-input-group>
+            <a-col :span="6" v-if="showdetail">
+                <strong>{{$t('m.searchtime')}}  </strong>
+                <a-date-picker v-model="searchDate" ></a-date-picker>
             </a-col>
         </a-row>
         <a-row style="margin-top:20px">
@@ -46,7 +42,7 @@
                         </a-select>
                      </a-input-group>
                 </a-col>
-                <a-col :span="6" :offset="1">
+                <a-col :span="6" :offset="1" v-if="showdetail">
                     <a-input-group>
                         <strong>{{$t('m.flightcompany')}}  </strong>
                         <a-select v-model="selectedData.airline" :default-value="selectedData.airline"  style="width: 60%">
@@ -61,7 +57,7 @@
                         <a-time-picker v-model="dtime2"></a-time-picker>
                      </a-input-group>
                 </a-col>
-                <a-col v-if="!showdetail"  :span="6">
+                <a-col v-if="!showdetail"  :span="6" :offset="1">
                     <router-link to="/other/flight">{{$t('m.moreFlightSearchSelection')}}</router-link>
                 </a-col>
         </a-row>
@@ -141,6 +137,7 @@ export default{
                 label: <strong>10000￥</strong>,
                 }
             },
+            searchDate:moment(),
             flightChangetime:"0",
             selectedData:{
                 flightid:"",

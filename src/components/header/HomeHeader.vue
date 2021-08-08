@@ -11,7 +11,7 @@
       </template>
 
       <template slot="title">
-          <a-icon type="twitter" class="title-icon"></a-icon>
+          <img :src="headIcon[selectedIcon]" alt="" class="iconclass">
           <h1 class="title">{{$t('m.title')}}</h1>
       </template>
     </a-page-header>
@@ -23,10 +23,21 @@ export default {
   name: "HomeHeader",
   data(){
       return{
-          title:"Air System",
-          subTitle:"The most valuable Flight Network",
-          choices:['Message','Flight','Hotel','Personal','FAQ'],
+          headIcon:[
+            require('@/common/images/doge/doge1.png'),
+            require('@/common/images/doge/doge2.png'),
+            require('@/common/images/doge/doge3.png'),
+            require('@/common/images/doge/doge4.png'),
+            require('@/common/images/doge/doge5.png'),
+            require('@/common/images/doge/doge6.png'),
+          ],
+          selectedIcon:0
       }
+  },
+  created(){
+    setInterval(()=>{
+      this.selectedIcon=(this.selectedIcon+1)%this.headIcon.length
+    },200)
   },
   components:{
       Menu
@@ -35,7 +46,9 @@ export default {
 </script>
 
 <style scoped>
-
+.iconclass{
+  height: 60px;
+}
 tr:last-child td {
   padding-bottom: 0;
 }
@@ -68,6 +81,7 @@ tr:last-child td {
 }
 .title{
     display: inline;
+    
 }
 .title-icon{
     font-size: 50px;
