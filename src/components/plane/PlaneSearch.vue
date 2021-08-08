@@ -196,9 +196,10 @@ export default{
 .planesearchwrapper{
     background-color: rgba(255, 255, 255, 0.8);
     min-width: 820px;
-    border: 1px grey solid;
+    border: 1px #F0F0F0 solid;
     padding: 20px;
     border-radius: 15px;
+    box-shadow: 0px 0px 2px grey;
 }
 .searchwrapper{
     display: flex;

@@ -37,7 +37,9 @@
                 minHeight: '560px',
               }"
             >
-              <router-view></router-view>
+              <transition name="slide-fade">
+                <router-view></router-view>
+              </transition>
             </div>
           </a-layout-content>
           <a-layout-footer class="layoutfooter">
@@ -136,4 +138,16 @@ export default {
 .icon {
   font-size: 20px;
 }
+.slide-fade-enter-active {
+  transition: all 1s ease .3s;
+}
+.slide-fade-leave-active {
+  transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
 </style>
