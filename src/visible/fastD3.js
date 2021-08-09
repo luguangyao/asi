@@ -90,7 +90,11 @@ fastD3.onlyId = function () {
 }
 
 fastD3.strToNum = function (str) {
-    str = encodeURI(str).split('%');
+
+    if (typeof str === 'object'){
+        str.join('%');
+    }
+    str = encodeURI(str).split('%').reverse();
     let num = 0;
     for (let s of str) {
         // 计算
@@ -99,6 +103,7 @@ fastD3.strToNum = function (str) {
             aBit *= 100;
             aBit += this._rKey.indexOf(c);
         }
+        num *= 13;
         num += aBit;
     }
     return num;
@@ -1215,7 +1220,7 @@ fastD3.linesDefault = {
             .attr('d', nPath)
             .attr('fill', 'rgba(0,0,0,0)')
             .attr('stroke-width', 2)
-            .attr('stroke', 'white');
+            .attr('stroke', this.lineColor);
 
         line.text('reflesh');
 

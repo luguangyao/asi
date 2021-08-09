@@ -6,17 +6,14 @@ const dVis = axios.create({
 dVis;
 function weekOrders() {
     return dVis.post('/weekOrders');
-    // return axios.post('http://139.159.153.12/admin/weekOrders');
 }
 
 function dayOrders() {
     return dVis.post('/dayOrders');
-    // return axios.post('http://139.159.153.12/admin/dayOrders');
 }
 
 function planeTopN() {
-    return dVis.post('/PlanTopN');
-    // return axios.post('http://139.159.153.12/admin/PlaneTopN');
+    return dVis.post('/PlaneTopN');
 }
 
 export default {

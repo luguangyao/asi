@@ -2,32 +2,31 @@ module.exports = {
   devServer: {
     proxy: {
       '/admin': {
-        // target: 'http://127.0.0.1/admin',
-        target: 'http://139.159.153.12',
+        target: 'http://127.0.0.1',
         changeOrigin: true,
         pathRewrite: {
-          '^/admin': ''
+          '^/admin': '/admin'
         }
       },
       '/orders': {
-         target: 'http://127.0.0.1/orders',
+         target: 'http://127.0.0.1',
          changeOrigin: true,
          pathRewrite: {
-           '^/orders': ''
+           '^/orders': '/orders'
          }
        },
        '/plane': {
-         target: 'http://127.0.0.1/plane',
+         target: 'http://127.0.0.1',
          changeOrigin: true,
          pathRewrite: {
-           '^/plane': ''
+           '^/plane': '/plane'
          }
        },
        '/user': {
-        target: 'http://127.0.0.1/user',
+        target: 'http://127.0.0.1',
         changeOrigin: true,
         pathRewrite: {
-          '^/user': ''
+          '^/user': '/user'
         }
       },
       '/location':{
