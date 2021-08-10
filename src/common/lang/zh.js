@@ -140,5 +140,9 @@ export const m = {
 
   sortbyprice:"依照价格排序",
   sortbytransfertimes:"依照转机次数排序",
-  sortbytime:"依照航行时间排序"
+  sortbytime:"依照航行时间排序",
+
+  weekChartDes: '周销量',
+  dayChartDes: '日销量',
+  planeTopNDes: '热门航班',
 }

@@ -10,7 +10,12 @@
     // 创建动态表格
     fastD3.SVG();
     let testing = true;
-    testing;
+    function myLog(info) {
+        if (testing) {
+            console.log(info);
+        }
+    }
+    myLog;
 
     export default {
         name: "DataVisable",
@@ -42,17 +47,11 @@
                         });
                         return r;
                     }, (e) =>{
-                        // 可获取错误信息
-                        if (testing) {
-                            console.log(e);
-                        }
+                        myLog(e);
                         return [];
                     })
                     .catch((e) =>{
-                        // 可获取错误信息
-                        if (testing) {
-                            console.log(e);
-                        }
+                        myLog(e);
                         return [];
                     });
             },
@@ -67,17 +66,11 @@
                         });
                         return r;
                     }, (e) =>{
-                        // 可获取错误信息
-                        if (testing) {
-                            console.log(e);
-                        }
+                        myLog(e);
                         return [];
                     })
                     .catch((e) =>{
-                        // 可获取错误信息
-                        if (testing) {
-                            console.log(e);
-                        }
+                        myLog(e);
                         return [];
                     });
             },
@@ -92,27 +85,20 @@
                         });
                         return r;
                     }, (e) =>{
-                        // 可获取错误信息
-                        if (testing) {
-                            console.log(e);
-                        }
+                        myLog(e);
                         return [];
                     })
                     .catch((e) =>{
-                        // 可获取错误信息
-                        if (testing) {
-                            console.log(e);
-                        }
+                        myLog(e);
                         return [];
                     });
             },
         },
         created() {
             let that = this;
-            // todo: 国际化以及文字修改、自动更新等。
+            // todo: 文字修改
             
             this.$nextTick(async function () {
-                // let data = that.getData();
                 let root = that.$refs.root;
                 fastD3.SVG(that.$refs.targetSVG, root.offsetWidth, root.offsetHeight);
                 let param = {...fastD3.columnDefault};
@@ -149,15 +135,18 @@
                 text2Param.yOffset = 0.45;
                 text3Param.xOffset = 0.45;
                 text3Param.yOffset = 0.7;
-                let text1 = fastD3.text('周销量', text1Param);
-                let text2 = fastD3.text('日销量', text2Param);
-                let text3 = fastD3.text('日销量', text3Param);
+                let text1 = fastD3.text(``, text1Param);
+                let text2 = fastD3.text(``, text2Param);
+                let text3 = fastD3.text(``, text3Param);
 
                 text1, text2, text3;
 
-                // todo: 替换为自动更新数据
+                let cText = () =>{
+                    text1.cData(`${this.$t('m.weekChartDes')}`);
+                    text2.cData(`${this.$t('m.dayChartDes')}`);
+                    text3.cData(`${this.$t('m.planeTopNDes')}`);
+                }
                 let tt = async () =>{
-                    // that.autoAdd(data);
                     try {
                         let week = await that.weeks();
                         let day = await that.days();
@@ -165,9 +154,10 @@
                         col.cData(tN);
                         wl.cData(week);
                         dl.cData(day);
-                        // setTimeout(tt, 2000); // 使其实时更新
+                        cText();
+                        setTimeout(tt, 1000); // 使其实时更新
                     } catch (e){
-                        console.log(e);
+                        myLog(e);
                     }
                 }
                 tt();

@@ -143,6 +143,9 @@ export const m = {
 
     sortbyprice:"sort by price",
     sortbytransfertimes:"sort by transfer times",
-    sortbytime:"sort by time"
+    sortbytime:"sort by time",
 
+    weekChartDes: 'Weekly sales',
+    dayChartDes: 'Daily sales',
+    planeTopNDes: 'Popular flights',
  }
