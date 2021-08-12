@@ -37,7 +37,7 @@ export default {
         }
         data.push({
           name: pos,
-          value: sum,
+          value: +sum,
         });
       }
       // 处理结构
