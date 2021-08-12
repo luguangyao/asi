@@ -1075,7 +1075,7 @@ fastD3.linesDefault = {
                         .data(d.name);
                     dataG.enter().append('tspan')
                         .text((d) => {
-                            return d.name
+                            return d
                         })
                         .attr('dy', this.lineHeight);
                     dataG.exit().remove();
@@ -1103,7 +1103,8 @@ fastD3.linesDefault = {
                         .data(d.value);
                     dataG.enter().append('tspan')
                         .text((d) => {
-                            return d.value
+                            console.log(d)
+                            return d;
                         })
                         .attr('dy', this.lineHeight);
                     dataG.exit().remove();
