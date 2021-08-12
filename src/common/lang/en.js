@@ -148,4 +148,8 @@ export const m = {
     weekChartDes: 'Weekly sales',
     dayChartDes: 'Daily sales',
     planeTopNDes: 'Popular flights',
+    from: "from",
+    afterFrom: " can arrive",
+    searchMore: "for more",
+    defaultFrom: "nothing",
  }

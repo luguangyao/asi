@@ -54,8 +54,8 @@ fastD3.SVG = function (svg, width, height, update = true) {
     if (update) {
         let that = this;
         window.onresize = function () {
-            let w = this._svg ? that._svg.width.baseVal.value : 0;
-            let h = this._svg ? that._svg.height.baseVal.value : 0;
+            let w = that._svg ? that._svg.width.baseVal.value : 0;
+            let h = that._svg ? that._svg.height.baseVal.value : 0;
             that.setInfo(w, h);
         }
     }
@@ -1020,7 +1020,7 @@ fastD3.linesDefault = {
             .domain([0, max])
             .range([0, chartHeight]);
 
-        let pointWidth = width / data.length;
+        let pointWidth = width / Math.max(15, data.length);
         uniform.width = pointWidth * this.pointRPerWidth;
 
         let formData = [];
@@ -1087,8 +1087,8 @@ fastD3.linesDefault = {
             .attr('x', d => {
                 return d.x;
             })
-            .attr('y', d => {
-                return d.y + d.height + this.lineHeight;
+            .attr('y', (d, i) => {
+                return d.y + d.height + this.lineHeight * (i%2 + 1);
             })
             .attr('font-size', this.fontSize)
             .attr('fill', that.fontColor)
@@ -1140,7 +1140,7 @@ fastD3.linesDefault = {
             });
         points;
 
-        groups.each(function (d) {
+        groups.each(function (d, i) {
             let idx = names.indexOf(d.name)
             let selfSelector = d3.select(this);
             if (idx != -1) {
@@ -1154,7 +1154,7 @@ fastD3.linesDefault = {
                         return d.x;
                     })
                     .attr('y', d => {
-                        return d.y + d.height + that.lineHeight;
+                        return d.y + d.height + that.lineHeight * (i%2 + 1);
                     });
 
                 selfSelector.select('g').select('text')

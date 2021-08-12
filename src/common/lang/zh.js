@@ -145,4 +145,8 @@ export const m = {
   weekChartDes: '周销量',
   dayChartDes: '日销量',
   planeTopNDes: '热门航班',
+  from: "从",
+  afterFrom: "出发的行程",
+  searchMore: "探索更多目的地",
+  defaultFrom: "未选择",
 }

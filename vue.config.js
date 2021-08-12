@@ -36,7 +36,11 @@ module.exports = {
           '^/location':''
         }
       },
-    }
+    },
   },
-  
+  configureWebpack: {
+    externals: {
+      'BMap': 'BMap'
+    }
+  }
 }

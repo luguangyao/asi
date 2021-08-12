@@ -5,7 +5,7 @@
 </template>
 <script>
     import fastD3 from '@/visible/fastD3';
-    import dataVisable from '@/network/dataVisable';
+    import dataVisableNet from '@/network/dataVisableNet';
 
     // 创建动态表格
     fastD3.SVG();
@@ -15,7 +15,6 @@
             console.log(info);
         }
     }
-    myLog;
 
     export default {
         name: "DataVisable",
@@ -37,7 +36,7 @@
                 });
             },
             async days () {
-                return dataVisable.dayOrders()
+                return dataVisableNet.dayOrders()
                     .then((res) =>{
                         let ans = res? res.data : [];
                         let r = [];
@@ -56,7 +55,7 @@
                     });
             },
             async weeks () {
-                return dataVisable.weekOrders()
+                return dataVisableNet.weekOrders()
                     .then((res) =>{
                         let ans = res? res.data : [];
                         let r = [];
@@ -75,7 +74,7 @@
                     });
             },
             async topN() {
-                return dataVisable.planeTopN()
+                return dataVisableNet.planeTopN()
                     .then((res) =>{
                         let ans = res? res.data[0].hotPlanes : [];
                         let r = [];
@@ -111,7 +110,7 @@
                 let col = fastD3.column([], param);
 
                 let weekLine = {...fastD3.linesDefault};
-                weekLine.widthPercent = 0.25;
+                weekLine.widthPercent = 0.7;
                 weekLine.heightPercent = 0.25;
                 weekLine.yOffset = 0.1;
                 weekLine.fontSize = 10;
@@ -121,7 +120,7 @@
 
                 let dayLine = {...fastD3.linesDefault};
                 dayLine.sort = (a, b) =>{return b.value - a.value;};
-                dayLine.widthPercent = 0.25;
+                dayLine.widthPercent = 0.7;
                 dayLine.heightPercent = 0.25;
                 dayLine.yOffset = 0.5;
                 dayLine.fontSize = 10;
@@ -151,9 +150,9 @@
                         let week = await that.weeks();
                         let day = await that.days();
                         let tN = await that.topN();
-                        col.cData(tN);
-                        wl.cData(week);
-                        dl.cData(day);
+                        col.cData(tN || []);
+                        wl.cData(week || []);
+                        dl.cData(day || []);
                         cText();
                         setTimeout(tt, 1000); // 使其实时更新
                     } catch (e){

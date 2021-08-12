@@ -23,6 +23,7 @@ export default {
   border-radius: 10px;
   margin: 0%;
   padding: 0%;
+  width: 100%;
 }
 .card{
     width: 100%;
