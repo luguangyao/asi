@@ -11,7 +11,9 @@
                 <Card/>
             </a-col>
             <a-col :span="12">
-                <div class="map">地图</div>
+                <baidu-map :center="center" :zoom="zoom">
+                </baidu-map>
+                <!-- <div class="map">地图</div> -->
             </a-col>
         </a-row>
       </div>  

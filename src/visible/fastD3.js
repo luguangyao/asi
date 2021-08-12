@@ -54,8 +54,8 @@ fastD3.SVG = function (svg, width, height, update = true) {
     if (update) {
         let that = this;
         window.onresize = function () {
-            let w = that._svg.width.baseVal.value;
-            let h = that._svg.height.baseVal.value;
+            let w = this._svg ? that._svg.width.baseVal.value : 0;
+            let h = this._svg ? that._svg.height.baseVal.value : 0;
             that.setInfo(w, h);
         }
     }
