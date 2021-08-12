@@ -24,11 +24,13 @@ export default{
     justify-content: center;
 }
 .content{
-    background: white;
+    background: rgb(245, 255, 101);
+    background-image: linear-gradient(45deg,white 25%,#f0f0f0 0,#f0f0f0 50%,white 0,white 75%,#f0f0f0  0);
+    background-size: 80px 80px;
     display: flex;
     justify-content: center;
     height: 100px;
-    border:1px grey solid;
+    border:2px #F0F0F0 solid;
     width:80%;
     border-radius: 5px;
     align-items:center;

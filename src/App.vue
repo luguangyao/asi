@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <transition name="slide-fade">
+          <router-view></router-view>
+        </transition>
   </div>
 </template>
 <script>
@@ -32,5 +34,15 @@ body::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   background: #ededed;
+}
+.slide-fade-enter-active {
+  transition: all 1s ease .3s;
+}
+.slide-fade-leave-active {
+  transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
