@@ -52,7 +52,7 @@ export const m = {
 
     user:"user",
     userMessage:"message",
-    accountMessage:"account message",
+    accountMessage:"change Info",
     usefulMessage:"useful message",
     ordersMessage:"orders message",
     allOrders:"all orders",
@@ -152,4 +152,10 @@ export const m = {
     afterFrom: " can arrive",
     searchMore: "for more",
     defaultFrom: "nothing",
+    sex: "sex",
+    age: "age",
+    m: "male",
+    f: "female",
+    name: "name",
+    phone: "phone",
  }

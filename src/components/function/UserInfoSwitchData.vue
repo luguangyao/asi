@@ -1,11 +1,11 @@
 <template>
     <div class="root">
         <div v-if="type==0">
-            <label :for="item.name">{{item.display}} : </label>
+            <label :for="item.name">{{this.$t(item.display)}} : </label>
             <input :name="item.name" type='text' v-model='item.value' class="infoInput"/>
         </div>
         <div v-else>
-            <h1>{{item.display}} : {{item.value}}</h1>
+            <h1>{{this.$t(item.display)}} : {{item.value}}</h1>
         </div>
     </div>
 </template>

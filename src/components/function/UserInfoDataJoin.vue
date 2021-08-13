@@ -1,5 +1,6 @@
 <template>
     <a-card class="root">
+        <input :value="dlength" hidden/>
         <h1>{{title}}</h1>
         <hr/>
         <a-row v-for="item,itemIdx in showStrs" :key="`row${itemIdx}#`">
@@ -13,7 +14,10 @@
         </a-row>
         <a-row v-for="but,idx in needBut" :key="`${but.name}b${idx}`">
             <a-col :span="but.span || 24" :offset="but.offset || 0">
-                <button @click="but.callback(templateData)" style="width:100%;">{{but.name}}</button>
+                <button @click="but.callback(templateData)" 
+                :name="but.name"
+                style=" width:100%;height: 6vh;border: 1px solid;border-radius:5px;">
+                {{but.display}}</button>
             </a-col>
         </a-row>
         <!-- todo: 按钮渲染-->
@@ -43,7 +47,6 @@
         },
         methods: {
             formData(data) {
-                console.log(data);
                 let that = this;
                 let contain = lineWidth;
                 const _fan = () =>{
@@ -88,7 +91,6 @@
                 if (_t.child.length > 0){
                     that.showStrs.push(_t);
                 }
-                console.log(that.showStrs)
             },
             getItemType(item) {
                 // todo: 根据info获取正确的字符串用于显示在界面上
@@ -103,33 +105,23 @@
             return {
                 templateData: {}, // 需要记录当前的值
                 showStrs: [], //展示字符，树结构
+                dlength: 0,
             }
         },
         mounted() {
             // 处理数据
-            // this.formData(this.showData);
-            let test = [{
-                name: 'fname',
-                display: 'fname',
-                changeAble: false,
-                value: 4,
-            },{
-                isLine: true,
-            }, {
-                name: 'dname',
-                display: 'lname',
-                changeAble: true,
-                value: 5,
-                span: 6,
-            },{
-                name: 'xname',
-                display: 'xname',
-                changeAble: false,
-                value: 6,
-                span: 12,
-                offset: 1,
-            }];
-            this.formData(test)
+            // this.formData(this.showData)sdd
+            let that = this;
+            const wait = () =>{
+                if (that.showData) {
+                    that.formData(that.showData);
+                    that.dlength = that.showData.length;
+                }
+                else {
+                    setTimeout(wait, 1000);
+                }
+            }
+            wait();
         },
     }
 </script>

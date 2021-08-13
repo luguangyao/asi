@@ -27,8 +27,8 @@ const store= new Vuex.Store({
             display:"m.userMessage",
           },
           {
-            name: "account message",
-            url:"/account message",
+            name: "changeable message",
+            url:"/changeable message",
             display: "m.accountMessage",
           },
           {

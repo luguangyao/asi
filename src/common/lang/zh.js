@@ -53,7 +53,7 @@ export const m = {
 
   user:"用户",
   userMessage:"用户信息",
-  accountMessage:"账户信息",
+  accountMessage:"修改信息",
   usefulMessage:"常用信息",
   ordersMessage:"订单信息",
   allOrders:"全部订单",
@@ -149,4 +149,10 @@ export const m = {
   afterFrom: "出发的行程",
   searchMore: "探索更多目的地",
   defaultFrom: "未选择",
+  sex: "性别",
+  age: "年龄",
+  m: "男",
+  f: "女",
+  name: "姓名",
+  phone: "电话",
 }
