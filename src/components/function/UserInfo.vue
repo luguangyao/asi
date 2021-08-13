@@ -48,14 +48,25 @@ export default {
         myLog(e);
       }).catch((e) =>{
         myLog(e);
-      })
+      });
     },
     async changeInfo (nInfo) {
       return UserInfoNet.updateUserInfo(nInfo).then( (res) =>{
         return res && res.data;
       }, (e) =>{
         myLog(e);
-      })
+      }).catch(e =>{
+        myLog(e);
+      });
+    },
+    async changePwd (nPwd) {
+      return UserInfoNet.updatePwd(nPwd).then( (res) =>{
+        return res && res.data;
+      }, (e) =>{
+        myLog(e);
+      }).catch( e=>{
+        myLog(e);
+      });
     },
     formData (name, data) {
       let nd = [];
@@ -123,6 +134,7 @@ export default {
         span: 12,
         display: "m.btnUserInfoChange",
         callback: (td) =>{
+          console.log(td);
           that.changeInfo(td);
         }
       }];
@@ -132,7 +144,8 @@ export default {
         offset: 6,
         display: "m.btnPasswordChange",
         callback: (td) =>{
-          that.changeInfo(td);
+          console.log(td);
+          that.changePwd(td);
         }
       }];
     }

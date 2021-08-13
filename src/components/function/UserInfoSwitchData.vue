@@ -11,7 +11,14 @@
 </template>
 <script>
 export default {
-    props: ['type','item']
+    props: ['type','item'],
+    methods: {
+        udf(){
+            this.$emit('update:item', this.value);
+        }
+    },
+    created(){
+    }
 }
 </script>
 <style scoped>

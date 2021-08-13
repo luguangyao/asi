@@ -6,7 +6,9 @@
         <a-row v-for="item,itemIdx in showStrs" :key="`row${itemIdx}#`">
             <a-col v-for="i,idx in item.child" :key="`${itemIdx}c${idx}`" 
                 :span="i.span" :offset="i.offset || 0">
-                <UserInfoSwitchData :item='i.data.item' :type='i.data.type'/>
+                <UserInfoSwitchData :item.sync='i.data.item' 
+                    :type='i.data.type'/>
+                    <!-- todo: 数据未双向绑定成功 -->
             </a-col>
             <a-col :span="24">
                 <hr :style="{'display':(item.lineEnd?'block':'none')}" />
@@ -20,7 +22,6 @@
                 {{$t(but.display)}}</button>
             </a-col>
         </a-row>
-        <!-- todo: 按钮渲染-->
     </a-card>
 </template>
 <script>
