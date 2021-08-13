@@ -9,7 +9,7 @@
 
     // 创建动态表格
     fastD3.SVG();
-    let testing = true;
+    let testing = false;
     function myLog(info) {
         if (testing) {
             console.log(info);

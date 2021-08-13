@@ -3,7 +3,7 @@
     <a-tabs :default-active-key="this.selected" tab-position="top">
       <template slot="tabBarExtraContent">
           <div>
-              {{selected}}
+              <h1>{{selected}}</h1>
             下载数据
           <a-button type="primary" shape="circle" icon="download"  />
           </div>
