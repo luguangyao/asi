@@ -155,4 +155,10 @@ export const m = {
   f: "女",
   name: "姓名",
   phone: "电话",
+  oldPassword: "旧密码",
+  newPassword: "新密码",
+  chkPassword: "确认密码",
+
+  btnPasswordChange: "提交密码变更",
+  btnUserInfoChange: "提交信息变更",
 }

@@ -17,7 +17,7 @@
                 <button @click="but.callback(templateData)" 
                 :name="but.name"
                 style=" width:100%;height: 6vh;border: 1px solid;border-radius:5px;">
-                {{but.display}}</button>
+                {{$t(but.display)}}</button>
             </a-col>
         </a-row>
         <!-- todo: 按钮渲染-->
@@ -75,6 +75,7 @@
                         contain = lineWidth;
                     } else {
                         item.name && (that.templateData[item.name] = item.value);
+                        if (item.hidden) return;
                         if (item.enter || item.span && contain >= item.span) {
                             contain -= item.span;
                             _add(item);

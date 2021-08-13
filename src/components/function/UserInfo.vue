@@ -88,6 +88,26 @@ export default {
           break;
         }
         case this.menu.children[2].name:{
+          nd = [{
+            name: "oldpassword",
+            display: "m.oldPassword",
+            value: "",
+            changeAble: true,
+          } , {
+            name: "newpassword",
+            display: "m.newPassword",
+            value: "",
+            changeAble: true,
+          } , {
+            name: "chkpassword",
+            display: "m.chkPassword",
+            value: "",
+            changeAble: true,
+          } , {
+            name: "idcard",
+            value: data.idcard,
+            hidden: true,
+          }]
           break;
         }
         default:
@@ -101,12 +121,20 @@ export default {
       this.butSet[this.menu.children[1].name] = [{
         name: "submit",
         span: 12,
-        display: "提交修改信息",
+        display: "m.btnUserInfoChange",
         callback: (td) =>{
           that.changeInfo(td);
         }
       }];
-      this.butSet[this.menu.children[2].name] = [];
+      this.butSet[this.menu.children[2].name] = [{
+        name: "changePass",
+        span: 12,
+        offset: 6,
+        display: "m.btnPasswordChange",
+        callback: (td) =>{
+          that.changeInfo(td);
+        }
+      }];
     }
   },
   data() {

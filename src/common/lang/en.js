@@ -158,4 +158,10 @@ export const m = {
     f: "female",
     name: "name",
     phone: "phone",
+    oldPassword: "oldPassword",
+    newPassword: "newPassword",
+    chkPassword: "chkPassword",
+
+    btnPasswordChange: "change password",
+    btnUserInfoChange: "submit change info",
  }
