@@ -12,7 +12,7 @@
             </a-col>
         </a-row>
         <a-row v-for="but,idx in needBut" :key="`${but.name}b${idx}`">
-            <button :value="but.name" @click="but.callback">
+            <button :value="but.name" @click="but.callback"/>
         </a-row>
         <!-- todo: 按钮渲染-->
     </a-card>
