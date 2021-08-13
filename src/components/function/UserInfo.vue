@@ -9,7 +9,7 @@
           </div>
       </template>
       <a-tab-pane :key="me.name" :tab="me.name" v-for="me in this.menu.children"> 
-        <UserInfoDataJoin :title="me.name" />
+        <UserInfoDataJoin :title="me.name" :needBut="butSet[me.name] || []"/>
       </a-tab-pane>
       
     </a-tabs>
@@ -31,10 +31,19 @@ export default {
   data() {
     return {
       menu: this.$store.state.personalMenuList[0],
+      butSet: {}
     };
   },
   created() {
       // console.log("created")
+      this.butSet[this.menu.children[0].name] = [{
+        name: "submit",
+        span: 12,
+        display: "提交",
+        callback: (td) =>{
+          alert(td)
+        }
+      }]
   },
 };
 </script>

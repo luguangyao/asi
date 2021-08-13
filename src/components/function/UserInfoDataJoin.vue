@@ -12,7 +12,9 @@
             </a-col>
         </a-row>
         <a-row v-for="but,idx in needBut" :key="`${but.name}b${idx}`">
-            <button :value="but.name" @click="but.callback"/>
+            <a-col :span="but.span || 24" :offset="but.offset || 0">
+                <button @click="but.callback(templateData)" style="width:100%;">{{but.name}}</button>
+            </a-col>
         </a-row>
         <!-- todo: 按钮渲染-->
     </a-card>
@@ -41,7 +43,6 @@
         },
         methods: {
             formData(data) {
-                // todo: 处理数据使得data便于被解释
                 console.log(data);
                 let that = this;
                 let contain = lineWidth;
@@ -91,7 +92,6 @@
             },
             getItemType(item) {
                 // todo: 根据info获取正确的字符串用于显示在界面上
-                console.log(item);
                 if (item.changeAble){
                     return ItemType.Input;
                 } else {
@@ -130,7 +130,6 @@
                 offset: 1,
             }];
             this.formData(test)
-            console.log(this.templateData)
         },
     }
 </script>
