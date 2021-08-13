@@ -8,14 +8,20 @@
           <a-button type="primary" shape="circle" icon="download"  />
           </div>
       </template>
-      <a-tab-pane :key="me.name" :tab="me.name" v-for="me in this.menu.children"> {{me.name}} </a-tab-pane>
+      <a-tab-pane :key="me.name" :tab="me.name" v-for="me in this.menu.children"> 
+        <UserInfoDataJoin :title="me.name" />
+      </a-tab-pane>
       
     </a-tabs>
   </div>
 </template>
 <script>
+import UserInfoDataJoin from '@/components/function/UserInfoDataJoin';
 export default {
   name: "UserInfo",
+  components:{
+    UserInfoDataJoin
+  },
   props: {
     selected: {
       type: String,
