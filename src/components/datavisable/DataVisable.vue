@@ -154,7 +154,8 @@
                         wl.cData(week || []);
                         dl.cData(day || []);
                         cText();
-                        setTimeout(tt, 1000); // 使其实时更新
+                        if (week.length || day.length || tN.length)
+                            setTimeout(tt, 1000); // 使其实时更新
                     } catch (e){
                         myLog(e);
                     }
