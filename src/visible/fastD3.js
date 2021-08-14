@@ -185,7 +185,7 @@ fastD3.textDefault = {
     cData(data, chart) {
         // 解析结构
         if (!data) {
-            console.error('数据为空, 如果希望清空版面请传入空数组');
+            // console.error('数据为空, 如果希望清空版面请传入空数组');
             return;
         }
 
@@ -973,6 +973,10 @@ fastD3.linesDefault = {
     nameAfterInit: {},
     valueReadyInit: {},
     valueAfterInit: {},
+    needAxisBottom: true,
+    axisBottomTrick: 2,
+    needAxisLeft: true,
+    axisLeftTrick: 2,
     sort: null,
     pointRPerWidth: 0.1,
     pointColor(d) {
@@ -1022,6 +1026,10 @@ fastD3.linesDefault = {
 
         let pointWidth = width / Math.max(15, data.length);
         uniform.width = pointWidth * this.pointRPerWidth;
+        let nySacan = d3.scaleLinear()
+            .domain([0, max])
+            .range([chartHeight, 0]);
+        uniform.ySacan = nySacan;
 
         let formData = [];
         data.forEach((d, i) => {
@@ -1205,16 +1213,17 @@ fastD3.linesDefault = {
         });
 
         nPath = nPath.replace('L', 'M');
-        let line = chart.d3r.select('path');
+        let line = chart.d3r.select('#path');
         let _d = line.attr('d') || '';
         let baseLine = this.createBaseLine(width, height, xoff, yoff,
             Math.max(formData.length, _d.split('L').length));
         nPath = nPath || baseLine;
         _d = _d || baseLine;
         line.remove();
-        line = chart.d3r.append('path');
+        line = chart.d3r.append('path')
 
         line
+            .attr('id', 'path')
             .attr('d', _d)
             .transition(this.changeDuration + 10)
             .ease(this.changeType)
@@ -1224,6 +1233,26 @@ fastD3.linesDefault = {
             .attr('stroke', this.lineColor);
 
         line.text('reflesh');
+
+        let axio = chart.d3r.select('#axio');
+        axio.selectAll('g').remove();
+        if (this.needAxisBottom) {
+            const axioX = d3.axisBottom()
+                .scale(uniform.ySacan)
+                .ticks(this.axisBottomTrick);
+            axio.append('g')
+                .attr('transform', `translate(${xoff + this.fontSize}, ${height + yoff + this.lineHeight})`)
+                .call(axioX);
+        }
+
+        if (this.needAxisLeft) {
+            const axioY = d3.axisLeft()
+                .scale(uniform.ySacan)
+                .ticks(this.axisLeftTrick);
+            axio.append('g')
+                .attr('transform', `translate(${xoff - this.fontSize}, ${yoff + this.lineHeight})`)
+                .call(axioY);
+        }
 
         // 处理结构
         chart.data = data;
@@ -1243,9 +1272,12 @@ fastD3.lines = function (data, param = fastD3.linesDefault) {
     let oid = fastD3.onlyId();
     lineRoot.attr('id', oid);
     lineRoot.append('path')
+        .attr('id', 'path')
         .attr('fill', 'rgba(0,0,0,0)')
         .attr('stroke-width', 2)
         .attr('stroke', 'white');
+    lineRoot.append('g')
+        .attr('id', 'axio');
     // 结构处理
     let aLines = {
         ...Chart

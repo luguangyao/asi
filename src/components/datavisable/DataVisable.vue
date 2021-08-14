@@ -139,7 +139,7 @@
                 param.heightPercent = 0.7;
                 param.fontSize = 10;
                 param.lineHeight = 10;
-                param.xOffset = 0.4;
+                param.xOffset = 0.5;
                 let col = fastD3.column([], param);
 
                 let weekLine = {
@@ -147,6 +147,7 @@
                 };
                 weekLine.widthPercent = 0.7;
                 weekLine.heightPercent = 0.25;
+                weekLine.xOffset = 0.1;
                 weekLine.yOffset = 0.1;
                 weekLine.fontSize = 10;
                 weekLine.lineHeight = 10;
@@ -161,6 +162,7 @@
                 };
                 dayLine.widthPercent = 0.7;
                 dayLine.heightPercent = 0.25;
+                dayLine.xOffset = 0.1;
                 dayLine.yOffset = 0.5;
                 dayLine.fontSize = 10;
                 dayLine.lineHeight = 10;
@@ -177,7 +179,7 @@
                     ...fastD3.textDefault
                 };
                 text2Param.yOffset = 0.45;
-                text3Param.xOffset = 0.45;
+                text3Param.xOffset = 0.55;
                 text3Param.yOffset = 0.7;
                 let text1 = fastD3.text(``, text1Param);
                 let text2 = fastD3.text(``, text2Param);
