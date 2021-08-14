@@ -4,7 +4,7 @@ const airport = axios.create({
     timeout: 2000,
 });
 
-function getAirportInfo (aname) {
+function getAirportInfo(aname) {
     let fd = new FormData();
     fd.append('aname', aname);
     return airport.post('/getAirportInfo', fd);

@@ -91,7 +91,7 @@ fastD3.onlyId = function () {
 
 fastD3.strToNum = function (str) {
 
-    if (typeof str === 'object'){
+    if (typeof str === 'object') {
         str.join('%');
     }
     str = encodeURI(str).split('%').reverse();
@@ -677,7 +677,7 @@ fastD3.columnDefault = {
     createBaseLine(width, height, xoff, yoff, n) {
         let baseLine = '';
         let _w = width / n;
-        for (let i =0; i<n; ++i) {
+        for (let i = 0; i < n; ++i) {
             baseLine += `L${xoff + _w * i} ${yoff + height} `;
         }
         baseLine += `L${xoff + width} ${yoff + height}`;
@@ -898,7 +898,7 @@ fastD3.columnDefault = {
             });
 
             nPath = nPath.replace('L', 'M');
-            let baseLine = this.createBaseLine(width, height, xoff, yoff, 
+            let baseLine = this.createBaseLine(width, height, xoff, yoff,
                 Math.max(formData.length, _d.split('L').length));
 
             _d = _d || baseLine;
@@ -990,7 +990,7 @@ fastD3.linesDefault = {
     createBaseLine(width, height, xoff, yoff, n) {
         let baseLine = '';
         let _w = width / n;
-        for (let i =0; i<n; ++i) {
+        for (let i = 0; i < n; ++i) {
             baseLine += `L${xoff + _w * i} ${yoff + height} `;
         }
         baseLine += `L${xoff + width} ${yoff + height}`;
@@ -1088,7 +1088,7 @@ fastD3.linesDefault = {
                 return d.x;
             })
             .attr('y', (d, i) => {
-                return d.y + d.height + this.lineHeight * (i%2 + 1);
+                return d.y + d.height + this.lineHeight * (i % 2 + 1);
             })
             .attr('font-size', this.fontSize)
             .attr('fill', that.fontColor)
@@ -1154,7 +1154,7 @@ fastD3.linesDefault = {
                         return d.x;
                     })
                     .attr('y', d => {
-                        return d.y + d.height + that.lineHeight * (i%2 + 1);
+                        return d.y + d.height + that.lineHeight * (i % 2 + 1);
                     });
 
                 selfSelector.select('g').select('text')

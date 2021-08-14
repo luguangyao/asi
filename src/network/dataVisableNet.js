@@ -3,7 +3,6 @@ const dVis = axios.create({
     baseURL: '/admin',
     timeout: 2000,
 });
-dVis;
 function weekOrders() {
     return dVis.post('/weekOrders');
 }
