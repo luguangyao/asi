@@ -9,7 +9,7 @@
           </div>
       </template>
       <a-tab-pane :key="me.name" :tab="me.name" v-for="me in this.menu.children"> 
-        <UserInfoDataJoin :title="me.name" :showData="dataSet[me.name]" :needBut="butSet[me.name] || []"/>
+        <UserInfoDataJoin :title="$t(me.display)" :showData="dataSet[me.name]" :needBut="butSet[me.name] || []"/>
       </a-tab-pane>
       
     </a-tabs>
@@ -18,11 +18,23 @@
 <script>
 import UserInfoNet from "@/network/UserInfoNet";
 import UserInfoDataJoin from '@/components/function/UserInfoDataJoin';
-const sexTo = {
-  m : "m.m",
-  f : "m.f",
-}
-sexTo
+const changeInfoMessage = [
+  [-5, '性别字符超出'],
+  [-6, '电话号码格式错误'],
+  [-7, '年龄格式错误'],
+  [-1, '性别字符超出'],
+  [1, '成功'],
+]
+const changeInfoMap = new Map(changeInfoMessage);
+const changePassMessage = [
+  [1, '更改成功'],
+  [-1, '登陆账号为空'],
+  [-2, '旧密码为空'],
+  [-3, '新密码为空'],
+  [-4, '前后密码不一致'],
+]
+const changePassMap = new Map(changePassMessage);
+
 let testing = true;
 function myLog  (e) {
   if (testing) console.log(e);
@@ -133,9 +145,10 @@ export default {
         name: "submit",
         span: 12,
         display: "m.btnUserInfoChange",
-        callback: (td) =>{
-          console.log(td);
-          that.changeInfo(td);
+        callback: async (td) =>{
+          let code = await that.changeInfo(td);
+          console.log(code, changeInfoMap.get(code));
+          await that.initData();
         }
       }];
       this.butSet[this.menu.children[2].name] = [{
@@ -143,11 +156,23 @@ export default {
         span: 12,
         offset: 6,
         display: "m.btnPasswordChange",
-        callback: (td) =>{
-          console.log(td);
-          that.changePwd(td);
+        callback: async (td) =>{
+          let code = await that.changePwd(td);
+          console.log(code, changePassMap.get(code));
+          await that.initData();
         }
       }];
+    },
+    async initData () {
+      let that = this;
+      let data = await this.userInfo();
+      console.log(data);
+      this.menu.children.forEach((item)=>{
+        delete that.dataSet[item.name];
+        that.formData(item.name, data);
+      });
+      this.$forceUpdate();
+      console.log(this.dataSet[this.menu.children[0].name]);
     }
   },
   data() {

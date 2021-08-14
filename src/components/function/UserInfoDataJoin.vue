@@ -1,14 +1,11 @@
 <template>
     <a-card class="root">
-        <input :value="dlength" hidden/>
+        <input :value="dlength" hidden />
         <h1>{{title}}</h1>
-        <hr/>
+        <hr />
         <a-row v-for="item,itemIdx in showStrs" :key="`row${itemIdx}#`">
-            <a-col v-for="i,idx in item.child" :key="`${itemIdx}c${idx}`" 
-                :span="i.span" :offset="i.offset || 0">
-                <UserInfoSwitchData :item.sync='i.data.item' 
-                    :type='i.data.type'/>
-                    <!-- todo: 数据未双向绑定成功 -->
+            <a-col v-for="i,idx in item.child" :key="`${itemIdx}c${idx}`" :span="i.span" :offset="i.offset || 0">
+                <UserInfoSwitchData :item.sync='i.data.item' :type='i.data.type' />
             </a-col>
             <a-col :span="24">
                 <hr :style="{'display':(item.lineEnd?'block':'none')}" />
@@ -16,10 +13,9 @@
         </a-row>
         <a-row v-for="but,idx in needBut" :key="`${but.name}b${idx}`">
             <a-col :span="but.span || 24" :offset="but.offset || 0">
-                <button @click="but.callback(templateData)" 
-                :name="but.name"
-                style=" width:100%;height: 6vh;border: 1px solid;border-radius:5px;">
-                {{$t(but.display)}}</button>
+                <button @click="but.callback(reciveData())" :name="but.name"
+                    style=" width:100%;height: 6vh;border: 1px solid;border-radius:5px;">
+                    {{$t(but.display)}}</button>
             </a-col>
         </a-row>
     </a-card>
@@ -43,21 +39,21 @@
                 type: String,
             }
         },
-        components:{
+        components: {
             UserInfoSwitchData
         },
         methods: {
             formData(data) {
                 let that = this;
                 let contain = lineWidth;
-                const _fan = () =>{
+                const _fan = () => {
                     return {
                         child: [],
                         lineEnd: false,
                     }
                 }
                 let _t = _fan();
-                const _add = (item) =>{
+                const _add = (item) => {
                     _t.child.push({
                         span: item.span,
                         offset: item.offset,
@@ -90,17 +86,28 @@
                     }
                 });
 
-                if (_t.child.length > 0){
+                if (_t.child.length > 0) {
                     that.showStrs.push(_t);
                 }
             },
             getItemType(item) {
                 // todo: 根据info获取正确的字符串用于显示在界面上
-                if (item.changeAble){
+                if (item.changeAble) {
                     return ItemType.Input;
                 } else {
                     return ItemType.Text;
                 }
+            },
+            reciveData() {
+                let that = this;
+                this.showStrs.forEach(item => {
+                    let childs = item.child;
+                    childs.forEach(i => {
+                        let sparn = i.data.item;
+                        that.templateData[sparn.name] = sparn.value;
+                    });
+                });
+                return this.templateData;
             }
         },
         data() {
@@ -114,12 +121,11 @@
             // 处理数据
             // this.formData(this.showData)sdd
             let that = this;
-            const wait = () =>{
+            const wait = () => {
                 if (that.showData) {
                     that.formData(that.showData);
                     that.dlength = that.showData.length;
-                }
-                else {
+                } else {
                     setTimeout(wait, 1000);
                 }
             }

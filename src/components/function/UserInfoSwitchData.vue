@@ -2,7 +2,7 @@
     <div class="root">
         <div v-if="type==0">
             <label :for="item.name">{{this.$t(item.display)}} : </label>
-            <input :name="item.name" type='text' v-model='item.value' class="infoInput"/>
+            <input :name="item.name" type='text' v-model='item.value' @change="udf" class="infoInput"/>
         </div>
         <div v-else>
             <h1>{{this.$t(item.display)}} : {{item.value}}</h1>
@@ -14,10 +14,13 @@ export default {
     props: ['type','item'],
     methods: {
         udf(){
-            this.$emit('update:item', this.value);
+            this.$emit('update:item', this.item);
         }
     },
     created(){
+        if (!this.item){
+            this.item = {};
+        }
     }
 }
 </script>
