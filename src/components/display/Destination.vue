@@ -106,10 +106,12 @@ export default {
       async getAllDes(data) {
           // 获取所有目标, 渲染界面
           let _ts = [];
+          let names = new Set();
           for (let item of data) {
             let info = await this.airlineInfo(item.destination);
-            if (typeof info == 'object')
-            {
+            if (typeof info == 'object') {
+              if (names.has(info.aname)) continue;
+              names.add(info.aname);
               _ts.push({
                 info,
                 flightid: item.flightid,
@@ -117,6 +119,7 @@ export default {
               });
             }
           }
+          console.log(names)
           this.targets = _ts;
           if (this.targets.length > 0){
             this.clickCard(this.targets[0]);
@@ -127,7 +130,6 @@ export default {
         this.map.panTo(point);
         let mark = new BMap.Marker(point);
         this.map.addOverlay(mark);
-        console.log(point)
       },
     },
     mounted() {
