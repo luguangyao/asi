@@ -4,15 +4,13 @@
       <div class="container">
         <div class="front" style="background-image: url(img/1.png)">
           <div class="inner">
-            <p>Diligord</p>
-            <span>Lorem ipsum</span>
+            <p>{{title}}</p>
+            <!-- <span>Lorem ipsum</span>-->
           </div>
         </div>
         <div class="back">
           <div class="inner">
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias
-              cum repellat velit quae suscipit c.
+            <p v-html="text">
             </p>
           </div>
         </div>
@@ -23,6 +21,7 @@
 <script>
 export default {
   name: "RotateImg",
+  props: ['title', 'text']
 };
 </script>
 <style scoped>

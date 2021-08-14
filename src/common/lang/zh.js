@@ -161,4 +161,7 @@ export const m = {
 
   btnPasswordChange: "提交密码变更",
   btnUserInfoChange: "提交信息变更",
+
+  longitude: '经度',
+  latitude: '纬度',
 }

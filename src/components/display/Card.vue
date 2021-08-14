@@ -1,9 +1,11 @@
 <template>
-  <div class="wrapper" >
-        <RotateImg/>
-        <a-card title="Default size card" :bordered="false" class="card"  >
-          <a slot="extra" href="#">more</a>
-          <p>card content</p>
+  <div class="wrapper" @click="clickF(item)">
+        <RotateImg :title="item.info.pname" :text="''"/>
+        <a-card :title="item.info.aname" :bordered="false" class="card"  >
+          <!-- <a slot="extra" href="#">more</a> -->
+          <p>{{$t("m.longitude")}} : {{item.info.py}}</p>
+          <p>{{$t("m.latitude") }}:  {{item.info.px}}</p>
+          <p></p>
         </a-card>
   </div>
 </template>
@@ -11,6 +13,7 @@
 import RotateImg from "../../components/function/RotateImg.vue";
 export default {
   name: "Card",
+  props:['item', 'clickF'],
   components: {
     RotateImg,
   },

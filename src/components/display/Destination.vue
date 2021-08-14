@@ -34,7 +34,7 @@
             <a-col :span="12" class="col">
                 <div class="cards">
                 <!-- todo 绑定点击事件，将数据填入Card,获取经纬度-->
-                  <Card v-for="item in targets" :key="item.flightid" @click="clickCard(item)"/>
+                  <Card v-for="item in targets" :key="item.flightid" :item="item" :clickF="clickCard"/>
                 </div>
             </a-col>
             <a-col :span="12">
@@ -51,6 +51,7 @@
 import Card from "../../components/display/Card.vue"
 import moment from 'moment'
 import FlightNet from '@/network/FlightNet';
+import AirlineInfoNet from '@/network/AirlineInfoNet';
 import BMap from 'BMap';
 export default {
     name:"Destination",
@@ -59,6 +60,7 @@ export default {
     },
     data () {
       return {
+        map: null,
         starAirlines: '',
         airlines: [],
         targets: [],
@@ -91,21 +93,55 @@ export default {
         // this.selectedData.departure = where;
         FlightNet.queryFlights(this.selectedData, this.getAllDes, ()=>{});
       },
-      getAllDes(data) {
+      async airlineInfo(name) {
+        return AirlineInfoNet.getAirportInfo(name)
+          .then((data) =>{
+            return data && data.data;
+          }, (e)=>{
+            console.log(e);
+          }).catch(err=>{
+            console.log(err)
+          });
+      },
+      async getAllDes(data) {
           // 获取所有目标, 渲染界面
-          this.targets = data;
+          let _ts = [];
+          for (let item of data) {
+            let info = await this.airlineInfo(item.destination);
+            if (typeof info == 'object')
+            {
+              _ts.push({
+                info,
+                flightid: item.flightid,
+                data,
+              });
+            }
+          }
+          this.targets = _ts;
+          if (this.targets.length > 0){
+            this.clickCard(this.targets[0]);
+          }
       },
       clickCard(item) {
-        console.log(item);
+        let point = new BMap.Point(+item.info.ay, +item.info.ax);
+        this.map.panTo(point);
+        let mark = new BMap.Marker(point);
+        this.map.addOverlay(mark);
+        console.log(point)
       },
     },
     mounted() {
       let that = this;
       this.$nextTick(() =>{
         // let r = document.getElementById('map');
-        let map = new BMap.Map('map');
+        that.map = new BMap.Map('map');
         let point = new BMap.Point(119, 29);
-        map.centerAndZoom(point, 15);
+        that.map.centerAndZoom(point, 15);
+
+        that.map.addControl(new BMap.NavigationControl());    
+        that.map.addControl(new BMap.ScaleControl());    
+        that.map.addControl(new BMap.OverviewMapControl());    
+        that.map.addControl(new BMap.MapTypeControl());    
 
         function getAirLine(data) {
           that.airlines = data;
