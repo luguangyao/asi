@@ -112,7 +112,7 @@
     position: absolute;
     left: 0;
     width: 100%;
-    padding: 2rem;
+    padding: 0rem;
     font-size: 0.7em;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;

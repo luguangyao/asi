@@ -24,9 +24,11 @@
         </a-col>
         <a-col :span="4">
           <div>
+            <!--
             <a-button slot="extra" size="small">{{$t('m.searchMore')}}
               <a-icon type="select" />
             </a-button>
+            -->
           </div>
         </a-col>
       </a-row>
