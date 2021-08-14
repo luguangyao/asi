@@ -2,7 +2,7 @@
   <div>
     <a-card :bordered="false">
       <a-collapse>
-        <a-collapse-panel key="1" header="绘制折线图">
+        <a-collapse-panel key="1" header="价格概览">
           <div ref="brokenLineCardRoot" class="brokenLineCardRoot"> <svg ref="brokenLineCardtTargetSVG"></svg> </div>
           <!-- <div v-for="item,index in planedata" :key="index">
             <h4>方案{{index}}</h4>
@@ -22,7 +22,7 @@
     props: {
       planedata: []
     },
-    created() {
+    mounted() {
       let that = this;
 
       function makeChart() {
@@ -32,7 +32,7 @@
           let sum = 0;
           let pos = '';
           for (let o of plan) {
-            sum += o.price;
+            sum += +o.price;
             pos += o.flightid;
           }
           data.push({
