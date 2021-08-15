@@ -22,13 +22,20 @@
     props: {
       planedata: []
     },
-    mounted() {
-      let that = this;
-
-      function makeChart() {
-        // 处理数据
+    data () {
+      return {
+        chart: null,
+      }
+    },
+    methods: {
+      cData () {
+        if (this.chart) {
+          this.chart.cData(this.formData());
+        }
+      },
+      formData() {
         let data = [];
-        for (let plan of that.planedata) {
+        for (let plan of this.planedata) {
           let sum = 0;
           let pos = '';
           for (let o of plan) {
@@ -40,6 +47,15 @@
             value: +sum,
           });
         }
+        return data;
+      }
+    },
+    mounted() {
+      let that = this;
+
+      const makeChart = () =>{
+        // 处理数据
+        let data = that.formData();
         // 处理结构
         let linesP = {
           ...fastD3.linesDefault
@@ -51,7 +67,7 @@
         linesP.lineColor = 'rgba(200, 200, 200, 200)'
         linesP.fontSize = 7;
         linesP.lineHeight = 10;
-        fastD3.lines(data, linesP);
+        this.chart = fastD3.lines(data, linesP);
       }
 
       function wait() {

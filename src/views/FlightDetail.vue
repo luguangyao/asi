@@ -1,6 +1,6 @@
 <template>
     <div class="flightlistwrapper">
-        <BrokenLineCard :planedata="this.total"/>
+        <BrokenLineCard :planedata="this.total" ref="blc"/>
         <FlightList :planedata="this.total" @sortevent="sort"/>
     </div>
 </template>
@@ -81,6 +81,7 @@ export default {
         },
         setProject(project,index,data){
             Vue.set(project,index,data)
+            this.$refs.blc.cData();
         },
         sort(t){
             switch(t){
