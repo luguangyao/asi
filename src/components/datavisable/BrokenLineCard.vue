@@ -44,6 +44,10 @@
         let linesP = {
           ...fastD3.linesDefault
         };
+        linesP.xOffset = 0.05;
+        linesP.yOffset = 0.05;
+        linesP.widthPercent = 0.9;
+        linesP.heightPercent = 0.9;
         linesP.lineColor = 'rgba(200, 200, 200, 200)'
         linesP.fontSize = 7;
         linesP.lineHeight = 10;

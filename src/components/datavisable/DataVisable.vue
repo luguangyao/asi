@@ -145,7 +145,7 @@
                 let weekLine = {
                     ...fastD3.linesDefault
                 };
-                weekLine.widthPercent = 0.7;
+                weekLine.widthPercent = 0.4;
                 weekLine.heightPercent = 0.25;
                 weekLine.xOffset = 0.1;
                 weekLine.yOffset = 0.1;
@@ -160,7 +160,7 @@
                 dayLine.sort = (a, b) => {
                     return b.value - a.value;
                 };
-                dayLine.widthPercent = 0.7;
+                dayLine.widthPercent = 0.4;
                 dayLine.heightPercent = 0.25;
                 dayLine.xOffset = 0.1;
                 dayLine.yOffset = 0.5;

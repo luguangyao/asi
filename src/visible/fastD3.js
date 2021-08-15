@@ -975,6 +975,7 @@ fastD3.linesDefault = {
     valueAfterInit: {},
     needAxisBottom: true,
     axisBottomTrick: 2,
+    axisBottomXName: (item) =>{return item.name;},
     needAxisLeft: true,
     axisLeftTrick: 2,
     sort: null,
@@ -1012,6 +1013,12 @@ fastD3.linesDefault = {
         let values = data.map((item) => {
             return item.value
         });
+        let names = data.map(this.axisBottomXName);
+        let namesRange = [];
+        const _w = width / names.length;
+        names.forEach((d, i) =>{
+            namesRange.push(i * _w);
+        });
         let max = Math.max(...values);
         let chartHeight = height * (1 - this.topSpacePerHeight - this.bottomSpacePerHeight);
         let chartBottom = height * (1 - this.bottomSpacePerHeight - this.yOffset);
@@ -1024,12 +1031,16 @@ fastD3.linesDefault = {
             .domain([0, max])
             .range([0, chartHeight]);
 
-        let pointWidth = width / Math.max(15, data.length);
-        uniform.width = pointWidth * this.pointRPerWidth;
+        let pointWidth = width / data.length;
+        uniform.width = Math.min(this.fontSize, pointWidth * this.pointRPerWidth);
         let nySacan = d3.scaleLinear()
             .domain([0, max])
             .range([chartHeight, 0]);
         uniform.ySacan = nySacan;
+        let xSacan = d3.scaleOrdinal()
+            .domain(names)
+            .range(namesRange);
+        uniform.xSacan = xSacan;
 
         let formData = [];
         data.forEach((d, i) => {
@@ -1038,7 +1049,7 @@ fastD3.linesDefault = {
                 name: this.cName(d.name),
                 value: this.cValue(d.value),
                 height: ySacan(d.value),
-                x: i * pointWidth + pointWidth / 2 + xoff,
+                x: i * pointWidth + uniform.width / 2 + xoff,
                 y: (height - ySacan(d.value) -
                     that.topSpacePerHeight * height + yoff)
             });
@@ -1074,33 +1085,33 @@ fastD3.linesDefault = {
             .append('g')
             .attr('class', 'fastD3LinesItem');
 
-        addG.append('text')
-            .attr('', function (d) {
-                let selfSelector = d3.select(this);
-                if (typeof d.name === 'object') {
-                    // 添加文字换行
-                    let dataG = selfSelector.selectAll('tspan')
-                        .data(d.name);
-                    dataG.enter().append('tspan')
-                        .text((d) => {
-                            return d
-                        })
-                        .attr('dy', this.lineHeight);
-                    dataG.exit().remove();
-                } else {
-                    // 正经文字展示
-                    selfSelector.text(d.name);
-                }
-            })
-            .attr('x', d => {
-                return d.x;
-            })
-            .attr('y', (d, i) => {
-                return d.y + d.height + this.lineHeight * (i % 2 + 1);
-            })
-            .attr('font-size', this.fontSize)
-            .attr('fill', that.fontColor)
-            .attr('style', 'dominant-baseline:middle;text-anchor:middle;');
+        // addG.append('text')
+        //     .attr('', function (d) {
+        //         let selfSelector = d3.select(this);
+        //         if (typeof d.name === 'object') {
+        //             // 添加文字换行
+        //             let dataG = selfSelector.selectAll('tspan')
+        //                 .data(d.name);
+        //             dataG.enter().append('tspan')
+        //                 .text((d) => {
+        //                     return d
+        //                 })
+        //                 .attr('dy', this.lineHeight);
+        //             dataG.exit().remove();
+        //         } else {
+        //             // 正经文字展示
+        //             selfSelector.text(d.name);
+        //         }
+        //     })
+        //     .attr('x', d => {
+        //         return d.x;
+        //     })
+        //     .attr('y', (d, i) => {
+        //         return d.y + d.height + this.lineHeight * (i % 2 + 1);
+        //     })
+        //     .attr('font-size', this.fontSize)
+        //     .attr('fill', that.fontColor)
+        //     .attr('style', 'dominant-baseline:middle;text-anchor:middle;');
 
         addG.append('g').append('text')
             .attr('', function (d) {
@@ -1148,22 +1159,22 @@ fastD3.linesDefault = {
             });
         points;
 
-        groups.each(function (d, i) {
+        groups.each(function (d) {
             let idx = names.indexOf(d.name)
             let selfSelector = d3.select(this);
             if (idx != -1) {
                 // 依旧存在的
                 names.splice(idx, 1);
-                selfSelector.select('text')
-                    .transition(that.changeDuration)
-                    .ease(that.changeType)
-                    .text(d => d.name)
-                    .attr('x', d => {
-                        return d.x;
-                    })
-                    .attr('y', d => {
-                        return d.y + d.height + that.lineHeight * (i % 2 + 1);
-                    });
+                // selfSelector.select('text')
+                //     .transition(that.changeDuration)
+                //     .ease(that.changeType)
+                //     .text(d => d.name)
+                //     .attr('x', d => {
+                //         return d.x;
+                //     })
+                //     .attr('y', d => {
+                //         return d.y + d.height + that.lineHeight * (i % 2 + 1);
+                //     });
 
                 selfSelector.select('g').select('text')
                     .transition(that.changeDuration)
@@ -1192,8 +1203,8 @@ fastD3.linesDefault = {
                 // 不再存在的
                 selfSelector.select('g').select('text')
                     .remove();
-                selfSelector.select('text')
-                    .remove();
+                // selfSelector.select('text')
+                //     .remove();
                 selfSelector.select('circle')
                     .transition(that.changeDuration)
                     .ease(that.changeType)
@@ -1238,10 +1249,10 @@ fastD3.linesDefault = {
         axio.selectAll('g').remove();
         if (this.needAxisBottom) {
             const axioX = d3.axisBottom()
-                .scale(uniform.ySacan)
+                .scale(uniform.xSacan)
                 .ticks(this.axisBottomTrick);
             axio.append('g')
-                .attr('transform', `translate(${xoff + this.fontSize}, ${height + yoff + this.lineHeight})`)
+                .attr('transform', `translate(${xoff + this.fontSize}, ${height + yoff - this.lineHeight})`)
                 .call(axioX);
         }
 
