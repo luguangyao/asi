@@ -2,7 +2,7 @@
   <div class="wrapper">
       <div  class="content">
         <div>
-            <a-icon type="warning" style="font-size:60px;text-align:center "></a-icon>
+            <a-icon type="warning" style="font-size:60px;text-align:center " ></a-icon>
         </div>
         <a-divider type="vertical" style="height:80%;width:2px" />
         <div>

@@ -121,10 +121,13 @@ router.beforeEach((to, from, next) => {
     message.error("酒店功能正在开发!!")
     return
   }
-  // if(to.path.match(/^\/personal.*/)!=null&&sessionStorage.getItem("isLogin")!="true"){
-  //   message.error("登录后才能进入个人页面!!")
-  //   return
-  // }
+  if(to.path.match(/^\/personal.*/)!=null&&sessionStorage.getItem("isLogin")!="true"){
+    message.error("登录后才能进入个人页面!! 1秒后进入登录页面")
+    setTimeout(() => {
+      router.push('/login')
+    }, 1000);
+    return
+  }
   next()
 })
 

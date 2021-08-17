@@ -19,8 +19,9 @@ export default {
     gotoLogin(){
       this.$router.push({path:"/login"})
     },
-    setLoginData(s){
+    setLoginData(t,s){
       this.$store.commit("setLoginData",s)
+      sessionStorage.setItem("loginType",t)
       sessionStorage.setItem("isLogin",s)
     },
     logout(){
@@ -36,8 +37,8 @@ export default {
   },
   created(){
         this.setLoginData(false)
-          LoginNet.userCheckLogin(this.setLoginData.bind(this))
-          LoginNet.checkLogin(this.setLoginData.bind(this))
+        LoginNet.userCheckLogin(this.setLoginData.bind(this,"2"))
+        LoginNet.checkLogin(this.setLoginData.bind(this,"1"))
   }
   
 };

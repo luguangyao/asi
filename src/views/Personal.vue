@@ -12,7 +12,7 @@
             mode="inline"
            
           >
-            <a-sub-menu :key="me.name" v-for="me in this.menudata">
+            <a-sub-menu :key="me.name" v-for="me in this.menudata" :disabled="checkismanager(me)">
               <span slot="title"
                 ><a-icon :type="me.icon" class="icon" /><span
                   ><strong>{{ $t(me.display) }}</strong></span
@@ -67,6 +67,10 @@ export default {
       this.$router.push({ path: "/personal" + me.url + mee.url });
       // this.$router.go(0)
     },
+    checkismanager(me){
+      return me.name=='manager'&&sessionStorage.getItem('loginType')=='2'
+    }
+
   },
   components: {
     OtherTop,
