@@ -974,7 +974,7 @@ fastD3.linesDefault = {
     valueReadyInit: {},
     valueAfterInit: {},
     needAxisBottom: true,
-    axisBottomTrick: 2,
+    axisBottomTrick: 9,
     axisBottomXName: (item) =>{return item.name;},
     needAxisLeft: true,
     axisLeftTrick: 2,
@@ -1014,11 +1014,6 @@ fastD3.linesDefault = {
             return item.value
         });
         let names = data.map(this.axisBottomXName);
-        let namesRange = [];
-        const _w = width / names.length;
-        names.forEach((d, i) =>{
-            namesRange.push(i * _w);
-        });
         let max = Math.max(...values);
         let chartHeight = height * (1 - this.topSpacePerHeight - this.bottomSpacePerHeight);
         let chartBottom = height * (1 - this.bottomSpacePerHeight - this.yOffset);
@@ -1037,8 +1032,19 @@ fastD3.linesDefault = {
             .domain([0, max])
             .range([chartHeight, 0]);
         uniform.ySacan = nySacan;
+
+        let ignoreItem = Math.floor(names.length / 20) + 1;
+        let fNames = names.filter((item, idx) =>{
+            return idx % ignoreItem == 0;
+        });
+        
+        let namesRange = [];
+        const _w = width / fNames.length;
+        fNames.forEach((d, i) =>{
+            namesRange.push(i * _w);
+        });
         let xSacan = d3.scaleOrdinal()
-            .domain(names)
+            .domain(fNames)
             .range(namesRange);
         uniform.xSacan = xSacan;
 
@@ -1122,7 +1128,6 @@ fastD3.linesDefault = {
                         .data(d.value);
                     dataG.enter().append('tspan')
                         .text((d) => {
-                            console.log(d)
                             return d;
                         })
                         .attr('dy', this.lineHeight);
@@ -1257,6 +1262,7 @@ fastD3.linesDefault = {
         }
 
         if (this.needAxisLeft) {
+            // let item = Math.floor(names.length / 20) + 1;
             const axioY = d3.axisLeft()
                 .scale(uniform.ySacan)
                 .ticks(this.axisLeftTrick);

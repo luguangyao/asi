@@ -35,15 +35,18 @@
       },
       formData() {
         let data = [];
+        let i = 0;
         for (let plan of this.planedata) {
+          i++;
           let sum = 0;
           let pos = '';
           for (let o of plan) {
             sum += +o.price;
             pos += o.flightid;
           }
+          pos;
           data.push({
-            name: pos,
+            name: `plan${i}`,
             value: +sum,
           });
         }
