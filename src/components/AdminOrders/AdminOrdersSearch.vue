@@ -4,7 +4,7 @@
           <a-col :span="7">
               <a-input-group>
                   <a-input :disabled="true" :placeholder="$t('m.filghtid')" style="width:40%"></a-input>
-                  <a-select style="width:60%" v-model="ordersSearch.flightid">
+                  <a-select style="width:60%" v-model="ordersSearch.flightid" mode='combobox'>
                       <a-select-option v-for="item in this.flightidList" :key="item" :value="item">{{item}}</a-select-option>
                   </a-select>
               </a-input-group>
@@ -168,10 +168,10 @@ export default {
           }
       },
       oSearch(){
-          this.ordersSearch.flightdate1=this.flightdate1.format("YYYY-MM-DD HH:mm:ss")
-          this.ordersSearch.flightdate2=this.flightdate2.format("YYYY-MM-DD HH:mm:ss")
+          this.ordersSearch.flightdate1=this.flightdate1==null?"":this.flightdate1.format("YYYY-MM-DD HH:mm:ss")
+          this.ordersSearch.flightdate2=this.flightdate2==null?"":this.flightdate2.format("YYYY-MM-DD HH:mm:ss")
           this.ordersSearch.paytime1=this.paytime1==null?"":this.paytime1.format("YYYY-MM-DD HH:mm:ss")
-          this.ordersSearch.paytime2=this.paytime1==null?"":this.paytime2.format("YYYY-MM-DD HH:mm:ss")
+          this.ordersSearch.paytime2=this.paytime2==null?"":this.paytime2.format("YYYY-MM-DD HH:mm:ss")
           this.ordersSearch.paymoney1=this.priceRange[0]
           this.ordersSearch.paymoney2=this.priceRange[1]
           OrdersNet.queryOrders(this.ordersSearch,this.ordersSearchSuccess.bind(this),this.ordersSearchFailure.bind(this))
