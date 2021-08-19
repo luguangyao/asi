@@ -139,7 +139,7 @@ export default {
         paymoney1: 2000,
         paymoney2: 7000,
         min: 0,
-        max: 10,
+        max: 40,
       },
       ordersData:{
 
