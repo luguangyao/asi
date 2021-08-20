@@ -164,4 +164,6 @@ export const m = {
 
   longitude: '经度',
   latitude: '纬度',
+
+  userRegist: '注册成为用户',
 }

@@ -165,6 +165,8 @@ export const m = {
     btnPasswordChange: "change password",
     btnUserInfoChange: "submit change info",
 
-    longitude: '经度',
-    latitude: '纬度',
+    longitude: 'lon',
+    latitude: 'lat',
+
+    userRegist: 'regist as user',
  }

@@ -134,6 +134,80 @@
             </a-input-password>
           </div>
         </div>
+        <div v-show="displayType == 4">
+          <!-- user: idcard-->
+          <div class="styled-input">
+            <a-input
+              size="default"
+              :placeholder="$t('m.inputAccount')"
+              v-model="userRegistData.idcard"
+            >
+              <a-icon type="user" slot="prefix"></a-icon>
+            </a-input>
+          </div>
+
+          <!-- user: password-->
+          <div class="styled-input">
+            <a-input-password
+              size="default"
+              :placeholder="$t('m.inputPassword')"
+              v-model="userRegistData.password"
+            >
+              <a-icon type="safety" slot="prefix"></a-icon>
+            </a-input-password>
+          </div>
+
+          <!-- user: chkPassword-->
+          <div class="styled-input">
+            <a-input-password
+              size="default"
+              :placeholder="$t('m.chkPassword')"
+              v-model="userRegistData.chkpassword"
+            >
+              <a-icon type="safety" slot="prefix"></a-icon>
+            </a-input-password>
+          </div>
+
+          <!-- user: name-->
+          <div class="styled-input">
+            <a-input
+              size="default"
+              :placeholder="$t('m.username')"
+              v-model="userRegistData.name"
+            >
+              <a-icon type="user" slot="prefix"></a-icon>
+            </a-input>
+          </div>
+
+          <!-- user: sex-->
+          <div class="styled-input" style="border:0px">
+            <a-radio-group v-model="userRegistData.sex" >
+              <a-radio :value="true" style="color:white"> {{this.$t('m.m')}} </a-radio>
+              <a-radio :value="false" style="color:white"> {{this.$t('m.f')}} </a-radio>
+            </a-radio-group>
+          </div>
+
+          <!-- user: age -->
+          <div class="styled-input_half">
+            <a-input-number
+              size="small"
+              :placeholder="$t('m.age')"
+              v-model="userRegistData.age"
+            >
+            </a-input-number>
+          </div>
+
+          <!-- user: phone-->
+          <div class="styled-input">
+            <a-input
+              size="small"
+              :placeholder="$t('m.phone')"
+              v-model="userRegistData.phone"
+            >
+            </a-input>
+          </div>
+        </div> <!-- end of type 4: userRegist -->
+
         <div style="width: 100%">
           <a-space align="center" size="large">
             <a-button @click="login" size="large" type="primary" ghost>
@@ -157,6 +231,13 @@
             >
               修改密码</a-button
             >
+            <a-button
+              @click = 'userRegist'
+              size = 'large'
+              type = 'primary'
+              ghost>
+              {{ this.$t("m.userRegist") }}
+            </a-button>
           </a-space>
         </div>
        
@@ -167,6 +248,16 @@
 </template>
 <script>
 import LoginNet from "@/network/LoginNet";
+const userRegistCodeInfo = new Map([
+  [1, '注册成功'],
+  [-1, 'idcard为空'],
+  [-2, 'idcard已被注册'],
+  [-3, '密码为空不符合要求'],
+  [-4, '前后密码不一致'],
+  [-5, '性别字符超出'],
+  [-6, '电话号码格式错误'],
+  [-7, '年龄格式错误'],
+]);
 export default {
   name: "Login",
   data() {
@@ -181,15 +272,24 @@ export default {
         codekey: "",
       },
       registData: {
-        account: "",
-        password: "",
-        chkpassword: "",
+        account: '',
+        password: '',
+        chkpassword: '',
       },
       updatePwdData: {
         account: "",
         oldpassword: "",
         newpassword: "",
         chkpassword: "",
+      },
+      userRegistData: {
+        idcard: '',
+        password: '',
+        chkpassword: '',
+        name: '',
+        sex: false,
+        age: '',
+        phone: '',
       },
       displayType: 1,
     };
@@ -296,6 +396,32 @@ export default {
     },
     updatePwdFailure() {
       this.$message.error("修改密码失败");
+    },
+    userRegist () {
+      if (this.displayType !== 4) {
+        this.displayType = 4;
+        this.title = "用户注册中";
+        return ;
+      }
+
+      // 检测数据，注册申请
+      let receive = (code) =>{
+        // todo： 根据code为用户展示信息或导航等。
+        if (code === 1){
+          this.$message.success(userRegistCodeInfo.get(code));
+          this.gohome();
+        } else {
+          this.$message.error(userRegistCodeInfo.get(code));
+        }
+      }
+      let reject = (e) =>{
+        console.log(e);
+      }
+      let error = (err) =>{
+        console.log(err);
+      }
+
+      LoginNet.userRegist(this.userRegistData, receive, reject, error);
     },
     init() {
       setTimeout(function () {
@@ -868,5 +994,14 @@ h2 {
   transform: translateX(-20px);
   transition: all 0.5s;
   cursor: pointer;
+}
+.style-input_half {
+  width: 50%;
+  position: relative;
+  margin-bottom: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 </style>
