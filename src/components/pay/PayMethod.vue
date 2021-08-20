@@ -84,7 +84,7 @@ export default {
       flightType:fligtDataType.flightType,
       type:["1","1","1"],
       flightdate:moment().add(1, 'd'),
-      seatid:["0","0","0"],
+      seatid:["1","1","1"],
       buttonhasClick:[false,false,false],
     }
   },

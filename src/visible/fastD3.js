@@ -52,17 +52,17 @@ fastD3.SVG = function (svg, width, height, update = true) {
     }
 
     if (update) {
-        window.onresize = this._forceUpdate;
+        let that = this;
+        window.onresize = function () {
+            let w = that._svg ? that._svg.width.baseVal.value : 0;
+            let h = that._svg ? that._svg.height.baseVal.value : 0;
+            that.setInfo(w, h);
+        }
     }
 
     return this._svg;
 };
 
-fastD3._forceUpdate = function () {
-    let w = this._svg ? this._svg.width.baseVal.value : 0;
-    let h = this._svg ? this._svg.height.baseVal.value : 0;
-    this.setInfo(w, h);
-}
 
 fastD3.setInfo = function (width = this.width, height = this.height) {
     this.width = width;
