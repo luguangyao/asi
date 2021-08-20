@@ -24,7 +24,7 @@
     [-7, '年龄格式错误'],
     [-1, '性别字符超出'],
     [1, '成功'],
-  ]
+  ];
   const changeInfoMap = new Map(changeInfoMessage);
   const changePassMessage = [
     [1, '更改成功'],
@@ -32,10 +32,10 @@
     [-2, '旧密码为空'],
     [-3, '新密码为空'],
     [-4, '前后密码不一致'],
-  ]
+  ];
   const changePassMap = new Map(changePassMessage);
 
-  let testing = true;
+  let testing = false;
 
   function myLog(e) {
     if (testing) console.log(e);
@@ -152,7 +152,13 @@
           display: "m.btnUserInfoChange",
           callback: async (td) => {
             let code = await that.changeInfo(td);
-            console.log(code, changeInfoMap.get(code));
+            if (code === 1) {
+              this.$message.success(changeInfoMap.get(code))
+              this.$router.push("/personal/userInfo");
+            }
+            else {
+              this.$message.error(changeInfoMap.get(code))
+            }
             await that.initData();
           }
         }];
@@ -163,7 +169,13 @@
           display: "m.btnPasswordChange",
           callback: async (td) => {
             let code = await that.changePwd(td);
-            console.log(code, changePassMap.get(code));
+            if (code === 1){
+              this.$message.success(changePassMap.get(code));
+              this.$router.push("/personal/userInfo");
+            }
+            else {
+              this.$message.error(changePassMap.get(code))
+            }
             await that.initData();
           }
         }];
@@ -177,7 +189,7 @@
           that.formData(item.name, data);
         });
         this.$forceUpdate();
-        console.log(this.dataSet[this.menu.children[0].name]);
+        // console.log(this.dataSet[this.menu.children[0].name]);
       }
     },
     data() {
