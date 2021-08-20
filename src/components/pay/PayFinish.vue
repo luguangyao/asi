@@ -22,7 +22,7 @@
               {{item.flightid}}
             </a-descriptions-item>
             <a-descriptions-item>
-              <strong slot="label">{{$t('m.seat')}}</strong>
+              <strong slot="label">{{$t('m.seatid')}}</strong>
               {{item.seatid}}
             </a-descriptions-item>
             <a-descriptions-item>
