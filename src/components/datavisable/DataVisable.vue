@@ -20,43 +20,6 @@
     export default {
         name: "DataVisable",
         methods: {
-            getData() {
-                // 测试用数据
-                return [{
-                        name: '1',
-                        value: 23
-                    },
-                    {
-                        name: '2',
-                        value: 12
-                    },
-                    {
-                        name: '3',
-                        value: 1
-                    },
-                    {
-                        name: '4',
-                        value: 17
-                    },
-                    {
-                        name: '5',
-                        value: 10
-                    },
-                    {
-                        name: '6',
-                        value: 51
-                    },
-                    {
-                        name: '13',
-                        value: 13
-                    },
-                ];
-            },
-            autoAdd(a) {
-                a.forEach((d) => {
-                    d.value += Math.floor(Math.random() * 10);
-                });
-            },
             async days() {
                 return dataVisableNet.dayOrders()
                     .then((res) => {
@@ -64,7 +27,7 @@
                         let r = [];
                         ans.forEach((d) => {
                             let o = {
-                                'name': `-${d.time.split('-')[1]}`,
+                                'name': `${d.time.split('-')[0].split(':')[0]}-`,
                                 'value': d.number
                             };
                             r.push(o);
