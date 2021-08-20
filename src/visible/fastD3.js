@@ -52,16 +52,17 @@ fastD3.SVG = function (svg, width, height, update = true) {
     }
 
     if (update) {
-        let that = this;
-        window.onresize = function () {
-            let w = that._svg ? that._svg.width.baseVal.value : 0;
-            let h = that._svg ? that._svg.height.baseVal.value : 0;
-            that.setInfo(w, h);
-        }
+        window.onresize = this._forceUpdate;
     }
 
     return this._svg;
 };
+
+fastD3._forceUpdate = function () {
+    let w = this._svg ? this._svg.width.baseVal.value : 0;
+    let h = this._svg ? this._svg.height.baseVal.value : 0;
+    this.setInfo(w, h);
+}
 
 fastD3.setInfo = function (width = this.width, height = this.height) {
     this.width = width;
@@ -211,6 +212,7 @@ fastD3.textDefault = {
                 return d.text;
             })
             .attr('fill', that.fontColor)
+            .attr('font-size', that.fontSize)
             .attr('x', d => {
                 return d.x - d.width;
             })
@@ -1257,7 +1259,7 @@ fastD3.linesDefault = {
                 .scale(uniform.xSacan)
                 .ticks(this.axisBottomTrick);
             axio.append('g')
-                .attr('transform', `translate(${xoff + this.fontSize}, ${height + yoff - this.lineHeight})`)
+                .attr('transform', `translate(${xoff}, ${height + yoff - this.lineHeight})`)
                 .call(axioX);
         }
 
