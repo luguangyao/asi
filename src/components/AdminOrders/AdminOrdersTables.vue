@@ -1,6 +1,7 @@
 <template>
 <div>
   <div>
+    <a-button type="primary" href="/admin/ordersPOI" v-if="displayData.length>0" shape='circle'><a-icon type="download"></a-icon> </a-button>
     <a-table
       :columns="col"
       :data-source="displayData"
@@ -12,7 +13,7 @@
           <a-button
             type="danger"
             @click="deleteData(record)"
-            :disabled="record.paystatus=='已取消'"
+            :disabled="record.paystatus=='已取消'||moment(record.flightdate,'YYYY-MM-DD')<moment()"
           >强制退票</a-button>
         </a-space>
       </template>
@@ -32,6 +33,7 @@
 </template>
 <script>
 import OrdersNet from '@/network/OrdersNet'
+import moment from  'moment'
 export default {
   name: "OrdersTables",
   data() {
@@ -41,7 +43,8 @@ export default {
       displayData:[],
       listData:{},
       isdelete:false,
-      deleted:{}
+      deleted:{},
+      moment:moment
     };
   },
   methods: {
@@ -114,6 +117,7 @@ export default {
                 item.paystatus="已取消"
             }
         })
+        this.deleted.paystatus='已取消'
     },
     deleteOrdersFailure(reson){
         this.$message.error("删除订单失败 "+reson)

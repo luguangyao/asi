@@ -6,7 +6,7 @@
     <div v-if="data.length > 0">
       <div style="margin-bottom:5px">
         <a-button type="primary" @click="insertFlightBtn"><a-icon type="plus" ></a-icon> 增加航班</a-button>
-        <a-button style="float:right" type="primary" href="/data/admin/flightsPOI" >下崽地址<a-icon type="download"></a-icon> </a-button>
+        <a-button style="float:right" type="primary" href="/admin/flightsPOI" >下崽地址<a-icon type="download"></a-icon> </a-button>
       </div>
       <a-table
         :columns="col"

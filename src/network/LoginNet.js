@@ -85,7 +85,6 @@ const LoginNet={
         formData.append("chkpassword",registData.chkpassword)
         admin.post("/doRegister",formData)
         .then(function (response) {
-            console.log(response)
             if(response.data==1){
                 success()
             }

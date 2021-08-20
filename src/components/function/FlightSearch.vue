@@ -87,13 +87,14 @@
               :placeholder="$t('m.filghtid')"
               :disabled="true"
               :bordered="false"
+              
             />
-            <a-select style="width: 60%" v-model="searchData.flightid">
+            <a-select style="width: 60%" v-model="searchData.flightid" mode='combobox'>
               <a-select-option
                 v-for="it in this.flihtIdList"
                 :key="it"
                 :value="it"
-                >{{  it==""?"全部":it  }}</a-select-option
+                >{{it==""?"全部":it}}</a-select-option
               >
             </a-select>
           </a-input-group>
@@ -399,9 +400,12 @@ export default {
       }
     },
     queryFlights() {
-      if (this.distime[0] != "") {
+      if (this.distime[0] != ""&&this.distime[0]!=undefined) {
         this.searchData.distime1 = this.distime[0].format("YYYY-MM-DD");
         this.searchData.distime2 = this.distime[1].format("YYYY-MM-DD");
+      }
+      else{
+        this.searchData.distime1 = this.searchData.distime2=""
       }
       this.searchData.date = this.date.format("YYYY-MM-DD");
       this.searchData.dtime1 = this.dtime1.format("HH:mm:ss");
