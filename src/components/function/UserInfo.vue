@@ -120,16 +120,19 @@
               display: "m.oldPassword",
               value: "",
               changeAble: true,
+              needCover: true,
             }, {
               name: "newpassword",
               display: "m.newPassword",
               value: "",
               changeAble: true,
+              needCover: true,
             }, {
               name: "chkpassword",
               display: "m.chkPassword",
               value: "",
               changeAble: true,
+              needCover: true,
             }, {
               name: "idcard",
               value: data.idcard,
@@ -168,7 +171,7 @@
           display: "m.btnPasswordChange",
           callback: async (td) => {
             let code = await that.changePwd(td);
-            if (code === 1){
+            if (code == 1){
               this.$message.success(changePassMap.get(code));
               this.$router.push("/personal/userInfo");
             }

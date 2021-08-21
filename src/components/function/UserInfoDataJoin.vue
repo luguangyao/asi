@@ -24,7 +24,8 @@
     import UserInfoSwitchData from '@/components/function/UserInfoSwitchData';
     const ItemType = {
         Input: 0,
-        Text: 1,
+        Password: 1,
+        Text: 2,
     }
     const lineWidth = 24;
     export default {
@@ -43,6 +44,20 @@
             UserInfoSwitchData
         },
         methods: {
+            typeCVal (type){
+                switch (type.name) {
+                    case 'age': // 岁数
+                        return (age) =>{return `${age} 岁`;}
+                    case 'sex': // 性别
+                        return (sex) =>{
+                            let char = '未知';
+                            if (sex == 'm') char = '男';
+                            if (sex == 'f') char = '女';
+                            return char;
+                        }
+                }
+                return (v) =>{return v;}
+            },
             formData(data) {
                 let that = this;
                 let contain = lineWidth;
@@ -54,6 +69,7 @@
                 }
                 let _t = _fan();
                 const _add = (item) => {
+                    item.cVal = that.typeCVal(item);
                     _t.child.push({
                         span: item.span,
                         offset: item.offset,
@@ -91,8 +107,10 @@
                 }
             },
             getItemType(item) {
-                // todo: 根据info获取正确的字符串用于显示在界面上
                 if (item.changeAble) {
+                    if (item.needCover){
+                        return ItemType.Password;
+                    }
                     return ItemType.Input;
                 } else {
                     return ItemType.Text;

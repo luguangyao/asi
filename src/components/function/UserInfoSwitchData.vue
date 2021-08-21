@@ -4,8 +4,14 @@
             <label :for="item.name">{{this.$t(item.display)}} : </label>
             <input :name="item.name" type='text' v-model='item.value' @change="udf" class="infoInput" />
         </div>
+        <div v-else-if="type == 1">
+            <label :for="item.name">{{this.$t(item.display)}} : </label>
+            <a-input-password size="default" v-model="item.value" @change="udf" class = "infoInput">
+              <a-icon type="safety" slot="prefix"></a-icon>
+            </a-input-password>
+        </div>
         <div v-else>
-            <h1>{{this.$t(item.display)}} : {{item.value}}</h1>
+            <h1>{{this.$t(item.display)}} : {{item.cVal(item.value)}}</h1>
         </div>
     </div>
 </template>
