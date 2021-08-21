@@ -202,5 +202,25 @@ const LoginNet={
         console.log(error);
         });
     },
+    userRegist (data, success, reject, error) {
+        // 对数据进行特殊适应
+        data.sex = data.sex ? 'm' : 'f';
+        data.age = `${data.age}`;
+        let formData = new FormData();
+        for (let key of Object.keys(data)) {
+            formData.append(key, data[key]);
+        }
+        user.post('/doRegister', formData)
+            .then((res) =>{
+                success && success(res.data);
+                console.log(res)
+                return res;
+            }, (err) =>{
+                reject && reject(err);
+            })
+            .catch( (err) =>{
+                error && error(err);
+            });
+    }
 }
 export default LoginNet

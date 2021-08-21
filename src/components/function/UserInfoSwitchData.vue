@@ -1,6 +1,6 @@
 <template>
     <div class="root">
-        <div v-if="type==0">
+        <div v-if="type == 0">
             <label :for="item.name">{{this.$t(item.display)}} : </label>
             <input :name="item.name" type='text' v-model='item.value' @change="udf" class="infoInput" />
         </div>

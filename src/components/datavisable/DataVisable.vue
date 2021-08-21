@@ -20,43 +20,6 @@
     export default {
         name: "DataVisable",
         methods: {
-            getData() {
-                // 测试用数据
-                return [{
-                        name: '1',
-                        value: 23
-                    },
-                    {
-                        name: '2',
-                        value: 12
-                    },
-                    {
-                        name: '3',
-                        value: 1
-                    },
-                    {
-                        name: '4',
-                        value: 17
-                    },
-                    {
-                        name: '5',
-                        value: 10
-                    },
-                    {
-                        name: '6',
-                        value: 51
-                    },
-                    {
-                        name: '13',
-                        value: 13
-                    },
-                ];
-            },
-            autoAdd(a) {
-                a.forEach((d) => {
-                    d.value += Math.floor(Math.random() * 10);
-                });
-            },
             async days() {
                 return dataVisableNet.dayOrders()
                     .then((res) => {
@@ -64,7 +27,7 @@
                         let r = [];
                         ans.forEach((d) => {
                             let o = {
-                                'name': d.time,
+                                'name': `${d.time.split('-')[0].split(':')[0]}-`,
                                 'value': d.number
                             };
                             r.push(o);
@@ -86,7 +49,7 @@
                         let r = [];
                         ans.forEach((d) => {
                             let o = {
-                                'name': d.time,
+                                'name': d.time.split('-').slice(1,3).join('-'),
                                 'value': d.number
                             };
                             r.push(o);
@@ -102,13 +65,18 @@
                     });
             },
             async topN() {
+                const wordLength = 5;
+                let _l = (wordLength - 1)/2;
                 return dataVisableNet.planeTopN()
                     .then((res) => {
                         let ans = res ? res.data[0].hotPlanes : [];
                         let r = [];
                         ans.forEach((d) => {
+                            let [_from, _to] = d.course.split('>');
+                            _from = _from.slice(0, _l);
+                            _to = _to.slice(0, _l);
                             let o = {
-                                'name': d.course,
+                                'name': `${_from}>${_to}`,
                                 'value': d.number
                             };
                             r.push(o);
@@ -135,11 +103,12 @@
                     ...fastD3.columnDefault
                 };
                 // param.sort = (a, b)=>{return b.value-a.value;};
-                param.widthPercent = 0.5;
+                param.widthPercent = 0.45;
                 param.heightPercent = 0.7;
                 param.fontSize = 10;
                 param.lineHeight = 10;
                 param.xOffset = 0.5;
+                param.spacePerColumn = 0.3;
                 let col = fastD3.column([], param);
 
                 let weekLine = {
@@ -208,6 +177,9 @@
                     }
                 }
                 tt();
+                setTimeout(()=>{
+                    fastD3.forceUpdate()
+                }, 3000)
             });
         }
     }
