@@ -55,6 +55,7 @@
   import Card from "../../components/display/Card.vue"
   import moment from 'moment'
   import FlightNet from '@/network/FlightNet';
+  import PlaneNet from '@/network/PlaneNet';
   import AirlineInfoNet from '@/network/AirlineInfoNet';
   import BMap from 'BMap';
   export default {
@@ -75,17 +76,17 @@
           departure: "",
           destination: "",
           airline: "",
-          dtime1: moment('00:00:01', 'hh:mm:ss').format('HH:mm:ss'),
+          dtime1: moment('00:00:00', 'hh:mm:ss').format('HH:mm:ss'),
           dtime2: moment('23:59:59', 'hh:mm:ss').format('HH:mm:ss'),
-          atime1: moment('00:00:01', 'hh:mm:ss').format('HH:mm:ss'),
+          atime1: moment('00:00:00', 'hh:mm:ss').format('HH:mm:ss'),
           atime2: moment('23:59:59', 'hh:mm:ss').format('HH:mm:ss'),
           distime1: "",
           distime2: "",
           minprice: 0,
           maxprice: 10000,
           date: moment().format("YYYY-MM-DD"),
-          max: '10',
-          min: '0',
+          // max: '10',
+          // min: '0',
         }
       }
     },
@@ -95,7 +96,7 @@
         this.selectedData.departure = where;
         this.starAirlines = where;
         // this.selectedData.departure = where;
-        FlightNet.queryFlights(this.selectedData, this.getAllDes, () => {});
+        PlaneNet.queryFlights(this.selectedData, this.getAllDes, () => {});
       },
       async airlineInfo(name) {
         return AirlineInfoNet.getAirportInfo(name)

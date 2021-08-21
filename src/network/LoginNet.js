@@ -213,7 +213,6 @@ const LoginNet={
         user.post('/doRegister', formData)
             .then((res) =>{
                 success && success(res.data);
-                console.log(res)
                 return res;
             }, (err) =>{
                 reject && reject(err);
