@@ -1,6 +1,9 @@
 <template>
   <div>
     <a-tabs v-model="curPage" @change="pageChange" > 
+      <template slot="tabBarExtraContent">
+        <a-button shape="circle" type="primary" href="/orders/ordersPOI"><a-icon type="download"></a-icon></a-button>
+      </template>
       <a-tab-pane key="1" :forceRender="true" >
         <span slot="tab">
           <a-icon type="snippets" />

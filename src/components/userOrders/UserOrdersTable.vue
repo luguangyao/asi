@@ -16,7 +16,7 @@
           <a-button type="primary" icon="alipay"  shape="circle" v-if="record.paystatus=='未支付'" @click="payOrder(record)"></a-button>
           <a-button type="primary" icon="form" shape="circle" v-if="(record.paystatus=='待确认')" @click="payOrder(record)"></a-button>
           <a-button type="danger" icon="rest" shape="circle" v-if="(record.paystatus=='未支付')" @click="deleteOrder(record)"></a-button>
-          <a-button type="danger" icon="close" shape="circle" v-if="(record.paystatus=='已支付')" @click="refundOrder(record)"></a-button>
+          <a-button type="danger" icon="close" shape="circle" v-if="(record.paystatus=='已支付')||(record.paystatus=='待确认')" @click="refundOrder(record)"></a-button>
         </a-space>
       </template> 
     </a-table>
@@ -128,7 +128,7 @@ export default {
       this.isdelete=true
     },
     deleteOk(){
-      UserOrdersNet.delOrders(this.deletedata,this.paySuccess.bind(this),this.payFailure.bind(this))
+      UserOrdersNet.delorder(this.deletedata,this.deletOrderSuccess.bind(this),this.deleteOrderFailure.bind(this))
       this.isdelete=false
     },
     deleteCancle(){

@@ -44,7 +44,7 @@ export default {
     delorder(data, success, failure) {
         let formdata = new FormData()
         formdata.append("orderid", data.orderid)
-        orders.post('/payorder', formdata)
+        orders.post('/delorder', formdata)
             .then(function (response) {
                 console.log(response.data)
                 switch (response.data) {
@@ -72,6 +72,7 @@ export default {
     addorder(data, success, failure) {
         let keys = Object.keys(data)
         let formdata = new FormData()
+        console.log(data)
         for (let i = 0; i < keys.length; i++) {
             formdata.append(keys[i], data[keys[i]])
         }

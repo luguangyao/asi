@@ -4,8 +4,7 @@
       <template slot="tabBarExtraContent">
         <div>
           <h1>{{selected}}</h1>
-          下载数据
-          <a-button type="primary" shape="circle" icon="download" />
+         
         </div>
       </template>
       <a-tab-pane :key="me.name" :tab="me.name" v-for="me in this.menu.children">
