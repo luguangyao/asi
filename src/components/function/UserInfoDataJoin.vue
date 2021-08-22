@@ -26,6 +26,7 @@
         Input: 0,
         Password: 1,
         Text: 2,
+        Radio: 3,
     }
     const lineWidth = 24;
     export default {
@@ -110,6 +111,8 @@
                 if (item.changeAble) {
                     if (item.needCover){
                         return ItemType.Password;
+                    } else if (item.radio){
+                        return ItemType.Radio;
                     }
                     return ItemType.Input;
                 } else {

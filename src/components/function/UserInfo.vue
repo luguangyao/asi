@@ -105,12 +105,27 @@
             delete obj.password;
             delete obj.idcard;
             for (let key of Object.keys(obj)) {
-              nd.push({
+              let _o= {
                 name: key,
                 display: `m.${key}`,
                 value: obj[key],
                 changeAble: true,
-              });
+              };
+
+              if (key == 'sex') {
+                _o.radio = true;
+                _o.selectList = [{
+                  value: 'm',
+                  key: 1,
+                  display: 'm'
+                }, {
+                  value: 'f',
+                  key: 2,
+                  display: 'f'
+                }];
+              }
+
+              nd.push(_o);
             }
             break;
           }
@@ -185,7 +200,6 @@
       async initData() {
         let that = this;
         let data = await this.userInfo();
-        console.log(data);
         this.menu.children.forEach((item) => {
           delete that.dataSet[item.name];
           that.formData(item.name, data);

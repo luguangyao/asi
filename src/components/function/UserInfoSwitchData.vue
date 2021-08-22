@@ -10,7 +10,14 @@
               <a-icon type="safety" slot="prefix"></a-icon>
             </a-input-password>
         </div>
-        <div v-else>
+        <div v-else-if="type == 3">
+            <a-radio-group v-model="item.value" @change="udf">
+              <a-radio v-for="selectItem in item.selectList" :value="selectItem.value" :key="selectItem.key">
+              {{$t(`m.${selectItem.display}`)}}
+               </a-radio>
+            </a-radio-group>
+        </div>
+        <div v-else-if="type == 2">
             <h1>{{this.$t(item.display)}} : {{item.cVal(item.value)}}</h1>
         </div>
     </div>
