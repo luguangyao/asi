@@ -23,8 +23,8 @@
     export default {
         name: "DataVisable",
         methods: {
-            async days() {
-                return dataVisableNet.dayOrders()
+            async days(t) {
+                return dataVisableNet.dayOrders(t)
                     .then((res) => {
                         let ans = res ? res.data : [];
                         let r = [];
@@ -173,7 +173,6 @@
                     try {
                         let week = await that.weeks();
                         let day = await that.days(that.selectTime.format('YYYY-MM-DD'));
-                        console.log(day)
                         let tN = await that.topN();
                         col.cData(tN || []);
                         wl.cData(week || []);
