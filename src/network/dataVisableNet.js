@@ -7,8 +7,10 @@ function weekOrders() {
     return dVis.post('/weekOrders');
 }
 
-function dayOrders() {
-    return dVis.post('/dayOrders');
+function dayOrders(daytime) {
+    let fd = new FormData();
+    fd.append('daytime', daytime);
+    return dVis.post('/dayOrders', fd);
 }
 
 function planeTopN() {

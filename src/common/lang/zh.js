@@ -166,4 +166,5 @@ export const m = {
   latitude: '纬度',
 
   userRegist: '注册成为用户',
+  selectViewDayTicket: '选择查看的日销量的日期',
 }

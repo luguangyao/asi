@@ -1,11 +1,14 @@
 <template>
     <div ref='root'>
+        <label for="daychoose">{{this.$t('m.selectViewDayTicket')}} : </label>
+        <a-date-picker v-model="selectTime" style="width: 60%"></a-date-picker>
         <svg ref='targetSVG'></svg>
     </div>
 </template>
 <script>
     import fastD3 from '@/visible/fastD3';
     import dataVisableNet from '@/network/dataVisableNet';
+    import moment from 'moment'
 
     // 创建动态表格
     fastD3.SVG();
@@ -92,6 +95,11 @@
                     });
             },
         },
+        data () {
+            return {
+                selectTime: moment()
+            }
+        },
         created() {
             let that = this;
             // todo: 文字修改
@@ -158,13 +166,14 @@
 
                 let cText = () => {
                     text1.cData(`${this.$t('m.weekChartDes')}`);
-                    text2.cData(`${this.$t('m.dayChartDes')}`);
+                    text2.cData(`${this.$t('m.dayChartDes')}: ${that.selectTime.format('YYYY-MM-DD')}`);
                     text3.cData(`${this.$t('m.planeTopNDes')}`);
                 }
                 let tt = async () => {
                     try {
                         let week = await that.weeks();
-                        let day = await that.days();
+                        let day = await that.days(that.selectTime.format('YYYY-MM-DD'));
+                        console.log(day)
                         let tN = await that.topN();
                         col.cData(tN || []);
                         wl.cData(week || []);
@@ -177,9 +186,6 @@
                     }
                 }
                 tt();
-                setTimeout(()=>{
-                    fastD3.forceUpdate()
-                }, 3000)
             });
         }
     }

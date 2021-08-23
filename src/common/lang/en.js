@@ -169,4 +169,5 @@ export const m = {
     latitude: 'lat',
 
     userRegist: 'regist as user',
+    selectViewDayTicket: 'select the day about Daily sales',
  }
